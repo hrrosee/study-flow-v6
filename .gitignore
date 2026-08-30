@@ -1,0 +1,13 @@
+node_modules/
+build/
+dist/
+coverage/
+.DS_Store
+*.log
+*.bak
+*.bak*
+*.patch
+*.cjs
+test-scroll.html
+.env*
+!.env.example

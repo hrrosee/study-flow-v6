@@ -1,0 +1,6 @@
+{
+  "name": "StudyFlow",
+  "description": "A clean, modern productivity workspace for managing task pipelines and topics across multiple windows with study tracking and backup capabilities.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
