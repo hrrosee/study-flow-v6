@@ -362,6 +362,12 @@ export const NotesStudio: React.FC<NotesStudioProps> = ({
     checklist: false,
   });
 
+  // Insert Link Modal State (Mobile Bottom Sheet / Desktop Centered Modal)
+  const [isLinkModalOpen, setIsLinkModalOpen] = useState<boolean>(false);
+  const [linkModalUrl, setLinkModalUrl] = useState<string>('');
+  const [linkModalTitle, setLinkModalTitle] = useState<string>('');
+  const [editingLinkElement, setEditingLinkElement] = useState<HTMLAnchorElement | null>(null);
+
   const [isTitleFocused, setIsTitleFocused] = useState<boolean>(false);
   const [isSaving, setIsSaving] = useState<boolean>(false);
   const saveTimerRef = useRef<NodeJS.Timeout | null>(null);
@@ -1097,39 +1103,91 @@ export const NotesStudio: React.FC<NotesStudioProps> = ({
     if (!editorContentRef.current) return;
     editorContentRef.current.focus();
     const selection = window.getSelection();
-    if (!selection || selection.rangeCount === 0) return;
+    
+    let existingLink: HTMLAnchorElement | null = null;
+    let selectedText = '';
 
-    const node = selection.anchorNode;
-    const parent = node?.nodeType === Node.ELEMENT_NODE ? (node as HTMLElement) : node?.parentElement;
-    const existingLink = parent?.closest('a');
+    if (selection && selection.rangeCount > 0) {
+      savedSelectionRangeRef.current = selection.getRangeAt(0).cloneRange();
+      const node = selection.anchorNode;
+      const parent = node?.nodeType === Node.ELEMENT_NODE ? (node as HTMLElement) : node?.parentElement;
+      existingLink = (parent?.closest('a') as HTMLAnchorElement) || null;
+      selectedText = selection.toString().trim();
+    } else {
+      savedSelectionRangeRef.current = null;
+    }
 
     if (existingLink) {
-      const nextUrl = window.prompt('Edit or clear link URL (leave empty to remove link):', existingLink.getAttribute('href') || '');
-      if (nextUrl === null) return;
-      if (nextUrl.trim() === '') {
-        document.execCommand('unlink', false);
-      } else {
-        const formatted = nextUrl.startsWith('http://') || nextUrl.startsWith('https://') || nextUrl.startsWith('mailto:') ? nextUrl : `https://${nextUrl}`;
-        existingLink.setAttribute('href', formatted);
-      }
+      setEditingLinkElement(existingLink);
+      setLinkModalUrl(existingLink.getAttribute('href') || '');
+      setLinkModalTitle(existingLink.textContent || '');
     } else {
-      const url = window.prompt('Enter link URL (e.g. https://example.com):', 'https://');
-      if (!url || url.trim() === '' || url === 'https://') return;
-      const formatted = url.startsWith('http://') || url.startsWith('https://') || url.startsWith('mailto:') ? url : `https://${url}`;
-
-      if (selection.isCollapsed) {
-        const linkHtml = `<a href="${formatted}" target="_blank" rel="noopener noreferrer" class="text-[#2563EB] underline underline-offset-2 hover:text-blue-800 font-medium">${formatted}</a>&nbsp;`;
-        document.execCommand('insertHTML', false, linkHtml);
-      } else {
-        document.execCommand('createLink', false, formatted);
-        const newLink = selection.anchorNode?.parentElement?.closest('a');
-        if (newLink) {
-          newLink.setAttribute('target', '_blank');
-          newLink.setAttribute('rel', 'noopener noreferrer');
-          newLink.className = 'text-[#2563EB] underline underline-offset-2 hover:text-blue-800 font-medium';
-        }
-      }
+      setEditingLinkElement(null);
+      setLinkModalUrl('');
+      setLinkModalTitle(selectedText);
     }
+
+    setIsLinkModalOpen(true);
+  };
+
+  const handleSaveLinkModal = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    const rawUrl = linkModalUrl.trim();
+    if (!rawUrl) return;
+
+    const formattedUrl = rawUrl.startsWith('http://') || rawUrl.startsWith('https://') || rawUrl.startsWith('mailto:')
+      ? rawUrl
+      : `https://${rawUrl}`;
+    
+    const displayTitle = linkModalTitle.trim();
+
+    if (editingLinkElement) {
+      // Editing existing link
+      editingLinkElement.setAttribute('href', formattedUrl);
+      if (displayTitle) {
+        editingLinkElement.textContent = displayTitle;
+      }
+      editingLinkElement.className = 'text-[#2563EB] dark:text-blue-400 underline underline-offset-2 hover:text-blue-800 dark:hover:text-blue-300 font-medium cursor-pointer';
+    } else {
+      // Inserting new link
+      if (editorContentRef.current) {
+        editorContentRef.current.focus();
+      }
+
+      const selection = window.getSelection();
+      if (selection && savedSelectionRangeRef.current) {
+        selection.removeAllRanges();
+        selection.addRange(savedSelectionRangeRef.current);
+      }
+
+      const textToShow = displayTitle || formattedUrl;
+      const linkHtml = `<a href="${formattedUrl}" target="_blank" rel="noopener noreferrer" class="text-[#2563EB] dark:text-blue-400 underline underline-offset-2 hover:text-blue-800 dark:hover:text-blue-300 font-medium cursor-pointer">${textToShow}</a>&nbsp;`;
+      
+      document.execCommand('insertHTML', false, linkHtml);
+    }
+
+    setIsLinkModalOpen(false);
+    setEditingLinkElement(null);
+    setLinkModalUrl('');
+    setLinkModalTitle('');
+    savedSelectionRangeRef.current = null;
+
+    updateToolbarState();
+    scheduleDebouncedSave();
+  };
+
+  const handleRemoveLink = () => {
+    if (editingLinkElement) {
+      const text = editingLinkElement.textContent || '';
+      const textNode = document.createTextNode(text);
+      editingLinkElement.parentNode?.replaceChild(textNode, editingLinkElement);
+    }
+    setIsLinkModalOpen(false);
+    setEditingLinkElement(null);
+    setLinkModalUrl('');
+    setLinkModalTitle('');
+    savedSelectionRangeRef.current = null;
+
     updateToolbarState();
     scheduleDebouncedSave();
   };
@@ -3434,6 +3492,127 @@ export const NotesStudio: React.FC<NotesStudioProps> = ({
                   <span>Move Note</span>
                 </button>
               </div>
+            </motion.div>
+          </div>
+        )}
+
+        {/* Insert / Edit Link Modal (Mobile Sheet / Desktop Popup) */}
+        {isLinkModalOpen && (
+          <div
+            className="fixed inset-0 z-[9999] flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/45 backdrop-blur-xs select-none"
+            onClick={() => {
+              setIsLinkModalOpen(false);
+              setEditingLinkElement(null);
+            }}
+          >
+            <motion.div
+              initial={{ y: (typeof window !== 'undefined' && window.innerWidth < 640) ? '100%' : 10, opacity: 0, scale: (typeof window !== 'undefined' && window.innerWidth < 640) ? 1 : 0.96 }}
+              animate={{ y: 0, opacity: 1, scale: 1 }}
+              exit={{ y: (typeof window !== 'undefined' && window.innerWidth < 640) ? '100%' : 10, opacity: 0, scale: (typeof window !== 'undefined' && window.innerWidth < 640) ? 1 : 0.96 }}
+              transition={{ type: 'spring', damping: 28, stiffness: 350, mass: 0.8 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative z-10 w-full sm:max-w-[440px] bg-white dark:bg-slate-900 rounded-t-2xl sm:rounded-2xl shadow-2xl border border-slate-200/90 dark:border-slate-800 p-4 sm:p-5 flex flex-col gap-3.5 max-h-[85vh] overflow-hidden"
+            >
+              {/* Header */}
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#176BFF]" />
+                  <span className="text-xs font-bold text-slate-900 dark:text-slate-100">
+                    {editingLinkElement ? 'Edit Link in Note' : 'Insert Link into Note'}
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsLinkModalOpen(false);
+                    setEditingLinkElement(null);
+                  }}
+                  className="p-1 rounded-md text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              {/* Link Form */}
+              <form onSubmit={handleSaveLinkModal} autoComplete="off" className="flex flex-col gap-3">
+                {/* 1. Link URL */}
+                <div className="flex flex-col gap-1">
+                  <label htmlFor="note-link-url" className="text-[11px] font-semibold text-slate-600 dark:text-slate-400">
+                    Link URL <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    id="note-link-url"
+                    type="search"
+                    autoFocus
+                    value={linkModalUrl}
+                    onChange={(e) => setLinkModalUrl(e.target.value)}
+                    placeholder="Paste URL (e.g. https://...)"
+                    className="w-full h-[36px] text-xs text-slate-900 dark:text-slate-100 bg-slate-50 dark:bg-slate-800/80 border border-slate-200/90 dark:border-slate-700 rounded-lg px-3 outline-none focus:bg-white dark:focus:bg-slate-800 focus:border-[#2563EB] focus:ring-2 focus:ring-blue-500/15 placeholder:text-slate-400 [&::-webkit-search-cancel-button]:hidden"
+                  />
+                </div>
+
+                {/* 2. Link Title (Optional) */}
+                <div className="flex flex-col gap-1">
+                  <label htmlFor="note-link-title" className="text-[11px] font-semibold text-slate-600 dark:text-slate-400">
+                    Link Title (Optional)
+                  </label>
+                  <input
+                    id="note-link-title"
+                    type="search"
+                    value={linkModalTitle}
+                    onChange={(e) => setLinkModalTitle(e.target.value)}
+                    placeholder="Custom title (leave blank to display URL)"
+                    className="w-full h-[36px] text-xs text-slate-900 dark:text-slate-100 bg-slate-50 dark:bg-slate-800/80 border border-slate-200/90 dark:border-slate-700 rounded-lg px-3 outline-none focus:bg-white dark:focus:bg-slate-800 focus:border-[#2563EB] focus:ring-2 focus:ring-blue-500/15 placeholder:text-slate-400 [&::-webkit-search-cancel-button]:hidden"
+                  />
+                  <span className="text-[10px] text-slate-400 dark:text-slate-500">
+                    If no title is provided, the link URL itself will be displayed.
+                  </span>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex items-center justify-between gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
+                  {editingLinkElement ? (
+                    <button
+                      type="button"
+                      onClick={handleRemoveLink}
+                      className="h-[32px] px-3 text-xs font-semibold text-red-600 hover:bg-red-50 dark:hover:bg-red-950/40 rounded-lg transition-colors cursor-pointer flex items-center gap-1"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                      <span>Remove Link</span>
+                    </button>
+                  ) : <div />}
+
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsLinkModalOpen(false);
+                        setEditingLinkElement(null);
+                      }}
+                      className="h-[32px] px-3.5 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors cursor-pointer"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      disabled={!linkModalUrl.trim()}
+                      className="h-[32px] px-4 text-xs font-bold text-white bg-[#176BFF] hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed rounded-lg shadow-xs transition-colors cursor-pointer flex items-center gap-1.5"
+                    >
+                      {editingLinkElement ? (
+                        <>
+                          <Check className="w-3.5 h-3.5 stroke-[2.5]" />
+                          <span>Save Changes</span>
+                        </>
+                      ) : (
+                        <>
+                          <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
+                          <span>Insert Link</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </div>
+              </form>
             </motion.div>
           </div>
         )}
