@@ -778,6 +778,58 @@ export function App() {
     return () => clearInterval(interval);
   }, []);
 
+  // --- Professional Notification & Toast System ---
+  interface NotificationItem {
+    id: string;
+    title: string;
+    time: string;
+    read: boolean;
+    type?: 'focus' | 'reminders' | 'system';
+    description?: string;
+  }
+  interface ToastData {
+    message: string;
+    undoAction?: () => void;
+    duration?: number;
+  }
+  const [toastData, setToastData] = useState<ToastData | null>(null);
+  const [notifications, setNotifications] = useState<NotificationItem[]>(() => [
+    { id: 'notif-1', title: 'Welcome to StudyFlow Workspace!', time: 'Just now', read: false, type: 'system', description: 'Your focus dashboard and topic tracker are active.' },
+    { id: 'notif-2', title: 'Focus Check-in Timer Ready ⏱️', time: '5m ago', read: false, type: 'focus', description: 'Interval milestone alerts will keep your study sessions sharp.' }
+  ]);
+
+  const showToast = (message: string, undoAction?: () => void, duration?: number) => {
+    const effectiveDuration = duration !== undefined ? duration : (undoAction ? 6000 : 3500);
+    setToastData({ message, undoAction, duration: effectiveDuration });
+
+    const now = new Date();
+    const formattedTime = now.toLocaleTimeString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+
+    const isStudy = /study|timer|focus|milestone|session|check-in/i.test(message);
+    const isReminder = /due|overdue|deadline|date|recycle/i.test(message);
+
+    const newNotif: NotificationItem = {
+      id: `notif-${Date.now()}`,
+      title: message,
+      time: formattedTime,
+      read: false,
+      type: isStudy ? 'focus' : isReminder ? 'reminders' : 'system'
+    };
+
+    setNotifications(prev => [newNotif, ...prev]);
+  };
+
+  useEffect(() => {
+    if (!toastData) return;
+    const timer = setTimeout(() => {
+      setToastData(null);
+    }, toastData.duration || 6000);
+    return () => clearTimeout(timer);
+  }, [toastData]);
+
   // --- Workspaces State ---
   const [workspaces, setWorkspaces] = useState<WorkspaceWindow[]>(() =>
     loadInitialData('studyflow_workspaces', [
@@ -1435,24 +1487,6 @@ export function App() {
 
 
   // --- Professional Notification & Toast System ---
-  interface NotificationItem {
-    id: string;
-    title: string;
-    time: string;
-    read: boolean;
-    type?: 'focus' | 'reminders' | 'system';
-    description?: string;
-  }
-  interface ToastData {
-    message: string;
-    undoAction?: () => void;
-    duration?: number;
-  }
-  const [toastData, setToastData] = useState<ToastData | null>(null);
-  const [notifications, setNotifications] = useState<NotificationItem[]>(() => [
-    { id: 'notif-1', title: 'Welcome to StudyFlow Workspace!', time: 'Just now', read: false, type: 'system', description: 'Your focus dashboard and topic tracker are active.' },
-    { id: 'notif-2', title: 'Focus Check-in Timer Ready ⏱️', time: '5m ago', read: false, type: 'focus', description: 'Interval milestone alerts will keep your study sessions sharp.' }
-  ]);
   const [isNotificationPanelOpen, setIsNotificationPanelOpen] = useState<boolean>(false);
   const [notifFilter, setNotifFilter] = useState<'all' | 'focus' | 'reminders'>('all');
   const [deviceNotifStatus, setDeviceNotifStatus] = useState<string>(() => {
@@ -1568,38 +1602,6 @@ export function App() {
   const unreadNotifCount = useMemo(() => {
     return notifications.filter(n => !n.read).length;
   }, [notifications]);
-
-  const showToast = (message: string, undoAction?: () => void, duration?: number) => {
-    const effectiveDuration = duration !== undefined ? duration : (undoAction ? 6000 : 3500);
-    setToastData({ message, undoAction, duration: effectiveDuration });
-
-    const now = new Date();
-    const formattedTime = now.toLocaleTimeString('en-US', {
-      hour: '2-digit',
-      minute: '2-digit'
-    });
-
-    const isStudy = /study|timer|focus|milestone|session|check-in/i.test(message);
-    const isReminder = /due|overdue|deadline|date|recycle/i.test(message);
-
-    const newNotif: NotificationItem = {
-      id: `notif-${Date.now()}`,
-      title: message,
-      time: formattedTime,
-      read: false,
-      type: isStudy ? 'focus' : isReminder ? 'reminders' : 'system'
-    };
-
-    setNotifications(prev => [newNotif, ...prev]);
-  };
-
-  useEffect(() => {
-    if (!toastData) return;
-    const timer = setTimeout(() => {
-      setToastData(null);
-    }, toastData.duration || 6000);
-    return () => clearTimeout(timer);
-  }, [toastData]);
 
   // Safe initial topics loader from localStorage
   const loadInitialTopics = (): Topic[] => {
