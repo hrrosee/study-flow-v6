@@ -550,14 +550,17 @@ export const NotesStudio: React.FC<NotesStudioProps> = ({
     fallbackCoords?: { clientX: number; clientY: number };
   } | null>(null);
 
-  // Sync editor content ONLY when activeNoteId changes or when entering write mode
+  // Sync editor content ONLY when activeNoteId changes or when switching notes
   useEffect(() => {
     if (noteEditorMode === 'write' && editorContentRef.current && activeNote) {
-      const targetHtml = convertMarkdownToHtml(activeNote.content || '');
-      if (lastLoadedNoteIdRef.current !== activeNote.id || editorContentRef.current.innerHTML !== targetHtml) {
+      const isDifferentNote = lastLoadedNoteIdRef.current !== activeNote.id;
+      const isExternalChange = !isDifferentNote && activeNote.content !== lastHtmlRef.current && activeNote.content !== editorContentRef.current.innerHTML;
+
+      if (isDifferentNote || isExternalChange) {
+        const targetHtml = convertMarkdownToHtml(activeNote.content || '');
         editorContentRef.current.innerHTML = targetHtml;
         lastLoadedNoteIdRef.current = activeNote.id;
-        lastHtmlRef.current = targetHtml;
+        lastHtmlRef.current = activeNote.content || '';
       }
 
       // Position caret exactly where user clicked in preview mode, or at the end
@@ -1252,6 +1255,51 @@ export const NotesStudio: React.FC<NotesStudioProps> = ({
     const pastedHtml = clipboardData.getData('text/html');
     const pastedText = e.clipboardData.getData('text/plain');
 
+    const insertContentAtSelection = (htmlToInsert: string) => {
+      const sel = window.getSelection();
+      if (!sel || sel.rangeCount === 0 || !editorContentRef.current) {
+        document.execCommand('insertHTML', false, htmlToInsert);
+        return;
+      }
+
+      editorContentRef.current.focus();
+      const range = sel.getRangeAt(0);
+      range.deleteContents();
+
+      const temp = document.createElement('div');
+      temp.innerHTML = htmlToInsert;
+      const frag = document.createDocumentFragment();
+      let lastChildNode: Node | null = null;
+      while (temp.firstChild) {
+        lastChildNode = temp.firstChild;
+        frag.appendChild(temp.firstChild);
+      }
+
+      range.insertNode(frag);
+
+      if (lastChildNode) {
+        const newRange = document.createRange();
+        if (lastChildNode.nodeType === Node.ELEMENT_NODE) {
+          newRange.selectNodeContents(lastChildNode);
+          newRange.collapse(false);
+        } else {
+          newRange.setStartAfter(lastChildNode);
+          newRange.collapse(true);
+        }
+        sel.removeAllRanges();
+        sel.addRange(newRange);
+
+        // Smooth scroll to reveal the caret and pasted content
+        setTimeout(() => {
+          if (lastChildNode && (lastChildNode as HTMLElement).scrollIntoView) {
+            (lastChildNode as HTMLElement).scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          } else if (lastChildNode?.parentElement) {
+            lastChildNode.parentElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+        }, 15);
+      }
+    };
+
     if (pastedHtml) {
       const tempDiv = document.createElement('div');
       tempDiv.innerHTML = pastedHtml;
@@ -1280,10 +1328,10 @@ export const NotesStudio: React.FC<NotesStudioProps> = ({
 
       const cleanHtml = tempDiv.innerHTML.trim();
       if (cleanHtml) {
-        document.execCommand('insertHTML', false, cleanHtml);
+        insertContentAtSelection(cleanHtml);
       } else if (pastedText) {
         const linkified = autoLinkifyText(pastedText);
-        document.execCommand('insertHTML', false, linkified);
+        insertContentAtSelection(linkified);
       }
     } else if (pastedText) {
       // If pure markdown text was pasted, convert to formatted HTML
@@ -1291,21 +1339,17 @@ export const NotesStudio: React.FC<NotesStudioProps> = ({
 
       if (isLikelyMarkdown) {
         const converted = convertMarkdownToHtml(pastedText);
-        document.execCommand('insertHTML', false, converted);
+        insertContentAtSelection(converted);
       } else {
         const lines = pastedText.split('\n');
         if (lines.length > 1) {
           const html = lines
             .map(line => line.trim() ? `<p>${autoLinkifyText(line)}</p>` : '<p><br></p>')
             .join('');
-          document.execCommand('insertHTML', false, html);
+          insertContentAtSelection(html);
         } else {
           const linkified = autoLinkifyText(pastedText);
-          if (linkified !== pastedText) {
-            document.execCommand('insertHTML', false, linkified);
-          } else {
-            document.execCommand('insertText', false, pastedText);
-          }
+          insertContentAtSelection(linkified);
         }
       }
     }
