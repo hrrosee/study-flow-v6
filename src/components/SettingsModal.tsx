@@ -120,12 +120,14 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
   // Primary Accent Color state with instant preview support
   const [primaryColor, setPrimaryColor] = useState<PrimaryAccentColor>(settings.primaryColor || 'blue');
 
-  // Keep internal state perfectly synchronized with external changes (e.g. from Sidebar 'Flow' quick picker)
+  // Sync external setting changes (e.g., from Sidebar Quick Picker) to local state
   useEffect(() => {
     if (settings.primaryColor) {
       setPrimaryColor(settings.primaryColor);
     }
-  }, [settings.primaryColor]);
+    const nextTheme = settings.theme || (settings.darkMode ? 'dark' : 'light');
+    setTheme(nextTheme);
+  }, [settings.primaryColor, settings.theme, settings.darkMode]);
 
   const handleThemeChange = (newTheme: ThemeMode) => {
     setTheme(newTheme);
@@ -135,14 +137,11 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
   const handleAccentColorChange = (newAccent: PrimaryAccentColor) => {
     setPrimaryColor(newAccent);
     applyAccentColor(newAccent);
-    // Two-way instant sync to parent state & storage
-    onSaveSettings({
-      ...settings,
-      primaryColor: newAccent,
-    });
   };
 
   const handleClose = () => {
+    // Revert live preview if closed without saving
+    applyTheme(settings.theme || (settings.darkMode ? 'dark' : 'light'), settings.primaryColor || 'blue');
     onClose();
   };
 
