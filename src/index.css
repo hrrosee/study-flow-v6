@@ -757,10 +757,15 @@ html.dark[data-accent="purple"] .bg-blue-900\/40:not(.preserve-color):not(.prese
   --tw-ring-color: rgba(124, 58, 237, 0.2) !important;
 }
 
+[data-accent="purple"] .bg-gradient-to-r.from-\[\#176BFF\].via-\[\#1D4ED8\].to-\[\#1E40AF\]:not(.preserve-color):not(.preserve-color *),
 [data-accent="purple"] .bg-gradient-to-r.from-\[\#3B82F6\].via-\[\#2563EB\].to-\[\#4F46E5\]:not(.preserve-color):not(.preserve-color *),
 [data-accent="purple"] .bg-gradient-to-r.from-\[\#3B82F6\].via-\[\#2563EB\].to-\[\#1D4ED8\]:not(.preserve-color):not(.preserve-color *),
 [data-accent="purple"] .bg-gradient-to-r.from-\[\#2563EB\].to-\[\#3B82F6\]:not(.preserve-color):not(.preserve-color *) {
-  background-image: linear-gradient(to right, #a855f7, #7c3aed, #6d28d9) !important;
+  background-image: linear-gradient(to right, #8b5cf6, #7c3aed, #581c87) !important;
+}
+[data-accent="purple"] .bg-gradient-to-r.from-\[\#176BFF\].via-\[\#1D4ED8\].to-\[\#1E40AF\]:hover:not(.preserve-color):not(.preserve-color *),
+[data-accent="purple"] .bg-gradient-to-r.from-\[\#3B82F6\].via-\[\#2563EB\].to-\[\#1D4ED8\]:hover:not(.preserve-color):not(.preserve-color *) {
+  background-image: linear-gradient(to right, #7c3aed, #8b5cf6, #7c3aed) !important;
 }
 
 [data-accent="purple"] .bg-gradient-to-tr.from-\[\#3B82F6\].to-\[\#1D4ED8\]:not(.preserve-color):not(.preserve-color *),
@@ -911,10 +916,15 @@ html.dark[data-accent="cyan"] .bg-blue-900\/40:not(.preserve-color):not(.preserv
   --tw-ring-color: rgba(8, 145, 178, 0.2) !important;
 }
 
+[data-accent="cyan"] .bg-gradient-to-r.from-\[\#176BFF\].via-\[\#1D4ED8\].to-\[\#1E40AF\]:not(.preserve-color):not(.preserve-color *),
 [data-accent="cyan"] .bg-gradient-to-r.from-\[\#3B82F6\].via-\[\#2563EB\].to-\[\#4F46E5\]:not(.preserve-color):not(.preserve-color *),
 [data-accent="cyan"] .bg-gradient-to-r.from-\[\#3B82F6\].via-\[\#2563EB\].to-\[\#1D4ED8\]:not(.preserve-color):not(.preserve-color *),
 [data-accent="cyan"] .bg-gradient-to-r.from-\[\#2563EB\].to-\[\#3B82F6\]:not(.preserve-color):not(.preserve-color *) {
-  background-image: linear-gradient(to right, #38bdf8, #0891b2, #0e7490) !important;
+  background-image: linear-gradient(to right, #06b6d4, #0891b2, #155e75) !important;
+}
+[data-accent="cyan"] .bg-gradient-to-r.from-\[\#176BFF\].via-\[\#1D4ED8\].to-\[\#1E40AF\]:hover:not(.preserve-color):not(.preserve-color *),
+[data-accent="cyan"] .bg-gradient-to-r.from-\[\#3B82F6\].via-\[\#2563EB\].to-\[\#1D4ED8\]:hover:not(.preserve-color):not(.preserve-color *) {
+  background-image: linear-gradient(to right, #0891b2, #06b6d4, #0891b2) !important;
 }
 
 [data-accent="cyan"] .bg-gradient-to-tr.from-\[\#3B82F6\].to-\[\#1D4ED8\]:not(.preserve-color):not(.preserve-color *),
@@ -1048,10 +1058,15 @@ html.dark[data-accent="green"] .bg-blue-900\/40:not(.preserve-color):not(.preser
 [data-accent="green"] .focus\:ring-\[\#3B82F6\]\/15:focus:not(.preserve-color):not(.preserve-color *) {
   --tw-ring-color: rgba(16, 185, 129, 0.2) !important;
 }
+[data-accent="green"] .bg-gradient-to-r.from-\[\#176BFF\].via-\[\#1D4ED8\].to-\[\#1E40AF\]:not(.preserve-color):not(.preserve-color *),
 [data-accent="green"] .bg-gradient-to-r.from-\[\#3B82F6\].via-\[\#2563EB\].to-\[\#4F46E5\]:not(.preserve-color):not(.preserve-color *),
 [data-accent="green"] .bg-gradient-to-r.from-\[\#3B82F6\].via-\[\#2563EB\].to-\[\#1D4ED8\]:not(.preserve-color):not(.preserve-color *),
 [data-accent="green"] .bg-gradient-to-r.from-\[\#2563EB\].to-\[\#3B82F6\]:not(.preserve-color):not(.preserve-color *) {
-  background-image: linear-gradient(to right, #34d399, #10b981, #059669) !important;
+  background-image: linear-gradient(to right, #10b981, #059669, #064e3b) !important;
+}
+[data-accent="green"] .bg-gradient-to-r.from-\[\#176BFF\].via-\[\#1D4ED8\].to-\[\#1E40AF\]:hover:not(.preserve-color):not(.preserve-color *),
+[data-accent="green"] .bg-gradient-to-r.from-\[\#3B82F6\].via-\[\#2563EB\].to-\[\#1D4ED8\]:hover:not(.preserve-color):not(.preserve-color *) {
+  background-image: linear-gradient(to right, #059669, #10b981, #059669) !important;
 }
 [data-accent="green"] .bg-gradient-to-tr.from-\[\#3B82F6\].to-\[\#1D4ED8\]:not(.preserve-color):not(.preserve-color *),
 [data-accent="green"] .bg-gradient-to-br.from-blue-500.via-\[\#2563EB\].to-indigo-600:not(.preserve-color):not(.preserve-color *) {
@@ -1176,10 +1191,15 @@ html.dark[data-accent="orange"] .bg-blue-900\/40:not(.preserve-color):not(.prese
 [data-accent="orange"] .focus\:ring-\[\#3B82F6\]\/15:focus:not(.preserve-color):not(.preserve-color *) {
   --tw-ring-color: rgba(234, 88, 12, 0.2) !important;
 }
+[data-accent="orange"] .bg-gradient-to-r.from-\[\#176BFF\].via-\[\#1D4ED8\].to-\[\#1E40AF\]:not(.preserve-color):not(.preserve-color *),
 [data-accent="orange"] .bg-gradient-to-r.from-\[\#3B82F6\].via-\[\#2563EB\].to-\[\#4F46E5\]:not(.preserve-color):not(.preserve-color *),
 [data-accent="orange"] .bg-gradient-to-r.from-\[\#3B82F6\].via-\[\#2563EB\].to-\[\#1D4ED8\]:not(.preserve-color):not(.preserve-color *),
 [data-accent="orange"] .bg-gradient-to-r.from-\[\#2563EB\].to-\[\#3B82F6\]:not(.preserve-color):not(.preserve-color *) {
-  background-image: linear-gradient(to right, #fb923c, #ea580c, #c2410c) !important;
+  background-image: linear-gradient(to right, #f97316, #ea580c, #9a3412) !important;
+}
+[data-accent="orange"] .bg-gradient-to-r.from-\[\#176BFF\].via-\[\#1D4ED8\].to-\[\#1E40AF\]:hover:not(.preserve-color):not(.preserve-color *),
+[data-accent="orange"] .bg-gradient-to-r.from-\[\#3B82F6\].via-\[\#2563EB\].to-\[\#1D4ED8\]:hover:not(.preserve-color):not(.preserve-color *) {
+  background-image: linear-gradient(to right, #ea580c, #f97316, #ea580c) !important;
 }
 [data-accent="orange"] .bg-gradient-to-tr.from-\[\#3B82F6\].to-\[\#1D4ED8\]:not(.preserve-color):not(.preserve-color *),
 [data-accent="orange"] .bg-gradient-to-br.from-blue-500.via-\[\#2563EB\].to-indigo-600:not(.preserve-color):not(.preserve-color *) {
@@ -1304,10 +1324,15 @@ html.dark[data-accent="pink"] .bg-blue-900\/40:not(.preserve-color):not(.preserv
 [data-accent="pink"] .focus\:ring-\[\#3B82F6\]\/15:focus:not(.preserve-color):not(.preserve-color *) {
   --tw-ring-color: rgba(244, 63, 94, 0.2) !important;
 }
+[data-accent="pink"] .bg-gradient-to-r.from-\[\#176BFF\].via-\[\#1D4ED8\].to-\[\#1E40AF\]:not(.preserve-color):not(.preserve-color *),
 [data-accent="pink"] .bg-gradient-to-r.from-\[\#3B82F6\].via-\[\#2563EB\].to-\[\#4F46E5\]:not(.preserve-color):not(.preserve-color *),
 [data-accent="pink"] .bg-gradient-to-r.from-\[\#3B82F6\].via-\[\#2563EB\].to-\[\#1D4ED8\]:not(.preserve-color):not(.preserve-color *),
 [data-accent="pink"] .bg-gradient-to-r.from-\[\#2563EB\].to-\[\#3B82F6\]:not(.preserve-color):not(.preserve-color *) {
-  background-image: linear-gradient(to right, #fda4af, #f43f5e, #be123c) !important;
+  background-image: linear-gradient(to right, #f43f5e, #e11d48, #881337) !important;
+}
+[data-accent="pink"] .bg-gradient-to-r.from-\[\#176BFF\].via-\[\#1D4ED8\].to-\[\#1E40AF\]:hover:not(.preserve-color):not(.preserve-color *),
+[data-accent="pink"] .bg-gradient-to-r.from-\[\#3B82F6\].via-\[\#2563EB\].to-\[\#1D4ED8\]:hover:not(.preserve-color):not(.preserve-color *) {
+  background-image: linear-gradient(to right, #e11d48, #f43f5e, #e11d48) !important;
 }
 [data-accent="pink"] .bg-gradient-to-tr.from-\[\#3B82F6\].to-\[\#1D4ED8\]:not(.preserve-color):not(.preserve-color *),
 [data-accent="pink"] .bg-gradient-to-br.from-blue-500.via-\[\#2563EB\].to-indigo-600:not(.preserve-color):not(.preserve-color *) {
@@ -1432,10 +1457,15 @@ html.dark[data-accent="amber"] .bg-blue-900\/40:not(.preserve-color):not(.preser
 [data-accent="amber"] .focus\:ring-\[\#3B82F6\]\/15:focus:not(.preserve-color):not(.preserve-color *) {
   --tw-ring-color: rgba(245, 158, 11, 0.2) !important;
 }
+[data-accent="amber"] .bg-gradient-to-r.from-\[\#176BFF\].via-\[\#1D4ED8\].to-\[\#1E40AF\]:not(.preserve-color):not(.preserve-color *),
 [data-accent="amber"] .bg-gradient-to-r.from-\[\#3B82F6\].via-\[\#2563EB\].to-\[\#4F46E5\]:not(.preserve-color):not(.preserve-color *),
 [data-accent="amber"] .bg-gradient-to-r.from-\[\#3B82F6\].via-\[\#2563EB\].to-\[\#1D4ED8\]:not(.preserve-color):not(.preserve-color *),
 [data-accent="amber"] .bg-gradient-to-r.from-\[\#2563EB\].to-\[\#3B82F6\]:not(.preserve-color):not(.preserve-color *) {
-  background-image: linear-gradient(to right, #fde68a, #f59e0b, #d97706) !important;
+  background-image: linear-gradient(to right, #f59e0b, #d97706, #78350f) !important;
+}
+[data-accent="amber"] .bg-gradient-to-r.from-\[\#176BFF\].via-\[\#1D4ED8\].to-\[\#1E40AF\]:hover:not(.preserve-color):not(.preserve-color *),
+[data-accent="amber"] .bg-gradient-to-r.from-\[\#3B82F6\].via-\[\#2563EB\].to-\[\#1D4ED8\]:hover:not(.preserve-color):not(.preserve-color *) {
+  background-image: linear-gradient(to right, #d97706, #f59e0b, #d97706) !important;
 }
 [data-accent="amber"] .bg-gradient-to-tr.from-\[\#3B82F6\].to-\[\#1D4ED8\]:not(.preserve-color):not(.preserve-color *),
 [data-accent="amber"] .bg-gradient-to-br.from-blue-500.via-\[\#2563EB\].to-indigo-600:not(.preserve-color):not(.preserve-color *) {

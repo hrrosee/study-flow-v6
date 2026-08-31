@@ -5689,7 +5689,7 @@ export function App() {
                         className={`text-[10px] font-bold px-1.5 py-0.5 min-w-[20px] h-[18px] flex items-center justify-center rounded-full border shrink-0 transition-colors ${
                           isNotesPageOpen
                             ? 'bg-white/20 border-white/30 text-white'
-                            : 'bg-[#EEF4FF] dark:bg-blue-950/60 text-[#2563EB] dark:text-blue-300 border-blue-200/60 dark:border-blue-800'
+                            : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200/80 dark:border-slate-700/80'
                         }`}
                       >
                         {notes.length}
@@ -5728,7 +5728,7 @@ export function App() {
                         className={`text-[10px] font-bold px-1.5 py-0.5 min-w-[20px] h-[18px] flex items-center justify-center rounded-full border shrink-0 transition-colors ${
                           isTasksPageOpen
                             ? 'bg-white/20 border-white/30 text-white'
-                            : 'bg-[#EEF4FF] dark:bg-blue-950/60 text-[#2563EB] dark:text-blue-300 border-blue-200/60 dark:border-blue-800'
+                            : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200/80 dark:border-slate-700/80'
                         }`}
                       >
                         {standaloneTasks.filter(t => !t.completed).length}
@@ -6087,7 +6087,7 @@ export function App() {
                         className={`px-1.5 py-0.5 rounded-[4px] text-[10px] font-bold ${
                           isRecycleBinOpen
                             ? 'bg-white/20 text-white'
-                            : 'bg-[#EEF4FF] dark:bg-blue-950/60 text-[#2563EB] dark:text-blue-300'
+                            : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 border border-slate-200/80 dark:border-slate-700/80'
                         }`}
                       >
                         {deletedTopics.length + deletedWorkspaces.length}
@@ -6371,7 +6371,7 @@ export function App() {
                   className={`text-[10px] font-bold px-1.5 py-0.5 min-w-[20px] h-[18px] flex items-center justify-center rounded-full border shrink-0 transition-colors ${
                     isNotesPageOpen
                       ? 'bg-white/20 border-white/30 text-white'
-                      : 'bg-[#EEF4FF] dark:bg-blue-950/60 text-[#2563EB] dark:text-blue-300 border-blue-200/60 dark:border-blue-800'
+                      : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200/80 dark:border-slate-700/80'
                   }`}
                 >
                   {notes.length}
@@ -6428,7 +6428,7 @@ export function App() {
                   className={`text-[10px] font-bold px-1.5 py-0.5 min-w-[20px] h-[18px] flex items-center justify-center rounded-full border shrink-0 transition-colors ${
                     isTasksPageOpen
                       ? 'bg-white/20 border-white/30 text-white'
-                      : 'bg-[#EEF4FF] dark:bg-blue-950/60 text-[#2563EB] dark:text-blue-300 border-blue-200/60 dark:border-blue-800'
+                      : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200/80 dark:border-slate-700/80'
                   }`}
                 >
                   {standaloneTasks.filter(t => !t.completed).length}
@@ -6932,7 +6932,7 @@ export function App() {
                 className={`text-[10px] font-bold px-1.5 py-0.5 min-w-[20px] h-[18px] flex items-center justify-center rounded-full border shrink-0 transition-colors ${
                   isRecycleBinOpen
                     ? 'bg-white/20 border-white/30 text-white'
-                    : 'bg-[#EEF4FF] dark:bg-blue-950/60 text-[#2563EB] dark:text-blue-300 border-blue-200/60 dark:border-blue-800'
+                    : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200/80 dark:border-slate-700/80'
                 }`}
               >
                 {deletedTopics.length + deletedWorkspaces.length + deletedNotes.length + deletedSections.length + deletedTasks.length + deletedTopicNotes.length + deletedTopicLinks.length}
@@ -8002,7 +8002,7 @@ export function App() {
                         <button
                           type="submit"
                           disabled={isGenerating}
-                          className="h-[34px] min-h-[34px] max-h-[34px] box-border px-3.5 sm:px-5 bg-gradient-to-r from-[#3B82F6] via-[#2563EB] to-[#1D4ED8] hover:from-[#2563EB] hover:to-[#3B82F6] text-white rounded-[6px] text-xs font-bold flex items-center justify-center gap-1.5 sm:gap-2 shadow-md shadow-blue-500/20 active:scale-[0.98] transition-all duration-200 disabled:opacity-50 shrink-0 cursor-pointer m-0"
+                          className="h-[34px] min-h-[34px] max-h-[34px] box-border px-3.5 sm:px-5 bg-gradient-to-r from-[#176BFF] via-[#1D4ED8] to-[#1E40AF] hover:from-[#1D4ED8] hover:via-[#176BFF] hover:to-[#1D4ED8] text-white rounded-[6px] text-xs font-bold flex items-center justify-center gap-1.5 sm:gap-2 shadow-md shadow-blue-500/20 active:scale-[0.98] transition-all duration-200 disabled:opacity-50 shrink-0 cursor-pointer m-0"
                         >
                           {isGenerating ? (
                             <motion.div
@@ -8190,7 +8190,7 @@ export function App() {
                           setNewTopicTitle('');
                           setIsNewTopicOpen(true);
                         }}
-                        className="h-[36px] px-6 bg-gradient-to-r from-[#3B82F6] via-[#2563EB] to-[#1D4ED8] hover:from-[#2563EB] hover:to-[#3B82F6] text-white text-xs font-bold rounded-[6px] shadow-md shadow-blue-500/20 active:scale-[0.98] transition-all duration-200 cursor-pointer flex items-center justify-center gap-2 mt-5 shrink-0"
+                        className="h-[36px] px-6 bg-gradient-to-r from-[#176BFF] via-[#1D4ED8] to-[#1E40AF] hover:from-[#1D4ED8] hover:via-[#176BFF] hover:to-[#1D4ED8] text-white text-xs font-bold rounded-[6px] shadow-md shadow-blue-500/20 active:scale-[0.98] transition-all duration-200 cursor-pointer flex items-center justify-center gap-2 mt-5 shrink-0"
                       >
                         <Plus className="w-4 h-4 stroke-[2.5]" />
                         <span>Add New Topic</span>
@@ -9858,7 +9858,7 @@ export function App() {
                       setIsNewTopicOpen(false);
                       setIsSmartStudioOpen(true);
                     }}
-                    className="h-[36px] px-4 text-xs font-bold text-white bg-gradient-to-r from-[#3B82F6] via-[#2563EB] to-[#1D4ED8] hover:from-[#2563EB] hover:to-[#3B82F6] rounded-lg shadow-md shadow-blue-500/20 active:scale-[0.98] transition-all flex items-center gap-1.5 cursor-pointer"
+                    className="h-[36px] px-4 text-xs font-bold text-white bg-gradient-to-r from-[#176BFF] via-[#1D4ED8] to-[#1E40AF] hover:from-[#1D4ED8] hover:via-[#176BFF] hover:to-[#1D4ED8] rounded-lg shadow-md shadow-blue-500/20 active:scale-[0.98] transition-all flex items-center gap-1.5 cursor-pointer"
                   >
                     <Sparkles className="w-4 h-4 text-white" />
                     <span className="hidden sm:inline">Studio Mode</span>
@@ -10898,7 +10898,7 @@ export function App() {
                       setCustomizingTopic(null);
                       showToast(`Updated custom style for "${customizingTopic.title}"!`);
                     }}
-                    className="px-4 py-2 text-xs font-bold text-white bg-gradient-to-r from-[#3B82F6] via-[#2563EB] to-[#1D4ED8] hover:from-[#2563EB] hover:to-[#3B82F6] rounded-lg shadow-md shadow-blue-500/20 active:scale-[0.98] transition-all cursor-pointer flex items-center gap-1.5"
+                    className="px-4 py-2 text-xs font-bold text-white bg-gradient-to-r from-[#176BFF] via-[#1D4ED8] to-[#1E40AF] hover:from-[#1D4ED8] hover:via-[#176BFF] hover:to-[#1D4ED8] rounded-lg shadow-md shadow-blue-500/20 active:scale-[0.98] transition-all cursor-pointer flex items-center gap-1.5"
                   >
                     <Check className="w-3.5 h-3.5" />
                     <span>Apply</span>
