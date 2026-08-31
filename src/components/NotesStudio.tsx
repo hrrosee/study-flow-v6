@@ -218,22 +218,35 @@ export function convertMarkdownToHtml(content: string): string {
   return htmlLines.join('');
 }
 
+export function autoLinkifyText(text: string): string {
+  if (!text) return '';
+  // Avoid re-linking already existing <a> tags or attributes
+  if (/<a\s+[^>]*>/i.test(text)) {
+    return text;
+  }
+  return text.replace(
+    /(^|[\s(>])(https?:\/\/[^\s<)]+|www\.[^\s<)]+)/gi,
+    (_match, prefix, url) => {
+      const href = url.startsWith('www.') ? `https://${url}` : url;
+      return `${prefix}<a href="${href}" target="_blank" rel="noopener noreferrer" class="text-[#2563EB] dark:text-blue-400 underline underline-offset-2 hover:text-blue-800 dark:hover:text-blue-300 font-medium cursor-pointer">${url}</a>`;
+    }
+  );
+}
+
 function formatInlineMarkdownToHtml(text: string): string {
   if (!text) return '';
-  return text
+  const convertedMarkdown = text
     .replace(/\[(.*?)\]\((https?:\/\/[^\s)]+|www\.[^\s)]+|[^\s)]+)\)/g, (_m, title, url) => {
       const href = url.startsWith('www.') ? `https://${url}` : (!/^https?:\/\//i.test(url) ? `https://${url}` : url);
       return `<a href="${href}" target="_blank" rel="noopener noreferrer" class="text-[#2563EB] dark:text-blue-400 underline underline-offset-2 hover:text-blue-800 dark:hover:text-blue-300 font-medium cursor-pointer">${title || url}</a>`;
-    })
-    .replace(/(^|\s)(https?:\/\/[^\s<]+|www\.[^\s<]+)/gi, (_m, prefix, url) => {
-      const href = url.startsWith('www.') ? `https://${url}` : url;
-      return `${prefix}<a href="${href}" target="_blank" rel="noopener noreferrer" class="text-[#2563EB] dark:text-blue-400 underline underline-offset-2 hover:text-blue-800 dark:hover:text-blue-300 font-medium cursor-pointer">${url}</a>`;
     })
     .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>')
     .replace(/==(.*?ches|.*?)==/g, '<mark class="bg-amber-100 text-amber-950 px-1 py-0.5 rounded">$1</mark>')
     .replace(/~~(.*?)~~/g, '<del class="text-slate-400">$1</del>')
     .replace(/\*(.*?)\*/g, '<i>$1</i>')
     .replace(/`(.*?)`/g, '<code class="px-1.5 py-0.5 text-xs font-mono bg-slate-100 text-rose-600 rounded border border-slate-200/70">$1</code>');
+
+  return autoLinkifyText(convertedMarkdown);
 }
 
 export function getNoteDisplayTitle(note: StudyNote): string {
@@ -1239,17 +1252,6 @@ export const NotesStudio: React.FC<NotesStudioProps> = ({
     const pastedHtml = clipboardData.getData('text/html');
     const pastedText = e.clipboardData.getData('text/plain');
 
-    // 0. If a single URL was pasted (https://, http://, or www.), format directly as clean clickable hyperlink
-    if (pastedText && /^(https?:\/\/[^\s]+|www\.[^\s]+)$/i.test(pastedText.trim())) {
-      const rawUrl = pastedText.trim();
-      const formatted = rawUrl.startsWith('www.') ? `https://${rawUrl}` : rawUrl;
-      const html = `<a href="${formatted}" target="_blank" rel="noopener noreferrer" class="text-[#2563EB] dark:text-blue-400 underline underline-offset-2 hover:text-blue-800 dark:hover:text-blue-300 font-medium cursor-pointer">${rawUrl}</a>&nbsp;`;
-      document.execCommand('insertHTML', false, html);
-      updateToolbarState();
-      scheduleDebouncedSave();
-      return;
-    }
-
     if (pastedHtml) {
       const tempDiv = document.createElement('div');
       tempDiv.innerHTML = pastedHtml;
@@ -1257,9 +1259,17 @@ export const NotesStudio: React.FC<NotesStudioProps> = ({
       const unwanted = tempDiv.querySelectorAll('script, style, iframe, object, embed, meta, link');
       unwanted.forEach(el => el.remove());
 
+      // Format all anchor links with standard StudyFlow active link styles
+      const allAnchors = tempDiv.querySelectorAll('a');
+      allAnchors.forEach(a => {
+        a.setAttribute('target', '_blank');
+        a.setAttribute('rel', 'noopener noreferrer');
+        a.className = 'text-[#2563EB] dark:text-blue-400 underline underline-offset-2 hover:text-blue-800 dark:hover:text-blue-300 font-medium cursor-pointer';
+      });
+
       const allElements = tempDiv.querySelectorAll('*');
       allElements.forEach(el => {
-        if (!el.classList.contains('checklist-item') && !el.classList.contains('chk-box') && !el.classList.contains('chk-text')) {
+        if (el.tagName.toLowerCase() !== 'a' && !el.classList.contains('checklist-item') && !el.classList.contains('chk-box') && !el.classList.contains('chk-text')) {
           el.removeAttribute('style');
           el.removeAttribute('id');
           el.removeAttribute('color');
@@ -1271,8 +1281,9 @@ export const NotesStudio: React.FC<NotesStudioProps> = ({
       const cleanHtml = tempDiv.innerHTML.trim();
       if (cleanHtml) {
         document.execCommand('insertHTML', false, cleanHtml);
-      } else {
-        document.execCommand('insertText', false, pastedText);
+      } else if (pastedText) {
+        const linkified = autoLinkifyText(pastedText);
+        document.execCommand('insertHTML', false, linkified);
       }
     } else if (pastedText) {
       // If pure markdown text was pasted, convert to formatted HTML
@@ -1284,10 +1295,17 @@ export const NotesStudio: React.FC<NotesStudioProps> = ({
       } else {
         const lines = pastedText.split('\n');
         if (lines.length > 1) {
-          const html = lines.map(line => line.trim() ? `<p>${line}</p>` : '<p><br></p>').join('');
+          const html = lines
+            .map(line => line.trim() ? `<p>${autoLinkifyText(line)}</p>` : '<p><br></p>')
+            .join('');
           document.execCommand('insertHTML', false, html);
         } else {
-          document.execCommand('insertText', false, pastedText);
+          const linkified = autoLinkifyText(pastedText);
+          if (linkified !== pastedText) {
+            document.execCommand('insertHTML', false, linkified);
+          } else {
+            document.execCommand('insertText', false, pastedText);
+          }
         }
       }
     }
