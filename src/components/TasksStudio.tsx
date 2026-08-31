@@ -359,8 +359,8 @@ export const TasksStudio: React.FC<TasksStudioProps> = ({
                 Tasks
               </h1>
 
-              {/* 3. Refined Tasks Count Badge (Soft Glass Blue Glow) */}
-              <div className="inline-flex items-center gap-1.5 mt-1.5 px-2.5 py-0.5 rounded-full bg-blue-50/80 dark:bg-blue-950/40 border border-blue-300/80 dark:border-blue-700/80 text-[11px] font-semibold text-blue-700 dark:text-blue-300 transition-colors shadow-3xs">
+              {/* 3. Refined Tasks Count Badge (Adapts to Active Accent Theme) */}
+              <div className="inline-flex items-center gap-1.5 mt-1.5 px-2.5 py-0.5 rounded-full bg-blue-50/80 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900/60 text-[11px] font-semibold text-blue-700 dark:text-blue-300 transition-colors shadow-3xs">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB] dark:bg-blue-400 shrink-0" />
                 <span>{activeCount} {activeCount === 1 ? 'Task' : 'Tasks'} pending</span>
               </div>

@@ -2144,7 +2144,7 @@ export const SearchView: React.FC<SearchViewProps> = ({
 
                           {/* Initial Empty Prompt Card */}
                           <div className="bg-white border border-slate-200/80 rounded-lg p-8 sm:p-10 text-center flex flex-col items-center justify-center gap-3 shadow-2xs">
-                            <div className="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/50 text-[#2563EB] dark:text-blue-400 border border-blue-300/80 dark:border-blue-700/80 flex items-center justify-center shadow-3xs">
+                            <div className="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/50 text-[#2563EB] dark:text-blue-400 border border-blue-200 dark:border-blue-900/60 flex items-center justify-center shadow-3xs">
                               <Search className="w-6 h-6 stroke-[2]" />
                             </div>
                             <h3 className="text-sm sm:text-base font-bold text-slate-800">Start typing to search</h3>
