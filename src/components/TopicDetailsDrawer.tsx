@@ -1864,14 +1864,25 @@ export const TopicDetailsDrawer: React.FC<TopicDetailsDrawerProps> = ({
   const handleSetCustomMinutes = (minutes: number, isDirectSet: boolean) => {
     if (!topic || !activeTask) return;
     const currentTotalSecs = activeTask.timeSpentSeconds ?? ((activeTask.timeSpentMinutes || 0) * 60);
-    const addedSecs = minutes * 60;
-    const newTotalSeconds = Math.max(0, isDirectSet ? addedSecs : currentTotalSecs + addedSecs);
-    const newMinutes = Math.floor(newTotalSeconds / 60);
+    const targetTotalSecs = Math.max(0, isDirectSet ? (minutes * 60) : (currentTotalSecs + minutes * 60));
+    const deltaSecs = targetTotalSecs - currentTotalSecs;
+    const newMinutes = Math.floor(targetTotalSecs / 60);
+
+    const existingSessions = Array.isArray(activeTask.studySessions) ? [...activeTask.studySessions] : [];
+    if (deltaSecs > 0) {
+      existingSessions.push({
+        id: `sess-manual-${Date.now()}`,
+        timestamp: Date.now(),
+        durationSeconds: deltaSecs,
+      });
+    }
 
     onUpdateTask?.(topic.id, {
       ...activeTask,
-      timeSpentSeconds: newTotalSeconds,
-      timeSpentMinutes: newMinutes
+      timeSpentSeconds: targetTotalSecs,
+      timeSpentMinutes: newMinutes,
+      studySessions: existingSessions,
+      lastStudyDate: new Date().toISOString(),
     });
     showToast?.(`Study time updated: ${formatDisplayTimeSpent(newMinutes)}`);
     setIsTimeMenuOpen(false);
