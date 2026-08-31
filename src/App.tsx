@@ -7845,7 +7845,7 @@ export function App() {
                     <Search className="w-3.5 h-3.5 text-slate-800 dark:text-slate-200 stroke-[2.2]" />
                   </button>
 
-                  {/* Bell Notification Button (Hidden on Mobile) */}
+                  {/* Bell Notification Button */}
                   <div className="relative notification-dropdown-container">
                     <button
                       type="button"
@@ -7855,7 +7855,7 @@ export function App() {
                         }
                         setIsNotificationPanelOpen(!isNotificationPanelOpen);
                       }}
-                      className="hidden sm:flex w-[34px] h-[34px] rounded-lg border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 items-center justify-center text-slate-800 dark:text-slate-200 hover:text-slate-950 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-pointer shadow-2xs relative group"
+                      className="flex w-[30px] h-[30px] sm:w-[34px] sm:h-[34px] rounded-lg border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 items-center justify-center text-slate-800 dark:text-slate-200 hover:text-slate-950 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-pointer shadow-2xs relative group active:scale-95"
                       title="Notifications"
                     >
                       <Bell className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-800 dark:text-slate-300 group-hover:text-slate-950 dark:group-hover:text-white stroke-[2.2]" />
