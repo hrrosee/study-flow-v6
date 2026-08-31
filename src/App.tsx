@@ -288,7 +288,7 @@ import { ChangePasswordModal } from './components/ChangePasswordModal';
 import { auth, onAuthStateChanged, getRedirectResult, logoutUser, sendPasswordReset, User as FirebaseUser } from './firebase';
 import { saveUserDataToCloud, fetchUserDataFromCloud, subscribeToCloudData } from './utils/firestoreSync';
 import { TopicCelebrationModal, CelebrationTopicData } from './components/TopicCelebrationModal';
-import { TodaysGoalPopover, WorkspaceGoalStat, formatGoalDuration, getMotivationalMessage } from './components/TodaysGoalPopover';
+import { TodaysGoalPopover, WorkspaceGoalStat, GoalTaskItem, formatGoalDuration, getMotivationalMessage } from './components/TodaysGoalPopover';
 import { GoalCelebrationModal } from './components/GoalCelebrationModal';
 import { StreakPopover } from './components/StreakPopover';
 import { FloatingStudyTimer, ActiveStudyTimerSession, formatTimerClock } from './components/FloatingStudyTimer';
@@ -3627,6 +3627,31 @@ export function App() {
       const completedTodayCount = allTasks.filter(isCompletedToday).length;
       const totalCount = allTasks.length;
       const timeMinutes = allTasks.reduce((acc, t) => acc + getTaskStudyMinutesToday(t), 0);
+
+      const todayTasks: GoalTaskItem[] = [];
+      wsTopics.forEach(t => {
+        const secName = t.section || 'General';
+        (t.tasks || []).forEach(tk => {
+          const timeMinsToday = getTaskStudyMinutesToday(tk);
+          const isDoneToday = isCompletedToday(tk);
+          if (isDoneToday || timeMinsToday > 0) {
+            todayTasks.push({
+              id: tk.id,
+              title: tk.title,
+              topicId: t.id,
+              topicTitle: t.title,
+              sectionId: t.section || 'default',
+              sectionName: secName,
+              workspaceId: w.id,
+              completed: tk.completed,
+              completedAt: tk.completedAt,
+              completedAtTime: tk.completedAtTime,
+              timeSpentMinutesToday: timeMinsToday,
+            });
+          }
+        });
+      });
+
       return {
         workspaceId: w.id,
         workspaceName: w.name,
@@ -3634,6 +3659,7 @@ export function App() {
         completedTasksCount: completedTodayCount,
         totalTasksCount: totalCount,
         timeSpentMinutes: timeMinutes,
+        todayTasks,
       };
     });
   }, [workspaces, topics]);
@@ -3655,6 +3681,18 @@ export function App() {
   const dailyGoalPercent = targetGoalValue > 0 ? Math.min(100, Math.round((currentGoalValue / targetGoalValue) * 100)) : 0;
 
   const isDailyGoalAchieved = targetGoalValue > 0 && currentGoalValue >= targetGoalValue;
+
+  // Navigate to specific task from Today's Goal Popover
+  const handleNavigateToGoalTask = (workspaceId: string, topicId: string, taskId: string) => {
+    setIsGoalPopoverOpen(false);
+    if (activeWorkspaceId !== workspaceId) {
+      setActiveWorkspaceId(workspaceId);
+      localStorage.setItem('study_flow_active_workspace', workspaceId);
+    }
+    setSelectedTopicId(topicId);
+    setIsDetailsDrawerOpen(true);
+    setRequestedFocusTaskId(taskId);
+  };
 
   // Track Daily Goal Achievement & trigger celebration modal + streak update (only once per day)
   useEffect(() => {
@@ -7877,6 +7915,7 @@ export function App() {
                         workspacesStats={workspacesStats}
                         activeWorkspaceId={activeWorkspaceId}
                         onSelectWorkspace={(wsId) => setActiveWorkspaceId(wsId)}
+                        onNavigateToTask={handleNavigateToGoalTask}
                         streakDays={streakData.currentStreak}
                       />
                     </div>

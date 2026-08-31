@@ -1,6 +1,20 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Target, Clock, ChevronRight, X } from 'lucide-react';
+import { Target, Clock, ChevronDown, CheckCircle2 } from 'lucide-react';
+
+export interface GoalTaskItem {
+  id: string;
+  title: string;
+  topicId: string;
+  topicTitle: string;
+  sectionId: string;
+  sectionName: string;
+  workspaceId: string;
+  completed: boolean;
+  completedAt?: string;
+  completedAtTime?: number;
+  timeSpentMinutesToday: number;
+}
 
 export interface WorkspaceGoalStat {
   workspaceId: string;
@@ -9,6 +23,7 @@ export interface WorkspaceGoalStat {
   completedTasksCount: number;
   totalTasksCount: number;
   timeSpentMinutes: number;
+  todayTasks?: GoalTaskItem[];
 }
 
 export interface TodaysGoalPopoverProps {
@@ -25,6 +40,7 @@ export interface TodaysGoalPopoverProps {
   workspacesStats: WorkspaceGoalStat[];
   activeWorkspaceId: string;
   onSelectWorkspace: (workspaceId: string) => void;
+  onNavigateToTask?: (workspaceId: string, topicId: string, taskId: string) => void;
   streakDays?: number;
 }
 
@@ -35,6 +51,17 @@ export function formatGoalDuration(minutes: number): string {
   if (h > 0 && m > 0) return `${h}h ${m}m`;
   if (h > 0) return `${h}h`;
   return `${m}m`;
+}
+
+export function formatTaskCompletionTime(timeInput?: number | string): string {
+  if (!timeInput) return 'Completed';
+  const d = new Date(timeInput);
+  if (isNaN(d.getTime())) return 'Completed';
+  return new Intl.DateTimeFormat('en-US', {
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true,
+  }).format(d);
 }
 
 export function getMotivationalMessage(percent: number, _isTimeMode?: boolean): { quote: string; emoji: string } {
@@ -68,8 +95,27 @@ export const TodaysGoalPopover: React.FC<TodaysGoalPopoverProps> = ({
   workspacesStats,
   activeWorkspaceId,
   onSelectWorkspace,
+  onNavigateToTask,
 }) => {
   const popoverRef = useRef<HTMLDivElement>(null);
+  const [expandedWorkspaces, setExpandedWorkspaces] = useState<Record<string, boolean>>({});
+
+  // Auto-expand active workspace by default when opened
+  useEffect(() => {
+    if (isOpen && activeWorkspaceId) {
+      setExpandedWorkspaces(prev => ({
+        ...prev,
+        [activeWorkspaceId]: true
+      }));
+    }
+  }, [isOpen, activeWorkspaceId]);
+
+  const toggleWorkspaceExpand = (wsId: string) => {
+    setExpandedWorkspaces(prev => ({
+      ...prev,
+      [wsId]: !prev[wsId]
+    }));
+  };
 
   // Close on outside click
   useEffect(() => {
@@ -120,7 +166,7 @@ export const TodaysGoalPopover: React.FC<TodaysGoalPopoverProps> = ({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: -8 }}
             transition={{ duration: 0.16, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 sm:absolute sm:top-full sm:left-0 sm:right-auto sm:mt-2 sm:translate-x-0 sm:translate-y-0 w-[92vw] sm:w-[400px] max-h-[85vh] sm:max-h-[580px] overflow-y-auto bg-white/98 dark:bg-slate-900/98 backdrop-blur-xl border border-slate-200/90 dark:border-slate-800 rounded-2xl shadow-[0_25px_60px_-15px_rgba(15,23,42,0.25)] z-[999999] p-4 space-y-3.5 select-none text-slate-800 dark:text-slate-100 custom-scrollbar"
+            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 sm:absolute sm:top-full sm:left-0 sm:right-auto sm:mt-2 sm:translate-x-0 sm:translate-y-0 w-[92vw] sm:w-[420px] max-h-[85vh] sm:max-h-[590px] overflow-y-auto bg-white/98 dark:bg-slate-900/98 backdrop-blur-xl border border-slate-200/90 dark:border-slate-800 rounded-2xl shadow-[0_25px_60px_-15px_rgba(15,23,42,0.25)] z-[999999] p-4 space-y-3.5 select-none text-slate-800 dark:text-slate-100 custom-scrollbar"
             onClick={(e) => e.stopPropagation()}
           >
             {/* 1. Header (Matching StreakPopover Header with status badge) */}
@@ -231,9 +277,9 @@ export const TodaysGoalPopover: React.FC<TodaysGoalPopoverProps> = ({
               </p>
             </div>
 
-            {/* 5. Breakdown By Workspace (Only Workspaces with Covered Tasks / Time) */}
+            {/* 5. Breakdown By Workspace Accordion */}
             <div className="space-y-1.5 pt-1 border-t border-slate-100 dark:border-slate-800 w-full box-border">
-              <div className="flex items-center justify-between px-0.5">
+              <div className="flex items-center justify-between px-0.5 mb-1">
                 <span className="text-[10.5px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
                   Breakdown By Workspace
                 </span>
@@ -242,7 +288,7 @@ export const TodaysGoalPopover: React.FC<TodaysGoalPopoverProps> = ({
                 </span>
               </div>
 
-              <div className="max-h-[220px] overflow-y-auto space-y-1.5 w-full box-border custom-scrollbar">
+              <div className="max-h-[250px] overflow-y-auto space-y-2 w-full box-border custom-scrollbar pr-0.5">
                 {activeWorkspacesWithProgress.length === 0 ? (
                   <div className="py-6 px-4 text-center rounded-xl bg-slate-50/70 dark:bg-slate-950/50 border border-dashed border-slate-200 dark:border-slate-800">
                     <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">
@@ -255,47 +301,109 @@ export const TodaysGoalPopover: React.FC<TodaysGoalPopoverProps> = ({
                 ) : (
                   activeWorkspacesWithProgress.map((ws) => {
                     const isActive = ws.workspaceId === activeWorkspaceId;
+                    const isExpanded = !!expandedWorkspaces[ws.workspaceId];
+                    
+                    // Filter workspace tasks based on active mode
+                    const modeTasks = (ws.todayTasks || []).filter((task) =>
+                      isTimeMode ? task.timeSpentMinutesToday > 0 : task.completed
+                    );
+
                     return (
                       <div
                         key={ws.workspaceId}
-                        onClick={() => {
-                          onSelectWorkspace(ws.workspaceId);
-                          onClose();
-                        }}
-                        className={`p-2.5 rounded-xl border transition-all cursor-pointer flex items-center justify-between gap-2.5 w-full box-border ${
-                          isActive
-                            ? 'bg-blue-50/80 border-blue-200/90 shadow-2xs'
-                            : 'bg-white hover:bg-slate-50/80 border-slate-200/70'
-                        }`}
+                        className="rounded-xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900/90 overflow-hidden shadow-2xs transition-all"
                       >
-                        <div className="min-w-0 flex-1">
-                          <div className="flex items-center gap-1.5">
-                            <div className={`w-2 h-2 rounded-full shrink-0 ${isActive ? 'bg-[#176BFF]' : 'bg-slate-400'}`} />
-                            <span className={`text-xs font-bold truncate ${isActive ? 'text-[#176BFF]' : 'text-slate-800'}`}>
+                        {/* Workspace Accordion Header */}
+                        <div
+                          onClick={() => toggleWorkspaceExpand(ws.workspaceId)}
+                          className={`p-2.5 transition-all cursor-pointer flex items-center justify-between gap-2.5 w-full select-none ${
+                            isExpanded
+                              ? 'bg-slate-50/90 dark:bg-slate-800/80 border-b border-slate-100 dark:border-slate-800'
+                              : 'bg-white dark:bg-slate-900 hover:bg-slate-50/70 dark:hover:bg-slate-800/50'
+                          }`}
+                        >
+                          <div className="flex items-center gap-2 min-w-0 flex-1">
+                            <div className={`w-2 h-2 rounded-full shrink-0 ${isActive ? 'bg-[#176BFF]' : 'bg-slate-400 dark:bg-slate-600'}`} />
+                            <span className={`text-xs font-bold truncate ${isActive ? 'text-[#176BFF] dark:text-blue-400' : 'text-slate-800 dark:text-slate-200'}`}>
                               {ws.workspaceName}
                             </span>
                             {isActive && (
-                              <span className="text-[8.5px] font-extrabold px-1.5 py-0.2 rounded-full bg-blue-100 text-blue-700 shrink-0">
+                              <span className="text-[8.5px] font-extrabold px-1.5 py-0.2 rounded-full bg-blue-100 dark:bg-blue-950/70 text-blue-700 dark:text-blue-300 shrink-0">
                                 Active
                               </span>
                             )}
                           </div>
-                          <div className="flex items-center gap-1.5 mt-0.5 text-[10.5px] font-medium">
-                            {isTimeMode ? (
-                              <span className="text-emerald-700 font-semibold">
-                                {formatGoalDuration(ws.timeSpentMinutes)} covered
-                              </span>
-                            ) : (
-                              <span className="text-slate-500">
-                                <span className="font-bold text-slate-700">{ws.completedTasksCount}</span> {ws.completedTasksCount === 1 ? 'task' : 'tasks'} completed
-                              </span>
-                            )}
+
+                          <div className="flex items-center gap-2 shrink-0">
+                            <span className="text-[11px] font-bold text-slate-600 dark:text-slate-400 font-mono">
+                              {isTimeMode
+                                ? formatGoalDuration(ws.timeSpentMinutes)
+                                : `${ws.completedTasksCount} ${ws.completedTasksCount === 1 ? 'task' : 'tasks'}`}
+                            </span>
+                            <motion.div
+                              animate={{ rotate: isExpanded ? 180 : 0 }}
+                              transition={{ duration: 0.2 }}
+                              className="text-slate-400 dark:text-slate-500"
+                            >
+                              <ChevronDown className="w-3.5 h-3.5" />
+                            </motion.div>
                           </div>
                         </div>
 
-                        <div className="shrink-0 flex items-center text-slate-400 hover:text-slate-700">
-                          <ChevronRight className="w-3.5 h-3.5" />
-                        </div>
+                        {/* Expanded Tasks List (Strict 2-Line Task Cards) */}
+                        <AnimatePresence initial={false}>
+                          {isExpanded && (
+                            <motion.div
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: 'auto', opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.2, ease: 'easeInOut' }}
+                              className="overflow-hidden bg-slate-50/40 dark:bg-slate-950/30"
+                            >
+                              <div className="p-2 space-y-1.5">
+                                {modeTasks.length === 0 ? (
+                                  <div className="py-2.5 text-center text-[11px] text-slate-400 dark:text-slate-500">
+                                    {isTimeMode ? 'No study time logged in this workspace today' : 'No tasks completed in this workspace today'}
+                                  </div>
+                                ) : (
+                                  modeTasks.map((task) => (
+                                    <div
+                                      key={task.id}
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        onNavigateToTask?.(task.workspaceId, task.topicId, task.id);
+                                      }}
+                                      className="px-2.5 py-1.5 rounded-lg bg-white dark:bg-slate-800/90 hover:bg-blue-50/70 dark:hover:bg-blue-950/50 border border-slate-200/70 dark:border-slate-700/60 hover:border-blue-300 dark:hover:border-blue-700/80 transition-all cursor-pointer flex flex-col gap-0.5 group shadow-3xs"
+                                      title="Click to open topic and view task"
+                                    >
+                                      {/* Line 1: [Icon] [Title] (left) | [Nm / Nh Mm or 11:30 AM] (right) */}
+                                      <div className="flex items-center justify-between gap-2 min-w-0">
+                                        <div className="flex items-center gap-1.5 min-w-0">
+                                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400 shrink-0 stroke-[2.2]" />
+                                          <span className="text-xs font-bold text-slate-800 dark:text-slate-200 truncate group-hover:text-[#2563EB] dark:group-hover:text-blue-400 transition-colors">
+                                            {task.title}
+                                          </span>
+                                        </div>
+                                        <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 shrink-0 font-mono tracking-tight">
+                                          {isTimeMode
+                                            ? formatGoalDuration(task.timeSpentMinutesToday)
+                                            : formatTaskCompletionTime(task.completedAtTime || task.completedAt)}
+                                        </span>
+                                      </div>
+
+                                      {/* Line 2: Origin Breadcrumb (Section > Topic) */}
+                                      <div className="flex items-center gap-1 pl-5 text-[10px] font-medium text-slate-400 dark:text-slate-500 truncate">
+                                        <span className="truncate">{task.sectionName}</span>
+                                        <span className="text-slate-300 dark:text-slate-600 shrink-0">&gt;</span>
+                                        <span className="truncate text-slate-500 dark:text-slate-400 font-semibold">{task.topicTitle}</span>
+                                      </div>
+                                    </div>
+                                  ))
+                                )}
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
                       </div>
                     );
                   })

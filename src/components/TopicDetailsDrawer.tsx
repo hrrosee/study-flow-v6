@@ -1596,13 +1596,20 @@ export const TopicDetailsDrawer: React.FC<TopicDetailsDrawerProps> = ({
     }
   }, [isOpen, activeStudyTimerSession?.taskId, activeStudyTimerSession?.topicId, topic?.id]);
 
-  // Handle explicit focus request (e.g. clicking floating timer)
+  const [highlightPulseTaskId, setHighlightPulseTaskId] = useState<string | null>(null);
+
+  // Handle explicit focus request (e.g. clicking task in Today's Goal Popover or floating timer)
   useEffect(() => {
     if (requestedFocusTaskId) {
       setSelectedTaskId(requestedFocusTaskId);
       setActiveHeaderTab('tasks');
       setMobileActiveView('details');
+      setHighlightPulseTaskId(requestedFocusTaskId);
+      const timer = setTimeout(() => {
+        setHighlightPulseTaskId(null);
+      }, 2500);
       onResetRequestedFocusTaskId?.();
+      return () => clearTimeout(timer);
     }
   }, [requestedFocusTaskId, onResetRequestedFocusTaskId]);
 
@@ -2956,7 +2963,9 @@ export const TopicDetailsDrawer: React.FC<TopicDetailsDrawerProps> = ({
                                 }
                               }}
                               className={`group relative transition-colors duration-150 cursor-pointer flex items-center justify-between gap-3 text-xs min-h-[48px] py-1.5 pl-3.5 pr-3 ${!isLast ? 'border-b border-slate-100' : ''
-                                } ${isMenuOpenThisTask
+                                } ${highlightPulseTaskId === t.id
+                                  ? 'ring-2 ring-[#2563EB] bg-blue-50/90 dark:bg-blue-950/70 shadow-md shadow-blue-500/25 animate-pulse rounded-[5px] z-20'
+                                  : isMenuOpenThisTask
                                   ? 'z-[9999] relative bg-white'
                                   : isSelected
                                     ? 'bg-[#EFF6FF] text-[#0F172A] font-bold rounded-[5px] z-10'
