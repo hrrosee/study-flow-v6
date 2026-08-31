@@ -965,10 +965,14 @@ export function App() {
 
   const handleSelectAccentColor = (accent: PrimaryAccentColor) => {
     // 1. Instantly set attribute on HTML document for zero-latency UI update
-    if (typeof document !== 'undefined') {
-      document.documentElement.setAttribute('data-accent', accent);
+    try {
+      if (typeof document !== 'undefined') {
+        document.documentElement.setAttribute('data-accent', accent);
+      }
+      applyAccentColor(accent);
+    } catch (e) {
+      console.error('Error applying accent color to DOM:', e);
     }
-    applyAccentColor(accent);
 
     // 2. Persist to localStorage immediately
     try {
@@ -984,14 +988,16 @@ export function App() {
       primaryColor: accent,
     }));
 
-    // 4. Feedback sound & toast
-    try {
-      soundManager.playClick();
-    } catch (_) {}
-    showToast(`Accent theme set to ${accent.charAt(0).toUpperCase() + accent.slice(1)}! 🎨`);
-
-    // 5. Close popover
+    // 4. Close popover immediately
     setIsAccentQuickPickerOpen(false);
+
+    // 5. Safe non-blocking feedback sound & toast
+    try {
+      soundManager?.playClick?.();
+    } catch (_) {}
+    try {
+      showToast(`Accent theme set to ${accent.charAt(0).toUpperCase() + accent.slice(1)}! 🎨`);
+    } catch (_) {}
   };
 
   // Close quick accent picker on click outside
@@ -5765,6 +5771,9 @@ export function App() {
                                 <button
                                   key={opt.id}
                                   type="button"
+                                  onPointerDown={(e) => {
+                                    e.stopPropagation();
+                                  }}
                                   onClick={(e) => {
                                     e.stopPropagation();
                                     handleSelectAccentColor(opt.id);
@@ -6448,6 +6457,9 @@ export function App() {
                             <button
                               key={opt.id}
                               type="button"
+                              onPointerDown={(e) => {
+                                e.stopPropagation();
+                              }}
                               onClick={(e) => {
                                 e.stopPropagation();
                                 handleSelectAccentColor(opt.id);
@@ -11775,6 +11787,7 @@ export function App() {
       <AnimatePresence>
         {isSettingsOpen && (
           <SettingsModal
+            key={`settings-modal-${userSettings.primaryColor || 'blue'}-${userSettings.theme || 'light'}`}
             settings={userSettings}
             onSaveSettings={handleSaveSettings}
             onClose={() => setIsSettingsOpen(false)}
