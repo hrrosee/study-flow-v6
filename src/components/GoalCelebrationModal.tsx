@@ -66,8 +66,14 @@ export const GoalCelebrationModal: React.FC<GoalCelebrationModalProps> = ({
 
   const isTime = mode === 'time';
   const displayScore = isTime
-    ? `${Math.floor(completedAmount / 60)}h ${completedAmount % 60}m`
-    : completedAmount;
+    ? (() => {
+        const hours = Math.floor(completedAmount / 60);
+        const mins = completedAmount % 60;
+        if (hours > 0 && mins > 0) return `${hours}h ${mins}m`;
+        if (hours > 0) return `${hours}h`;
+        return `${mins}m`;
+      })()
+    : `${completedAmount} ${completedAmount === 1 ? 'Task' : 'Tasks'}`;
 
   return (
     <AnimatePresence>

@@ -585,6 +585,8 @@ export interface TaskItem {
   dueDate?: string;
   timeSpentMinutes?: number;
   timeSpentSeconds?: number;
+  studySessions?: Array<{ id: string; timestamp: number; durationSeconds: number }>;
+  lastStudyDate?: string;
   confidence?: 'mastered' | 'high' | 'medium' | 'low' | 'none';
   notes?: NoteItem[];
   links?: ResourceLink[];
@@ -1194,10 +1196,18 @@ export function App() {
         const newTotalSeconds = previousTotalSeconds + sessionSeconds;
         const newMinutes = Math.floor(newTotalSeconds / 60);
 
+        const newSession = {
+          id: `sess-${Date.now()}`,
+          timestamp: Date.now(),
+          durationSeconds: sessionSeconds,
+        };
+
         handleUpdateTask(topicId, {
           ...targetTask,
           timeSpentSeconds: newTotalSeconds,
           timeSpentMinutes: newMinutes,
+          studySessions: [...(targetTask.studySessions || []), newSession],
+          lastStudyDate: new Date().toISOString(),
         });
 
         const sessionMins = Math.floor(sessionSeconds / 60);
@@ -3571,28 +3581,44 @@ export function App() {
 
   // --- Cross-Workspace Breakdown & Today's Goal Engine ---
   const workspacesStats: WorkspaceGoalStat[] = useMemo(() => {
+    const isSameDay = (timestampOrDate: number | string | Date) => {
+      const d = new Date(timestampOrDate);
+      if (isNaN(d.getTime())) return false;
+      const now = new Date();
+      return (
+        d.getFullYear() === now.getFullYear() &&
+        d.getMonth() === now.getMonth() &&
+        d.getDate() === now.getDate()
+      );
+    };
+
     const isCompletedToday = (tk: any) => {
       if (!tk.completed) return false;
-      const now = new Date();
-      if (tk.completedAtTime) {
-        const d = new Date(tk.completedAtTime);
-        return (
-          d.getFullYear() === now.getFullYear() &&
-          d.getMonth() === now.getMonth() &&
-          d.getDate() === now.getDate()
-        );
-      }
-      if (tk.completedAt) {
-        const d = new Date(tk.completedAt);
-        if (!isNaN(d.getTime())) {
-          return (
-            d.getFullYear() === now.getFullYear() &&
-            d.getMonth() === now.getMonth() &&
-            d.getDate() === now.getDate()
-          );
-        }
-      }
+      if (tk.completedAtTime) return isSameDay(tk.completedAtTime);
+      if (tk.completedAt) return isSameDay(tk.completedAt);
       return false;
+    };
+
+    const getTaskStudyMinutesToday = (tk: any): number => {
+      // 1. If task has recorded study sessions with timestamps, sum only today's sessions
+      if (tk.studySessions && Array.isArray(tk.studySessions) && tk.studySessions.length > 0) {
+        const todaySecs = tk.studySessions
+          .filter((s: any) => s && s.timestamp && isSameDay(s.timestamp))
+          .reduce((sum: number, s: any) => sum + (s.durationSeconds || 0), 0);
+        return Math.floor(todaySecs / 60);
+      }
+
+      // 2. If task has lastStudyDate from today, use accumulated time
+      if (tk.lastStudyDate && isSameDay(tk.lastStudyDate)) {
+        return Math.floor((tk.timeSpentSeconds ?? ((tk.timeSpentMinutes || 0) * 60)) / 60);
+      }
+
+      // 3. If task was completed today and has time spent, count it
+      if (tk.completed && ((tk.completedAtTime && isSameDay(tk.completedAtTime)) || (tk.completedAt && isSameDay(tk.completedAt)))) {
+        return Math.floor((tk.timeSpentSeconds ?? ((tk.timeSpentMinutes || 0) * 60)) / 60);
+      }
+
+      return 0;
     };
 
     return workspaces.map(w => {
@@ -3600,7 +3626,7 @@ export function App() {
       const allTasks = wsTopics.flatMap(t => t.tasks);
       const completedTodayCount = allTasks.filter(isCompletedToday).length;
       const totalCount = allTasks.length;
-      const timeMinutes = allTasks.reduce((acc, t) => acc + (t.timeSpentMinutes || 0), 0);
+      const timeMinutes = allTasks.reduce((acc, t) => acc + getTaskStudyMinutesToday(t), 0);
       return {
         workspaceId: w.id,
         workspaceName: w.name,

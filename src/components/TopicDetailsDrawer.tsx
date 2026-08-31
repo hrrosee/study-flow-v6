@@ -1725,12 +1725,18 @@ export const TopicDetailsDrawer: React.FC<TopicDetailsDrawerProps> = ({
     if (topic && targetTask) {
       const previousTotalSeconds = targetTask.timeSpentSeconds ?? ((targetTask.timeSpentMinutes || 0) * 60);
       const newTotalSeconds = previousTotalSeconds + sessionSeconds;
-      const newMinutes = Math.floor(newTotalSeconds / 60);
+      const newSession = {
+        id: `sess-${Date.now()}`,
+        timestamp: Date.now(),
+        durationSeconds: sessionSeconds,
+      };
 
       onUpdateTask?.(topic.id, {
         ...targetTask,
         timeSpentSeconds: newTotalSeconds,
-        timeSpentMinutes: newMinutes
+        timeSpentMinutes: newMinutes,
+        studySessions: [...((targetTask as any).studySessions || []), newSession],
+        lastStudyDate: new Date().toISOString(),
       });
 
       const sessionMins = Math.floor(sessionSeconds / 60);
@@ -1785,10 +1791,18 @@ export const TopicDetailsDrawer: React.FC<TopicDetailsDrawerProps> = ({
         const newTotalSeconds = previousTotalSeconds + sessionSeconds;
         const newMinutes = Math.floor(newTotalSeconds / 60);
 
+        const newSession = {
+          id: `sess-${Date.now()}`,
+          timestamp: Date.now(),
+          durationSeconds: sessionSeconds,
+        };
+
         onUpdateTask?.(topic.id, {
           ...activeTask,
           timeSpentSeconds: newTotalSeconds,
-          timeSpentMinutes: newMinutes
+          timeSpentMinutes: newMinutes,
+          studySessions: [...((activeTask as any).studySessions || []), newSession],
+          lastStudyDate: new Date().toISOString(),
         });
 
         const sessionMins = Math.floor(sessionSeconds / 60);
