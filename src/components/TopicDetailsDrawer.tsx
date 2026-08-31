@@ -1604,27 +1604,34 @@ export const TopicDetailsDrawer: React.FC<TopicDetailsDrawerProps> = ({
       const targetId = requestedFocusTaskId;
       setSelectedTaskId(targetId);
       setActiveHeaderTab('tasks');
+      setFilterMode('all');
+      setSearchQuery('');
       // In mobile, stay on 'list' view so the user sees the task in list context without opening depth section
       setMobileActiveView('list');
       onResetRequestedFocusTaskId?.();
 
-      // Step 1: Smoothly scroll to the target task first
-      const scrollTimer = setTimeout(() => {
+      // Reliable multi-frame scroll helper that centers the task smoothly
+      const performScroll = () => {
         const el = document.querySelector(`[data-drawer-task-id="${targetId}"]`);
         if (el) {
-          el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          return true;
         }
-      }, 80);
-
-      // Step 2: After scrolling arrives, trigger the 1.5s highlight pulse
-      const highlightTimer = setTimeout(() => {
-        setHighlightPulseTaskId(targetId);
-      }, 300);
-
-      return () => {
-        clearTimeout(scrollTimer);
-        clearTimeout(highlightTimer);
+        return false;
       };
+
+      // Attempt immediately and across mounting lifecycle frames
+      if (!performScroll()) {
+        setTimeout(performScroll, 80);
+        setTimeout(performScroll, 200);
+        setTimeout(performScroll, 350);
+        setTimeout(performScroll, 500);
+      }
+
+      // Trigger the 1.5s highlight pulse once the view has scrolled
+      setTimeout(() => {
+        setHighlightPulseTaskId(targetId);
+      }, 350);
     }
   }, [requestedFocusTaskId, onResetRequestedFocusTaskId]);
 
