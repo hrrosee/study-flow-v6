@@ -298,7 +298,7 @@ import { UserSettings, StandaloneTask } from './types';
 import { useLongPress } from './hooks/useLongPress';
 import { soundManager } from './utils/audio';
 import { triggerMiniTaskConfetti, triggerTopicCompleteCelebration } from './utils/confetti';
-import { applyTheme, getInitialTheme, getInitialAccentColor } from './utils/themeManager';
+import { applyTheme, getInitialTheme, getInitialAccentColor, ThemeMode, resolveEffectiveTheme } from './utils/themeManager';
 import { SmartTopicStudioModal } from './components/SmartTopicStudioModal';
 import { detectLinkType } from './utils/studioMarkdownParser';
 import { NotesStudio } from './components/NotesStudio';
@@ -997,6 +997,38 @@ export function App() {
     } catch (_) {}
     try {
       showToast(`Accent theme set to ${accent.charAt(0).toUpperCase() + accent.slice(1)}! 🎨`);
+    } catch (_) {}
+  };
+
+  const handleToggleThemeMode = () => {
+    const currentMode = userSettings.theme || (userSettings.darkMode ? 'dark' : 'light');
+    const effectiveCurrent = resolveEffectiveTheme(currentMode);
+    const newTheme: ThemeMode = effectiveCurrent === 'dark' ? 'light' : 'dark';
+
+    // 1. Immediately apply to DOM
+    try {
+      applyTheme(newTheme, userSettings.primaryColor || 'blue');
+    } catch (_) {}
+
+    // 2. Persist & update React state
+    const updatedSettings: UserSettings = {
+      ...userSettings,
+      theme: newTheme,
+      darkMode: newTheme === 'dark',
+    };
+
+    try {
+      localStorage.setItem('studyflow_user_settings', JSON.stringify(updatedSettings));
+    } catch (_) {}
+
+    setUserSettings(updatedSettings);
+
+    try {
+      soundManager?.playClick?.();
+    } catch (_) {}
+
+    try {
+      showToast(`Switched to ${newTheme === 'dark' ? 'Dark' : 'Light'} Mode 🌓`);
     } catch (_) {}
   };
 
@@ -5795,14 +5827,32 @@ export function App() {
                   </div>
                 </div>
 
-                <button
-                  type="button"
-                  onClick={() => setSidebarCollapsed(true)}
-                  className="w-7 h-7 flex items-center justify-center border border-[#E5EAF2] dark:border-slate-800 rounded-[8px] text-[#667085] dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-150 shrink-0 cursor-pointer active:scale-95"
-                  title="Collapse sidebar"
-                >
-                  <ChevronLeft className="w-4 h-4" strokeWidth={1.75} />
-                </button>
+                <div className="flex items-center gap-1.5 shrink-0">
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleToggleThemeMode();
+                    }}
+                    className="w-7 h-7 flex items-center justify-center border border-[#E5EAF2] dark:border-slate-800 rounded-[8px] text-[#667085] dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-slate-100 transition-all duration-150 shrink-0 cursor-pointer active:scale-95"
+                    title={resolveEffectiveTheme(userSettings.theme || (userSettings.darkMode ? 'dark' : 'light')) === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+                  >
+                    {resolveEffectiveTheme(userSettings.theme || (userSettings.darkMode ? 'dark' : 'light')) === 'dark' ? (
+                      <Sun className="w-3.5 h-3.5 text-amber-400 stroke-[2.2]" />
+                    ) : (
+                      <Moon className="w-3.5 h-3.5 text-slate-600 dark:text-slate-300 stroke-[2.2]" />
+                    )}
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setSidebarCollapsed(true)}
+                    className="w-7 h-7 flex items-center justify-center border border-[#E5EAF2] dark:border-slate-800 rounded-[8px] text-[#667085] dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-150 shrink-0 cursor-pointer active:scale-95"
+                    title="Collapse sidebar"
+                  >
+                    <ChevronLeft className="w-4 h-4" strokeWidth={1.75} />
+                  </button>
+                </div>
               </div>
 
               {/* Mobile Drawer Main Content Container (No whole-sidebar scroll) */}
@@ -6400,7 +6450,7 @@ export function App() {
             data-tooltip={sidebarCollapsed && !suppressSidebarTooltip ? "Expand sidebar" : undefined}
             data-tooltip-side="right"
           >
-            <div className={`flex items-center ${sidebarCollapsed ? 'justify-center' : 'gap-2.5 min-w-0 flex-1 pr-8'}`}>
+            <div className={`flex items-center ${sidebarCollapsed ? 'justify-center' : 'gap-2.5 min-w-0 flex-1 pr-16'}`}>
               {/* Brand logo icon: 100% stationary anchor */}
               <div className="w-7 h-7 flex items-center justify-center shrink-0">
                 <div className="preserve-color relative w-[23px] h-[23px] flex items-center justify-center shrink-0">
@@ -6480,6 +6530,26 @@ export function App() {
                 </AnimatePresence>
               </div>
             </div>
+
+            {/* Dark / Light Mode Switch button */}
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleToggleThemeMode();
+              }}
+              data-tooltip={resolveEffectiveTheme(userSettings.theme || (userSettings.darkMode ? 'dark' : 'light')) === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+              data-tooltip-side="bottom"
+              className={`absolute right-9.5 top-1/2 -translate-y-1/2 w-7 h-7 flex items-center justify-center border border-[#E5EAF2] dark:border-slate-800 rounded-[8px] text-[#667085] dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-slate-100 transition-all duration-150 shrink-0 cursor-pointer ${
+                sidebarCollapsed ? 'opacity-0 pointer-events-none' : 'opacity-100'
+              }`}
+            >
+              {resolveEffectiveTheme(userSettings.theme || (userSettings.darkMode ? 'dark' : 'light')) === 'dark' ? (
+                <Sun className="w-3.5 h-3.5 text-amber-400 stroke-[2.2]" />
+              ) : (
+                <Moon className="w-3.5 h-3.5 text-slate-600 dark:text-slate-300 stroke-[2.2]" />
+              )}
+            </button>
 
             {/* Collapse button positioned absolutely to preserve 0-shift on the logo */}
             <button 
