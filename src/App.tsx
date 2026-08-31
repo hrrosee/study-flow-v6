@@ -5695,7 +5695,16 @@ export function App() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 16, scale: 0.95 }}
               transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
-              className="fixed bottom-6 right-4 sm:right-6 z-[999999999] pointer-events-auto select-none max-w-[calc(100vw-2rem)] sm:max-w-[420px] transition-all duration-200"
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.7}
+              onDragEnd={(_, info) => {
+                if (Math.abs(info.offset.x) > 50 || Math.abs(info.velocity.x) > 200) {
+                  setToastData(null);
+                }
+              }}
+              whileDrag={{ scale: 0.98, opacity: 0.8, cursor: 'grabbing' }}
+              className="fixed bottom-6 right-4 sm:right-6 z-[999999999] pointer-events-auto select-none max-w-[calc(100vw-2rem)] sm:max-w-[420px] transition-all duration-200 cursor-grab active:cursor-grabbing touch-pan-y"
             >
               <div className="flex items-center gap-3 px-4 py-3 bg-[#0F172A]/95 backdrop-blur-md text-white rounded-2xl shadow-2xl border border-slate-700/70 text-xs font-semibold tracking-tight min-w-[280px]">
                 <div className="w-6 h-6 rounded-full bg-[#2563EB] flex items-center justify-center shrink-0 text-white shadow-xs">
@@ -11899,7 +11908,7 @@ export function App() {
         }}
       />
 
-      {/* Professional Bottom Right Screen Toast Notification (Highest z-index, always front) */}
+      {/* Professional Bottom Right Screen Toast Notification (Highest z-index, always front, swipe to dismiss) */}
       <AnimatePresence>
         {toastData && (
           <motion.div
@@ -11907,7 +11916,16 @@ export function App() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 16, scale: 0.95 }}
             transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
-            className={`fixed ${isFloatingTimerVisible ? 'bottom-20 sm:bottom-22' : 'bottom-6'} right-4 sm:right-6 z-[999999999] pointer-events-auto select-none max-w-[calc(100vw-2rem)] sm:max-w-[420px] transition-all duration-200`}
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.7}
+            onDragEnd={(_, info) => {
+              if (Math.abs(info.offset.x) > 50 || Math.abs(info.velocity.x) > 200) {
+                setToastData(null);
+              }
+            }}
+            whileDrag={{ scale: 0.98, opacity: 0.8, cursor: 'grabbing' }}
+            className={`fixed ${isFloatingTimerVisible ? 'bottom-20 sm:bottom-22' : 'bottom-6'} right-4 sm:right-6 z-[999999999] pointer-events-auto select-none max-w-[calc(100vw-2rem)] sm:max-w-[420px] transition-all duration-200 cursor-grab active:cursor-grabbing touch-pan-y`}
           >
             <div className="flex items-center gap-3 px-4 py-3 bg-[#0F172A]/95 backdrop-blur-md text-white rounded-2xl shadow-2xl border border-slate-700/70 text-xs font-semibold tracking-tight min-w-[280px]">
               <div className="w-6 h-6 rounded-full bg-[#2563EB] flex items-center justify-center shrink-0 text-white shadow-xs">
