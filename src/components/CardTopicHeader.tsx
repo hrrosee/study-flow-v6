@@ -73,11 +73,11 @@ export const CardTopicHeader: React.FC<CardTopicHeaderProps> = ({
       <div className="flex items-start gap-2.5 min-w-0 flex-1">
         {/* Subject Icon Box */}
         <div className="relative shrink-0 mt-0.5">
-          <div className={`w-8.5 h-8.5 rounded-xl ${theme.cardIconBg} flex items-center justify-center shrink-0 shadow-2xs`}>
+          <div className={`w-8.5 h-8.5 rounded-xl ${theme.cardIconBg} preserve-color flex items-center justify-center shrink-0 shadow-2xs`}>
             {iconText ? (
-              <span className="text-white text-base font-black font-serif leading-none">{iconText}</span>
+              <span className="text-white text-base font-black font-serif leading-none preserve-color">{iconText}</span>
             ) : (
-              <IconComp className={`w-4 h-4 ${theme.cardIconColor} stroke-[2.2]`} />
+              <IconComp className={`w-4 h-4 ${theme.cardIconColor} preserve-color stroke-[2.2]`} />
             )}
           </div>
         </div>

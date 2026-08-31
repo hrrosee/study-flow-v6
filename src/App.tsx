@@ -5171,6 +5171,7 @@ export function App() {
     const targetSection = activeSection || currentWorkspaceSections[0]?.name || '';
 
     const newTopicId = `topic-${Date.now()}`;
+    const defaultTheme = getTopicTheme(normalizedTitle);
     const newTopic: Topic = {
       id: newTopicId,
       title: normalizedTitle,
@@ -5178,6 +5179,8 @@ export function App() {
       expanded: true,
       isPinned: false,
       workspaceId: activeWorkspaceId,
+      customColor: defaultTheme.id,
+      customIcon: (defaultTheme as any).iconName || undefined,
       tasks: []
     };
 
@@ -5199,15 +5202,17 @@ export function App() {
       hour12: true
     });
     
-    const newTopics: Topic[] = studioTopics.map((st, idx) => ({
-      id: `topic-${Date.now()}-${idx}-${Math.random().toString(36).substring(2, 7)}`,
-      title: st.title?.trim() || 'Untitled Topic',
-      section: st.section || targetSection,
-      expanded: true,
-      isPinned: false,
-      workspaceId: targetWsId,
-      customColor: st.color,
-      customIcon: st.icon,
+    const newTopics: Topic[] = studioTopics.map((st, idx) => {
+      const defaultTheme = getTopicTheme(st.title?.trim() || 'Untitled Topic');
+      return {
+        id: `topic-${Date.now()}-${idx}-${Math.random().toString(36).substring(2, 7)}`,
+        title: st.title?.trim() || 'Untitled Topic',
+        section: st.section || targetSection,
+        expanded: true,
+        isPinned: false,
+        workspaceId: targetWsId,
+        customColor: st.color || defaultTheme.id,
+        customIcon: st.icon || (defaultTheme as any).iconName || undefined,
       links: (st.links || []).filter((l: any) => l.url && l.url.trim()).map((l: any) => ({
         id: `link-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
         title: l.title?.trim() || 'Resource Link',
@@ -5265,7 +5270,8 @@ export function App() {
           subtasks: []
         };
       })
-    }));
+    };
+  });
 
     if (newTopics.length === 0) return;
 
@@ -9084,7 +9090,7 @@ export function App() {
                               {/* Left Edge Vertical Inline Accent Indicator Bar (Clips flush to card inner boundary, matches topic Icon Color) */}
                               <div className="absolute inset-0 rounded-[11px] overflow-hidden pointer-events-none z-0">
                                 <div
-                                  className={`absolute left-0 top-0 bottom-0 w-[3.5px] ${theme.bg || theme.cardIconBg || 'bg-[#2563EB]'}`}
+                                  className={`absolute left-0 top-0 bottom-0 w-[3.5px] ${theme.bg || theme.cardIconBg || 'bg-[#2563EB]'} preserve-color`}
                                 />
                               </div>
 
@@ -9134,7 +9140,7 @@ export function App() {
                                             }}
                                             className="w-full text-left px-2.5 py-1.5 text-xs font-medium rounded-lg flex items-center gap-2 transition-colors cursor-pointer my-0.5 text-slate-700 hover:bg-slate-100/80 hover:text-slate-900"
                                           >
-                                            <Pin className={`w-3.5 h-3.5 shrink-0 ${topic.isPinned ? 'fill-[#2563EB] text-[#2563EB]' : 'text-slate-500'}`} />
+                                            <Pin className={`w-3.5 h-3.5 shrink-0 ${topic.isPinned ? 'fill-[#2563EB] text-[#2563EB]' : 'text-slate-500'} preserve-color`} />
                                             <span className="truncate">{topic.isPinned ? 'Unpin from top' : 'Pin to top'}</span>
                                           </button>
 
@@ -9228,10 +9234,10 @@ export function App() {
                                 <div className="w-full bg-[#E9EDF3] h-1.5 rounded-full overflow-hidden flex-1">
                                   <div
                                     style={{ width: `${displayPercent}%` }}
-                                    className={`h-full rounded-full bg-gradient-to-r ${theme.progressGradient} transition-[width] duration-300 ease-in-out`}
+                                    className={`h-full rounded-full bg-gradient-to-r ${theme.progressGradient} preserve-color transition-[width] duration-300 ease-in-out`}
                                   />
                                 </div>
-                                <span className={`text-[10.5px] font-bold shrink-0 min-w-[28px] text-right ${
+                                <span className={`text-[10.5px] font-bold shrink-0 min-w-[28px] text-right preserve-color ${
                                   isCompleted ? theme.textColor : isNotStarted ? 'text-slate-400' : 'text-slate-700'
                                 }`}>
                                   {displayPercent}%
@@ -9369,10 +9375,10 @@ export function App() {
                               {/* Top Banner Header */}
                               <div className={`relative h-32 p-4 flex flex-col justify-between rounded-t-[15px]`}>
                                 {/* Watermark & Glow (with overflow-hidden) */}
-                                <div className={`absolute inset-0 rounded-t-[15px] overflow-hidden ${theme.bg}`}>
+                                <div className={`absolute inset-0 rounded-t-[15px] overflow-hidden ${theme.bg} preserve-color`}>
                                   <div className="absolute -right-6 -bottom-6 w-28 h-28 rounded-full bg-white/10 blur-xl pointer-events-none" />
                                   <div className="absolute right-3 top-3 opacity-15 pointer-events-none">
-                                    <IconComp className="w-20 h-20 text-white stroke-[1.2]" />
+                                    <IconComp className="w-20 h-20 text-white stroke-[1.2] preserve-color" />
                                   </div>
                                 </div>
 
@@ -9380,11 +9386,11 @@ export function App() {
                                 <div className="flex items-center justify-between relative z-20">
                                   {/* Icon box + floating pin badge */}
                                   <div className="relative">
-                                    <div className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-xs border border-white/30 flex items-center justify-center text-white shadow-xs">
+                                    <div className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-xs border border-white/30 flex items-center justify-center text-white shadow-xs preserve-color">
                                       {iconText ? (
-                                        <span className="text-white text-xs font-black font-serif leading-none">{iconText}</span>
+                                        <span className="text-white text-xs font-black font-serif leading-none preserve-color">{iconText}</span>
                                       ) : (
-                                        <IconComp className="w-5 h-5 text-white stroke-[2.2]" />
+                                        <IconComp className="w-5 h-5 text-white stroke-[2.2] preserve-color" />
                                       )}
                                     </div>
 
@@ -9400,7 +9406,7 @@ export function App() {
                                           style={{ borderColor: theme.bg?.match(/\[(.*?)\]/)?.[1] || '#2563EB' }}
                                           title="Pinned to top"
                                         >
-                                          <Pin className={`w-3.5 h-3.5 ${theme.pinIconColor || 'text-[#2563EB] fill-[#2563EB]'} rotate-45`} />
+                                          <Pin className={`w-3.5 h-3.5 ${theme.pinIconColor || 'text-[#2563EB] fill-[#2563EB]'} preserve-color rotate-45`} />
                                         </motion.div>
                                       )}
                                     </AnimatePresence>
@@ -9442,7 +9448,7 @@ export function App() {
                                             }}
                                             className="w-full text-left px-2.5 py-1.5 text-xs font-medium rounded-lg flex items-center gap-2 transition-colors cursor-pointer my-0.5 text-slate-700 hover:bg-slate-100/80 hover:text-slate-900"
                                           >
-                                            <Pin className={`w-3.5 h-3.5 shrink-0 ${topic.isPinned ? 'fill-[#2563EB] text-[#2563EB]' : 'text-slate-500'}`} />
+                                            <Pin className={`w-3.5 h-3.5 shrink-0 ${topic.isPinned ? 'fill-[#2563EB] text-[#2563EB]' : 'text-slate-500'} preserve-color`} />
                                             <span className="truncate">{topic.isPinned ? 'Unpin from top' : 'Pin to top'}</span>
                                           </button>
 
@@ -9533,14 +9539,14 @@ export function App() {
                                 <div className="flex flex-col gap-1.5">
                                   <div className="flex items-center justify-between text-xs">
                                     <span className="font-semibold text-slate-500">Progress</span>
-                                    <span className={`font-bold ${theme.textColor}`}>
+                                    <span className={`font-bold ${theme.textColor} preserve-color`}>
                                       {percent}%
                                     </span>
                                   </div>
                                   <div className="w-full bg-[#F1F5F9] h-2 rounded-full overflow-hidden">
                                     <div
                                       style={{ width: `${percent}%` }}
-                                      className={`h-full rounded-full bg-gradient-to-r ${theme.progressGradient} transition-[width] duration-300 ease-in-out`}
+                                      className={`h-full rounded-full bg-gradient-to-r ${theme.progressGradient} preserve-color transition-[width] duration-300 ease-in-out`}
                                     />
                                   </div>
                                        {/* Status & Completed Tasks */}

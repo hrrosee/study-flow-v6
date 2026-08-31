@@ -2481,16 +2481,16 @@ export const TopicDetailsDrawer: React.FC<TopicDetailsDrawerProps> = ({
               <div className="flex items-start justify-between gap-4 relative z-30">
                 <div className="flex items-center gap-3.5 min-w-0">
                   {/* World-Class Gradient Icon Box with Glow (Theme-matched) */}
-                  <div className={`flex h-11 w-11 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-xl ${theme?.cardIconBg || 'bg-gradient-to-tr from-[#176BFF] via-[#4F46E5] to-[#7C36F5]'} text-white shadow-md shadow-blue-500/15 ring-1 ring-white/30`}>
+                  <div className={`flex h-11 w-11 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-xl ${theme?.cardIconBg || 'bg-gradient-to-tr from-[#176BFF] via-[#4F46E5] to-[#7C36F5]'} preserve-color text-white shadow-md shadow-blue-500/15 ring-1 ring-white/30`}>
                     {theme?.iconText ? (
-                      <span className="text-white text-xl font-black font-serif leading-none">{theme.iconText}</span>
+                      <span className="text-white text-xl font-black font-serif leading-none preserve-color">{theme.iconText}</span>
                     ) : theme?.icon ? (
                       (() => {
                         const IconComponent = theme.icon;
-                        return <IconComponent className="w-6 h-6 stroke-[2.2] text-white" />;
+                        return <IconComponent className="w-6 h-6 stroke-[2.2] text-white preserve-color" />;
                       })()
                     ) : (
-                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="stroke-current sm:w-6 sm:h-6">
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="stroke-current sm:w-6 sm:h-6 preserve-color">
                         <circle cx="12" cy="12" r="8" stroke="white" strokeWidth="1.75" strokeDasharray="3 3" />
                         <circle cx="12" cy="12" r="3" fill="white" />
                         <path d="M12 2V5M12 19V22M2 12H5M19 12H22" stroke="white" strokeWidth="1.75" strokeLinecap="round" />
@@ -2508,7 +2508,7 @@ export const TopicDetailsDrawer: React.FC<TopicDetailsDrawerProps> = ({
                     <div className="mt-0.5 sm:mt-1.5 flex flex-col sm:flex-row sm:items-center gap-0.5 sm:gap-3.5 text-[10.5px] sm:text-xs font-medium text-slate-500">
                       {/* Line 1: Total Tasks */}
                       <div className="flex items-center gap-1 sm:gap-1.5 text-slate-700 font-semibold shrink-0">
-                        <div className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full ${theme?.bg || 'bg-[#176BFF]'} shrink-0`} />
+                        <div className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full ${theme?.bg || 'bg-[#176BFF]'} preserve-color shrink-0`} />
                         <span>{tasksList.length} {tasksList.length === 1 ? 'Task' : 'Tasks'}</span>
                       </div>
 
@@ -2534,7 +2534,7 @@ export const TopicDetailsDrawer: React.FC<TopicDetailsDrawerProps> = ({
                   <div className="flex items-center gap-2 h-6 px-2.5 sm:h-7.5 sm:px-2.5 bg-white border border-slate-200/80 rounded-md sm:rounded-lg shadow-2xs order-2 sm:order-1">
                     <div className="w-20 sm:w-28 h-1.5 bg-slate-100 rounded-full overflow-hidden">
                       <div
-                        className={`h-full bg-gradient-to-r ${theme?.progressGradient || 'from-[#176BFF] via-[#7C36F5] to-[#D946EF]'} rounded-full transition-all duration-500`}
+                        className={`h-full bg-gradient-to-r ${theme?.progressGradient || 'from-[#1E40AF] via-[#2563EB] to-[#60A5FA]'} preserve-color rounded-full transition-all duration-500`}
                         style={{ width: `${percent}%` }}
                       />
                     </div>
