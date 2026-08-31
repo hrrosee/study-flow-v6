@@ -2648,7 +2648,7 @@ export const NotesStudio: React.FC<NotesStudioProps> = ({
                         activeFormats.quote
                           ? 'opacity-30 cursor-not-allowed text-slate-400'
                           : activeFormats.bold
-                          ? 'bg-blue-100 text-[#2563EB] font-bold shadow-3xs ring-1 ring-blue-300'
+                          ? 'bg-blue-100 text-[#2563EB] font-bold shadow-3xs border border-blue-300 dark:border-blue-800'
                           : 'text-slate-600 hover:bg-slate-200/80 hover:text-slate-900'
                       }`}
                       data-tooltip={activeFormats.quote ? "Bold not allowed in quotes" : "Bold (Ctrl+B)"}
@@ -2664,7 +2664,7 @@ export const NotesStudio: React.FC<NotesStudioProps> = ({
                       onClick={() => executeFormatting('italic')}
                       className={`p-1.5 rounded transition-all cursor-pointer ${
                         activeFormats.italic
-                          ? 'bg-blue-100 text-[#2563EB] font-bold shadow-3xs ring-1 ring-blue-300'
+                          ? 'bg-blue-100 text-[#2563EB] font-bold shadow-3xs border border-blue-300 dark:border-blue-800'
                           : 'text-slate-600 hover:bg-slate-200/80 hover:text-slate-900'
                       }`}
                       data-tooltip="Italic (Ctrl+I)"
@@ -2680,7 +2680,7 @@ export const NotesStudio: React.FC<NotesStudioProps> = ({
                       onClick={() => executeFormatting('underline')}
                       className={`p-1.5 rounded transition-all cursor-pointer ${
                         activeFormats.underline
-                          ? 'bg-blue-100 text-[#2563EB] font-bold shadow-3xs ring-1 ring-blue-300'
+                          ? 'bg-blue-100 text-[#2563EB] font-bold shadow-3xs border border-blue-300 dark:border-blue-800'
                           : 'text-slate-600 hover:bg-slate-200/80 hover:text-slate-900'
                       }`}
                       data-tooltip="Underline (Ctrl+U)"
@@ -2696,7 +2696,7 @@ export const NotesStudio: React.FC<NotesStudioProps> = ({
                       onClick={() => executeFormatting('strikeThrough')}
                       className={`p-1.5 rounded transition-all cursor-pointer ${
                         activeFormats.strike
-                          ? 'bg-blue-100 text-[#2563EB] font-bold shadow-3xs ring-1 ring-blue-300'
+                          ? 'bg-blue-100 text-[#2563EB] font-bold shadow-3xs border border-blue-300 dark:border-blue-800'
                           : 'text-slate-600 hover:bg-slate-200/80 hover:text-slate-900'
                       }`}
                       data-tooltip="Strikethrough (Ctrl+Shift+X)"
@@ -2774,7 +2774,7 @@ export const NotesStudio: React.FC<NotesStudioProps> = ({
                         activeFormats.quote || activeFormats.checklist
                           ? 'opacity-30 cursor-not-allowed text-slate-400'
                           : activeFormats.h1
-                          ? 'bg-blue-100 text-[#2563EB] font-bold shadow-3xs ring-1 ring-blue-300'
+                          ? 'bg-blue-100 text-[#2563EB] font-bold shadow-3xs border border-blue-300 dark:border-blue-800'
                           : 'text-slate-600 hover:bg-slate-200/80 hover:text-slate-900'
                       }`}
                       data-tooltip={activeFormats.quote || activeFormats.checklist ? "Headings not allowed here" : "Heading 1 (Alt+1)"}
@@ -2793,7 +2793,7 @@ export const NotesStudio: React.FC<NotesStudioProps> = ({
                         activeFormats.quote || activeFormats.checklist
                           ? 'opacity-30 cursor-not-allowed text-slate-400'
                           : activeFormats.h2
-                          ? 'bg-blue-100 text-[#2563EB] font-bold shadow-3xs ring-1 ring-blue-300'
+                          ? 'bg-blue-100 text-[#2563EB] font-bold shadow-3xs border border-blue-300 dark:border-blue-800'
                           : 'text-slate-600 hover:bg-slate-200/80 hover:text-slate-900'
                       }`}
                       data-tooltip={activeFormats.quote || activeFormats.checklist ? "Headings not allowed here" : "Heading 2 (Alt+2)"}
@@ -2812,7 +2812,7 @@ export const NotesStudio: React.FC<NotesStudioProps> = ({
                         activeFormats.quote || activeFormats.checklist
                           ? 'opacity-30 cursor-not-allowed text-slate-400'
                           : activeFormats.h3
-                          ? 'bg-blue-100 text-[#2563EB] font-bold shadow-3xs ring-1 ring-blue-300'
+                          ? 'bg-blue-100 text-[#2563EB] font-bold shadow-3xs border border-blue-300 dark:border-blue-800'
                           : 'text-slate-600 hover:bg-slate-200/80 hover:text-slate-900'
                       }`}
                       data-tooltip={activeFormats.quote || activeFormats.checklist ? "Headings not allowed here" : "Heading 3 (Alt+3)"}
@@ -2833,7 +2833,7 @@ export const NotesStudio: React.FC<NotesStudioProps> = ({
                         activeFormats.quote
                           ? 'opacity-30 cursor-not-allowed text-slate-400'
                           : activeFormats.checklist
-                          ? 'bg-blue-100 text-[#2563EB] font-bold shadow-3xs ring-1 ring-blue-300'
+                          ? 'bg-blue-100 text-[#2563EB] font-bold shadow-3xs border border-blue-300 dark:border-blue-800'
                           : 'hover:bg-slate-200/80 hover:text-slate-900 text-slate-600'
                       }`}
                       data-tooltip="Checklist Item"
@@ -2849,7 +2849,7 @@ export const NotesStudio: React.FC<NotesStudioProps> = ({
                       onClick={() => executeList('ul')}
                       className={`p-1.5 rounded transition-all cursor-pointer ${
                         activeFormats.ul
-                          ? 'bg-blue-100 text-[#2563EB] font-bold shadow-3xs ring-1 ring-blue-300'
+                          ? 'bg-blue-100 text-[#2563EB] font-bold shadow-3xs border border-blue-300 dark:border-blue-800'
                           : 'text-slate-600 hover:bg-slate-200/80 hover:text-slate-900'
                       }`}
                       data-tooltip="Bullet List (Alt+B)"
@@ -2865,7 +2865,7 @@ export const NotesStudio: React.FC<NotesStudioProps> = ({
                       onClick={() => executeList('ol')}
                       className={`p-1.5 rounded transition-all cursor-pointer ${
                         activeFormats.ol
-                          ? 'bg-blue-100 text-[#2563EB] font-bold shadow-3xs ring-1 ring-blue-300'
+                          ? 'bg-blue-100 text-[#2563EB] font-bold shadow-3xs border border-blue-300 dark:border-blue-800'
                           : 'text-slate-600 hover:bg-slate-200/80 hover:text-slate-900'
                       }`}
                       data-tooltip="Numbered List (Alt+N)"
@@ -2886,7 +2886,7 @@ export const NotesStudio: React.FC<NotesStudioProps> = ({
                         activeFormats.checklist
                           ? 'opacity-30 cursor-not-allowed text-slate-400'
                           : activeFormats.quote
-                          ? 'bg-blue-100 text-[#2563EB] font-bold shadow-3xs ring-1 ring-blue-300'
+                          ? 'bg-blue-100 text-[#2563EB] font-bold shadow-3xs border border-blue-300 dark:border-blue-800'
                           : 'text-slate-600 hover:bg-slate-200/80 hover:text-slate-900'
                       }`}
                       data-tooltip={activeFormats.quote ? "Exit Quote Mode" : "Quote Block (Ctrl+Q)"}
@@ -2902,7 +2902,7 @@ export const NotesStudio: React.FC<NotesStudioProps> = ({
                       onClick={executeInsertLink}
                       className={`p-1.5 rounded transition-all cursor-pointer ${
                         activeFormats.link
-                          ? 'bg-blue-100 text-[#2563EB] font-bold shadow-3xs ring-1 ring-blue-300'
+                          ? 'bg-blue-100 text-[#2563EB] font-bold shadow-3xs border border-blue-300 dark:border-blue-800'
                           : 'text-slate-600 hover:bg-slate-200/80 hover:text-slate-900'
                       }`}
                       data-tooltip="Insert Link (Ctrl+K)"
@@ -2918,7 +2918,7 @@ export const NotesStudio: React.FC<NotesStudioProps> = ({
                       onClick={executeInlineCode}
                       className={`p-1.5 rounded transition-all cursor-pointer ${
                         activeFormats.code
-                          ? 'bg-blue-100 text-[#2563EB] font-bold shadow-3xs ring-1 ring-blue-300'
+                          ? 'bg-blue-100 text-[#2563EB] font-bold shadow-3xs border border-blue-300 dark:border-blue-800'
                           : 'text-slate-600 hover:bg-slate-200/80 hover:text-slate-900'
                       }`}
                       data-tooltip="Inline Code (Ctrl+E)"
@@ -2948,7 +2948,7 @@ export const NotesStudio: React.FC<NotesStudioProps> = ({
                       onClick={toggleMarkdownAutoFormat}
                       className={`p-1.5 rounded transition-all cursor-pointer ${
                         isMarkdownAutoFormatEnabled
-                          ? 'bg-blue-100 text-[#2563EB] font-bold shadow-3xs ring-1 ring-blue-300'
+                          ? 'bg-blue-100 text-[#2563EB] font-bold shadow-3xs border border-blue-300 dark:border-blue-800'
                           : 'text-slate-600 hover:bg-slate-200/80 hover:text-slate-900'
                       }`}
                       data-tooltip="Markdown auto formatting"

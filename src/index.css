@@ -890,12 +890,14 @@ html.dark[data-accent="purple"] .border-blue-900\/40 {
   border-color: rgba(124, 58, 237, 0.35) !important;
 }
 
+[data-accent="purple"] .ring-blue-300:not(.preserve-color):not(.preserve-color *),
+[data-accent="purple"] .ring-blue-200:not(.preserve-color):not(.preserve-color *),
 [data-accent="purple"] .ring-\[\#2563EB\]\/20:not(.preserve-color):not(.preserve-color *),
 [data-accent="purple"] .ring-\[\#2563EB\]\/30:not(.preserve-color):not(.preserve-color *),
 [data-accent="purple"] .ring-blue-500\/20:not(.preserve-color):not(.preserve-color *),
 [data-accent="purple"] .ring-blue-100:not(.preserve-color):not(.preserve-color *),
 [data-accent="purple"] .ring-blue-100\/80:not(.preserve-color):not(.preserve-color *) {
-  --tw-ring-color: rgba(124, 58, 237, 0.25) !important;
+  --tw-ring-color: rgba(124, 58, 237, 0.4) !important;
 }
 
 [data-accent="purple"] .shadow-blue-500\/20:not(.preserve-color):not(.preserve-color *),
@@ -1081,12 +1083,14 @@ html.dark[data-accent="cyan"] .border-blue-900\/40 {
   border-color: rgba(8, 145, 178, 0.35) !important;
 }
 
+[data-accent="cyan"] .ring-blue-300:not(.preserve-color):not(.preserve-color *),
+[data-accent="cyan"] .ring-blue-200:not(.preserve-color):not(.preserve-color *),
 [data-accent="cyan"] .ring-\[\#2563EB\]\/20:not(.preserve-color):not(.preserve-color *),
 [data-accent="cyan"] .ring-\[\#2563EB\]\/30:not(.preserve-color):not(.preserve-color *),
 [data-accent="cyan"] .ring-blue-500\/20:not(.preserve-color):not(.preserve-color *),
 [data-accent="cyan"] .ring-blue-100:not(.preserve-color):not(.preserve-color *),
 [data-accent="cyan"] .ring-blue-100\/80:not(.preserve-color):not(.preserve-color *) {
-  --tw-ring-color: rgba(8, 145, 178, 0.25) !important;
+  --tw-ring-color: rgba(8, 145, 178, 0.4) !important;
 }
 
 [data-accent="cyan"] .shadow-blue-500\/20:not(.preserve-color):not(.preserve-color *),
@@ -1260,12 +1264,14 @@ html.dark[data-accent="green"] .border-blue-900,
 html.dark[data-accent="green"] .border-blue-900\/40 {
   border-color: rgba(16, 185, 129, 0.35) !important;
 }
+[data-accent="green"] .ring-blue-300:not(.preserve-color):not(.preserve-color *),
+[data-accent="green"] .ring-blue-200:not(.preserve-color):not(.preserve-color *),
 [data-accent="green"] .ring-\[\#2563EB\]\/20:not(.preserve-color):not(.preserve-color *),
 [data-accent="green"] .ring-\[\#2563EB\]\/30:not(.preserve-color):not(.preserve-color *),
 [data-accent="green"] .ring-blue-500\/20:not(.preserve-color):not(.preserve-color *),
 [data-accent="green"] .ring-blue-100:not(.preserve-color):not(.preserve-color *),
 [data-accent="green"] .ring-blue-100\/80:not(.preserve-color):not(.preserve-color *) {
-  --tw-ring-color: rgba(16, 185, 129, 0.25) !important;
+  --tw-ring-color: rgba(16, 185, 129, 0.4) !important;
 }
 
 [data-accent="green"] .shadow-blue-500\/20:not(.preserve-color):not(.preserve-color *),
@@ -1429,12 +1435,14 @@ html.dark[data-accent="orange"] .border-blue-900,
 html.dark[data-accent="orange"] .border-blue-900\/40 {
   border-color: rgba(234, 88, 12, 0.35) !important;
 }
+[data-accent="orange"] .ring-blue-300:not(.preserve-color):not(.preserve-color *),
+[data-accent="orange"] .ring-blue-200:not(.preserve-color):not(.preserve-color *),
 [data-accent="orange"] .ring-\[\#2563EB\]\/20:not(.preserve-color):not(.preserve-color *),
 [data-accent="orange"] .ring-\[\#2563EB\]\/30:not(.preserve-color):not(.preserve-color *),
 [data-accent="orange"] .ring-blue-500\/20:not(.preserve-color):not(.preserve-color *),
 [data-accent="orange"] .ring-blue-100:not(.preserve-color):not(.preserve-color *),
 [data-accent="orange"] .ring-blue-100\/80:not(.preserve-color):not(.preserve-color *) {
-  --tw-ring-color: rgba(234, 88, 12, 0.25) !important;
+  --tw-ring-color: rgba(234, 88, 12, 0.4) !important;
 }
 
 [data-accent="orange"] .shadow-blue-500\/20:not(.preserve-color):not(.preserve-color *),
@@ -1598,12 +1606,14 @@ html.dark[data-accent="pink"] .border-blue-900,
 html.dark[data-accent="pink"] .border-blue-900\/40 {
   border-color: rgba(219, 39, 119, 0.35) !important;
 }
+[data-accent="pink"] .ring-blue-300:not(.preserve-color):not(.preserve-color *),
+[data-accent="pink"] .ring-blue-200:not(.preserve-color):not(.preserve-color *),
 [data-accent="pink"] .ring-\[\#2563EB\]\/20:not(.preserve-color):not(.preserve-color *),
 [data-accent="pink"] .ring-\[\#2563EB\]\/30:not(.preserve-color):not(.preserve-color *),
 [data-accent="pink"] .ring-blue-500\/20:not(.preserve-color):not(.preserve-color *),
 [data-accent="pink"] .ring-blue-100:not(.preserve-color):not(.preserve-color *),
 [data-accent="pink"] .ring-blue-100\/80:not(.preserve-color):not(.preserve-color *) {
-  --tw-ring-color: rgba(244, 63, 94, 0.25) !important;
+  --tw-ring-color: rgba(244, 63, 94, 0.4) !important;
 }
 
 [data-accent="pink"] .shadow-blue-500\/20:not(.preserve-color):not(.preserve-color *),
@@ -1767,12 +1777,14 @@ html.dark[data-accent="amber"] .border-blue-900,
 html.dark[data-accent="amber"] .border-blue-900\/40 {
   border-color: rgba(245, 158, 11, 0.35) !important;
 }
+[data-accent="amber"] .ring-blue-300:not(.preserve-color):not(.preserve-color *),
+[data-accent="amber"] .ring-blue-200:not(.preserve-color):not(.preserve-color *),
 [data-accent="amber"] .ring-\[\#2563EB\]\/20:not(.preserve-color):not(.preserve-color *),
 [data-accent="amber"] .ring-\[\#2563EB\]\/30:not(.preserve-color):not(.preserve-color *),
 [data-accent="amber"] .ring-blue-500\/20:not(.preserve-color):not(.preserve-color *),
 [data-accent="amber"] .ring-blue-100:not(.preserve-color):not(.preserve-color *),
 [data-accent="amber"] .ring-blue-100\/80:not(.preserve-color):not(.preserve-color *) {
-  --tw-ring-color: rgba(245, 158, 11, 0.25) !important;
+  --tw-ring-color: rgba(245, 158, 11, 0.4) !important;
 }
 
 [data-accent="amber"] .shadow-blue-500\/20:not(.preserve-color):not(.preserve-color *),
