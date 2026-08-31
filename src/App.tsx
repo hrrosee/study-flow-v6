@@ -2458,7 +2458,6 @@ export function App() {
           await saveUserDataToCloud(currentUser.uid, {
             workspaces,
             workspaceSections,
-            activeWorkspaceId,
             topics,
             deletedTopics,
             deletedWorkspaces,
@@ -2486,9 +2485,15 @@ export function App() {
       if (isCloudApplyingRef.current) return;
       if (cloudData) {
         isCloudApplyingRef.current = true;
-        if (cloudData.workspaces) setWorkspaces(cloudData.workspaces);
+        if (cloudData.workspaces) {
+          setWorkspaces(cloudData.workspaces);
+          // Keep activeWorkspaceId valid if current active workspace was deleted on another device
+          setActiveWorkspaceId(prev => {
+            const exists = (cloudData.workspaces || []).some((ws: any) => ws.id === prev);
+            return exists ? prev : (cloudData.workspaces && cloudData.workspaces.length > 0 ? cloudData.workspaces[0].id : prev);
+          });
+        }
         if (cloudData.workspaceSections) setWorkspaceSections(cloudData.workspaceSections);
-        if (cloudData.activeWorkspaceId) setActiveWorkspaceId(cloudData.activeWorkspaceId);
         if (cloudData.topics) {
           setTopics(prev => {
             const cloudTopicIds = new Set((cloudData.topics || []).map((t: any) => t.id));
@@ -2541,7 +2546,6 @@ export function App() {
     latestDataRef.current = {
       workspaces,
       workspaceSections,
-      activeWorkspaceId,
       topics,
       deletedTopics,
       deletedWorkspaces,
@@ -2554,7 +2558,7 @@ export function App() {
       standaloneTasks,
       userSettings
     };
-  }, [workspaces, workspaceSections, activeWorkspaceId, topics, deletedTopics, deletedWorkspaces, deletedNotes, deletedSections, deletedTasks, deletedTopicNotes, deletedTopicLinks, notes, standaloneTasks, userSettings]);
+  }, [workspaces, workspaceSections, topics, deletedTopics, deletedWorkspaces, deletedNotes, deletedSections, deletedTasks, deletedTopicNotes, deletedTopicLinks, notes, standaloneTasks, userSettings]);
 
   // Immediate flush save to Firebase when browser is refreshed (F5) or closed
   useEffect(() => {
@@ -2574,7 +2578,6 @@ export function App() {
     const payload = {
       workspaces,
       workspaceSections,
-      activeWorkspaceId,
       topics,
       deletedTopics,
       deletedWorkspaces,
@@ -2589,7 +2592,7 @@ export function App() {
     };
     latestDataRef.current = payload;
     saveUserDataToCloud(currentUser.uid, payload);
-  }, [currentUser, workspaces, workspaceSections, activeWorkspaceId, topics, deletedTopics, deletedWorkspaces, deletedNotes, deletedSections, deletedTasks, deletedTopicNotes, deletedTopicLinks, notes, standaloneTasks, userSettings]);
+  }, [currentUser, workspaces, workspaceSections, topics, deletedTopics, deletedWorkspaces, deletedNotes, deletedSections, deletedTasks, deletedTopicNotes, deletedTopicLinks, notes, standaloneTasks, userSettings]);
 
   // Online / Offline Network Status Tracking
   useEffect(() => {
