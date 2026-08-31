@@ -95,11 +95,11 @@ export const GoalCelebrationModal: React.FC<GoalCelebrationModalProps> = ({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.92, y: 16 }}
             transition={{ type: 'spring', damping: 24, stiffness: 350, mass: 0.8 }}
-            className="relative w-full max-w-[440px] bg-white dark:bg-slate-900 rounded-[28px] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.3)] dark:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] border border-transparent dark:border-slate-800 overflow-hidden text-slate-800 dark:text-slate-100 pointer-events-auto"
+            className="relative w-full max-w-[440px] bg-white dark:bg-slate-900 rounded-[28px] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.3)] dark:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] overflow-hidden text-slate-800 dark:text-slate-100 pointer-events-auto"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Top Banner & Vector Gold Ribbon Medal Header */}
-            <div className="relative w-full overflow-hidden bg-gradient-to-b from-[#064E3B] to-[#047857]">
+            <div className="relative w-full overflow-hidden rounded-t-[28px] bg-gradient-to-b from-[#064E3B] to-[#047857]">
               <svg
                 className="w-full h-auto block select-none"
                 viewBox="125 75 750 435"
@@ -149,11 +149,11 @@ export const GoalCelebrationModal: React.FC<GoalCelebrationModalProps> = ({
                   </filter>
                 </defs>
 
-                {/* Bottom Background under the curve (White in light mode, Slate-900 in dark mode) */}
-                <path d="M100 259 C223 325 346 358 500 366 C654 358 777 325 900 259 V520 H100 Z" className="fill-white dark:fill-slate-900 transition-colors" />
+                {/* Bottom Background under the curve */}
+                <path d="M0 259 C223 325 346 358 500 366 C654 358 777 325 1000 259 V550 H0 Z" className="fill-white dark:fill-slate-900 transition-colors" />
 
                 {/* Emerald Gradient Curved Banner */}
-                <path d="M100 50 H900 V259 C777 325 654 358 500 366 C346 358 223 325 100 259 Z" fill="url(#goalBanner)" />
+                <path d="M0 0 H1000 V259 C777 325 654 358 500 366 C346 358 223 325 0 259 Z" fill="url(#goalBanner)" />
 
                 {/* Decorative Floating Confetti Elements */}
                 <g transform="translate(125 93) scale(1.704545)">
