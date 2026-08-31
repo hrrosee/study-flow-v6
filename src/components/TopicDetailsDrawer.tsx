@@ -1601,35 +1601,40 @@ export const TopicDetailsDrawer: React.FC<TopicDetailsDrawerProps> = ({
   // Handle explicit focus request (e.g. clicking task in Today's Goal Popover or floating timer)
   useEffect(() => {
     if (requestedFocusTaskId) {
-      setSelectedTaskId(requestedFocusTaskId);
+      const targetId = requestedFocusTaskId;
+      setSelectedTaskId(targetId);
       setActiveHeaderTab('tasks');
-      // In mobile, stay on 'list' view so the user sees the highlighted task in list context
+      // In mobile, stay on 'list' view so the user sees the task in list context without opening depth section
       setMobileActiveView('list');
-      setHighlightPulseTaskId(requestedFocusTaskId);
       onResetRequestedFocusTaskId?.();
+
+      // Step 1: Smoothly scroll to the target task first
+      const scrollTimer = setTimeout(() => {
+        const el = document.querySelector(`[data-drawer-task-id="${targetId}"]`);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      }, 80);
+
+      // Step 2: After scrolling arrives, trigger the 1.5s highlight pulse
+      const highlightTimer = setTimeout(() => {
+        setHighlightPulseTaskId(targetId);
+      }, 300);
+
+      return () => {
+        clearTimeout(scrollTimer);
+        clearTimeout(highlightTimer);
+      };
     }
   }, [requestedFocusTaskId, onResetRequestedFocusTaskId]);
 
-  // Auto-scroll and auto-clear highlight pulse after 1.5s
+  // Auto-clear highlight pulse after 1.5s
   useEffect(() => {
     if (!highlightPulseTaskId) return;
-
-    // Smoothly scroll the highlighted task into view
-    const scrollTimer = setTimeout(() => {
-      const el = document.querySelector(`[data-drawer-task-id="${highlightPulseTaskId}"]`);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }
-    }, 80);
-
     const timer = setTimeout(() => {
       setHighlightPulseTaskId(null);
     }, 1500);
-
-    return () => {
-      clearTimeout(scrollTimer);
-      clearTimeout(timer);
-    };
+    return () => clearTimeout(timer);
   }, [highlightPulseTaskId]);
 
   // Handle global search deep linking navigation target
