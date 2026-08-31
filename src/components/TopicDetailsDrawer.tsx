@@ -1605,13 +1605,18 @@ export const TopicDetailsDrawer: React.FC<TopicDetailsDrawerProps> = ({
       setActiveHeaderTab('tasks');
       setMobileActiveView('details');
       setHighlightPulseTaskId(requestedFocusTaskId);
-      const timer = setTimeout(() => {
-        setHighlightPulseTaskId(null);
-      }, 2500);
       onResetRequestedFocusTaskId?.();
-      return () => clearTimeout(timer);
     }
   }, [requestedFocusTaskId, onResetRequestedFocusTaskId]);
+
+  // Auto-clear highlight pulse after 1.5s
+  useEffect(() => {
+    if (!highlightPulseTaskId) return;
+    const timer = setTimeout(() => {
+      setHighlightPulseTaskId(null);
+    }, 1500);
+    return () => clearTimeout(timer);
+  }, [highlightPulseTaskId]);
 
   // Handle global search deep linking navigation target
   useEffect(() => {
