@@ -67,7 +67,7 @@ export interface UserSettings {
   dailyGoalMode?: 'tasks' | 'time';
   dailyTimeTargetMinutes?: number;
   theme?: 'light' | 'dark' | 'system';
-  primaryColor?: 'blue' | 'purple' | 'cyan';
+  primaryColor?: 'blue' | 'purple' | 'green' | 'orange' | 'pink' | 'cyan' | 'amber';
   darkMode?: boolean;
   autoSync: boolean;
   soundEffects: boolean;

@@ -1008,9 +1008,6 @@ export function App() {
   }, [isAccentQuickPickerOpen]);
 
   const handleSaveSettings = (newSettings: UserSettings) => {
-    if (newSettings.primaryColor) {
-      applyAccentColor(newSettings.primaryColor);
-    }
     setUserSettings(newSettings);
     localStorage.setItem('studyflow_user_settings', JSON.stringify(newSettings));
     showToast('Preferences saved successfully');
