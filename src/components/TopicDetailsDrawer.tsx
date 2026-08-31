@@ -2741,7 +2741,7 @@ export const TopicDetailsDrawer: React.FC<TopicDetailsDrawerProps> = ({
                         onChange={(e) => setSearchQuery(e.target.value)}
                         onKeyDown={handleSearchKeyDown}
                         placeholder="Search tasks..."
-                        className="w-full h-9 bg-white border border-slate-200/90 rounded-[8px] pl-9 pr-24 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#176BFF] transition-all [&::-webkit-search-cancel-button]:hidden [&::-webkit-search-decoration]:hidden"
+                        className="w-full h-9 bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 rounded-[8px] pl-9 pr-24 text-xs text-slate-800 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-[#176BFF] focus:ring-2 focus:ring-[#176BFF]/20 transition-all [&::-webkit-search-cancel-button]:hidden [&::-webkit-search-decoration]:hidden"
                       />
                       {searchQuery.length > 0 && (
                         <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-0.5 z-20">
@@ -2987,7 +2987,7 @@ export const TopicDetailsDrawer: React.FC<TopicDetailsDrawerProps> = ({
                                 } ${isMenuOpenThisTask
                                   ? 'z-[9999] relative bg-white dark:bg-slate-900'
                                   : (highlightPulseTaskId === t.id || isSelected)
-                                    ? 'bg-blue-100/80 dark:bg-blue-900/50 text-[#0F172A] dark:text-white font-bold rounded-[5px] z-10'
+                                    ? 'bg-blue-50/90 dark:bg-blue-950/60 text-slate-900 dark:text-slate-100 font-bold rounded-[8px] z-10'
                                     : 'hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900'
                                 }`}
                             >
@@ -3034,13 +3034,13 @@ export const TopicDetailsDrawer: React.FC<TopicDetailsDrawerProps> = ({
                                         <path d="M8 12L11 15L16 9" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                                       </svg>
                                     ) : isSelected ? (
-                                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <circle cx="12" cy="12" r="9" stroke="#176BFF" strokeWidth="2.2" />
-                                        <circle cx="12" cy="12" r="4" fill="#176BFF" />
+                                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#176BFF]">
+                                        <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2.2" />
+                                        <circle cx="12" cy="12" r="4" fill="currentColor" />
                                       </svg>
                                     ) : (
                                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <circle cx="12" cy="12" r="9" stroke="#CBD5E1" strokeWidth="2" />
+                                        <circle cx="12" cy="12" r="9" stroke="#CBD5E1" strokeWidth="2" className="group-hover:stroke-slate-400 transition-colors" />
                                       </svg>
                                     )}
                                   </button>
