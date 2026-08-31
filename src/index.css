@@ -886,6 +886,7 @@ html.dark[data-accent="purple"] .bg-blue-900\/40:not(.preserve-color):not(.prese
 }
 [data-accent="purple"] .focus\:ring-\[\#3B82F6\]\/15:focus:not(.preserve-color):not(.preserve-color *),
 [data-accent="purple"] .focus\:ring-\[\#176BFF\]\/20:focus:not(.preserve-color):not(.preserve-color *),
+[data-accent="purple"] .focus\:ring-\[\#2563EB\]\/20:focus:not(.preserve-color):not(.preserve-color *),
 [data-accent="purple"] .focus\:ring-blue-500\/20:focus:not(.preserve-color):not(.preserve-color *) {
   --tw-ring-color: rgba(124, 58, 237, 0.25) !important;
 }
@@ -1052,6 +1053,7 @@ html.dark[data-accent="cyan"] .bg-blue-900\/40:not(.preserve-color):not(.preserv
 }
 [data-accent="cyan"] .focus\:ring-\[\#3B82F6\]\/15:focus:not(.preserve-color):not(.preserve-color *),
 [data-accent="cyan"] .focus\:ring-\[\#176BFF\]\/20:focus:not(.preserve-color):not(.preserve-color *),
+[data-accent="cyan"] .focus\:ring-\[\#2563EB\]\/20:focus:not(.preserve-color):not(.preserve-color *),
 [data-accent="cyan"] .focus\:ring-blue-500\/20:focus:not(.preserve-color):not(.preserve-color *) {
   --tw-ring-color: rgba(8, 145, 178, 0.25) !important;
 }
@@ -1202,6 +1204,7 @@ html.dark[data-accent="green"] .bg-blue-900\/40:not(.preserve-color):not(.preser
 }
 [data-accent="green"] .focus\:ring-\[\#3B82F6\]\/15:focus:not(.preserve-color):not(.preserve-color *),
 [data-accent="green"] .focus\:ring-\[\#176BFF\]\/20:focus:not(.preserve-color):not(.preserve-color *),
+[data-accent="green"] .focus\:ring-\[\#2563EB\]\/20:focus:not(.preserve-color):not(.preserve-color *),
 [data-accent="green"] .focus\:ring-blue-500\/20:focus:not(.preserve-color):not(.preserve-color *) {
   --tw-ring-color: rgba(16, 185, 129, 0.25) !important;
 }
@@ -1342,6 +1345,7 @@ html.dark[data-accent="orange"] .bg-blue-900\/40:not(.preserve-color):not(.prese
 }
 [data-accent="orange"] .focus\:ring-\[\#3B82F6\]\/15:focus:not(.preserve-color):not(.preserve-color *),
 [data-accent="orange"] .focus\:ring-\[\#176BFF\]\/20:focus:not(.preserve-color):not(.preserve-color *),
+[data-accent="orange"] .focus\:ring-\[\#2563EB\]\/20:focus:not(.preserve-color):not(.preserve-color *),
 [data-accent="orange"] .focus\:ring-blue-500\/20:focus:not(.preserve-color):not(.preserve-color *) {
   --tw-ring-color: rgba(234, 88, 12, 0.25) !important;
 }
@@ -1482,6 +1486,7 @@ html.dark[data-accent="pink"] .bg-blue-900\/40:not(.preserve-color):not(.preserv
 }
 [data-accent="pink"] .focus\:ring-\[\#3B82F6\]\/15:focus:not(.preserve-color):not(.preserve-color *),
 [data-accent="pink"] .focus\:ring-\[\#176BFF\]\/20:focus:not(.preserve-color):not(.preserve-color *),
+[data-accent="pink"] .focus\:ring-\[\#2563EB\]\/20:focus:not(.preserve-color):not(.preserve-color *),
 [data-accent="pink"] .focus\:ring-blue-500\/20:focus:not(.preserve-color):not(.preserve-color *) {
   --tw-ring-color: rgba(244, 63, 94, 0.25) !important;
 }
@@ -1622,6 +1627,7 @@ html.dark[data-accent="amber"] .bg-blue-900\/40:not(.preserve-color):not(.preser
 }
 [data-accent="amber"] .focus\:ring-\[\#3B82F6\]\/15:focus:not(.preserve-color):not(.preserve-color *),
 [data-accent="amber"] .focus\:ring-\[\#176BFF\]\/20:focus:not(.preserve-color):not(.preserve-color *),
+[data-accent="amber"] .focus\:ring-\[\#2563EB\]\/20:focus:not(.preserve-color):not(.preserve-color *),
 [data-accent="amber"] .focus\:ring-blue-500\/20:focus:not(.preserve-color):not(.preserve-color *) {
   --tw-ring-color: rgba(245, 158, 11, 0.25) !important;
 }

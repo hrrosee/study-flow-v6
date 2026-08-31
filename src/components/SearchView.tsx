@@ -1460,7 +1460,7 @@ export const SearchView: React.FC<SearchViewProps> = ({
                         placeholder="Search workspaces, topics, tasks, notes, links..."
                         className={`w-full h-[38px] pl-9 ${
                           searchPageQuery.trim() ? 'pr-28' : 'pr-10'
-                        } bg-slate-50/90 hover:bg-white focus:bg-white border border-slate-200/80 focus:border-[#2563EB] focus:ring-2 focus:ring-blue-100 rounded-lg text-xs font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none transition-all shadow-3xs [&::-webkit-search-cancel-button]:appearance-none [&::-webkit-search-decoration]:appearance-none`}
+                        } bg-slate-50/90 hover:bg-white focus:bg-white border border-slate-200/80 focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20 rounded-lg text-xs font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none transition-all shadow-3xs [&::-webkit-search-cancel-button]:appearance-none [&::-webkit-search-decoration]:appearance-none`}
                       />
 
                       <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1 select-none">
@@ -1778,7 +1778,7 @@ export const SearchView: React.FC<SearchViewProps> = ({
                             placeholder="Search workspaces, topics, tasks, notes, links..."
                             className={`w-full h-11 pl-10 ${
                               searchPageQuery.trim() ? 'pr-32 sm:pr-36' : 'pr-14'
-                            } bg-white hover:bg-slate-50/50 focus:bg-white border border-slate-200/90 focus:border-[#2563EB] focus:ring-4 focus:ring-blue-500/10 rounded-md text-xs sm:text-sm font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none transition-all shadow-xs [&::-webkit-search-cancel-button]:appearance-none [&::-webkit-search-decoration]:appearance-none`}
+                            } bg-white hover:bg-slate-50/50 focus:bg-white border border-slate-200/90 focus:border-[#2563EB] focus:ring-4 focus:ring-[#2563EB]/20 rounded-md text-xs sm:text-sm font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none transition-all shadow-xs [&::-webkit-search-cancel-button]:appearance-none [&::-webkit-search-decoration]:appearance-none`}
                           />
 
                           <div className="absolute right-2.5 top-1/2 -translate-y-1/2 flex items-center gap-1 select-none">
@@ -2144,7 +2144,7 @@ export const SearchView: React.FC<SearchViewProps> = ({
 
                           {/* Initial Empty Prompt Card */}
                           <div className="bg-white border border-slate-200/80 rounded-lg p-8 sm:p-10 text-center flex flex-col items-center justify-center gap-3 shadow-2xs">
-                            <div className="w-12 h-12 rounded-lg bg-blue-50 text-[#2563EB] border border-blue-200/60 flex items-center justify-center shadow-3xs">
+                            <div className="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/50 text-[#2563EB] dark:text-blue-400 border border-blue-300/80 dark:border-blue-700/80 flex items-center justify-center shadow-3xs">
                               <Search className="w-6 h-6 stroke-[2]" />
                             </div>
                             <h3 className="text-sm sm:text-base font-bold text-slate-800">Start typing to search</h3>

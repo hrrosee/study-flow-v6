@@ -1935,8 +1935,8 @@ export const NotesStudio: React.FC<NotesStudioProps> = ({
               </h1>
 
               {/* 3. Refined Notes Count Badge (Soft Glass Blue Glow) */}
-              <div className="inline-flex items-center gap-1.5 mt-1.5 px-2.5 py-0.5 rounded-full bg-blue-50/80 dark:bg-blue-950/40 border border-blue-200/70 dark:border-blue-800/50 text-[11px] font-semibold text-blue-700 dark:text-blue-300 transition-colors">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB] dark:bg-blue-400 shadow-[0_0_6px_rgba(37,99,235,0.3)] dark:shadow-[0_0_8px_rgba(96,165,250,0.6)] shrink-0" />
+              <div className="inline-flex items-center gap-1.5 mt-1.5 px-2.5 py-0.5 rounded-full bg-blue-50/80 dark:bg-blue-950/40 border border-blue-300/80 dark:border-blue-700/80 text-[11px] font-semibold text-blue-700 dark:text-blue-300 transition-colors shadow-3xs">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB] dark:bg-blue-400 shrink-0" />
                 <span>{notes.length} {notes.length === 1 ? 'Note' : 'Notes'}</span>
               </div>
             </motion.div>
@@ -1951,7 +1951,7 @@ export const NotesStudio: React.FC<NotesStudioProps> = ({
                 value={noteSearchQuery}
                 onChange={(e) => setNoteSearchQuery(e.target.value)}
                 placeholder="Search in all notes..."
-                className="w-full h-[38px] pl-9 pr-8 text-[13px] sm:text-[13.5px] rounded-lg bg-slate-50/80 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700 focus:bg-white dark:focus:bg-slate-800 focus:border-blue-400 dark:focus:border-blue-500 focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-500/20 outline-none transition-all placeholder:text-slate-400 dark:placeholder:text-slate-500 text-slate-800 dark:text-slate-100"
+                className="w-full h-[38px] pl-9 pr-8 text-[13px] sm:text-[13.5px] rounded-lg bg-slate-50/80 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700 focus:bg-white dark:focus:bg-slate-800 focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20 outline-none transition-all placeholder:text-slate-400 dark:placeholder:text-slate-500 text-slate-800 dark:text-slate-100 font-medium"
               />
               {noteSearchQuery && (
                 <button

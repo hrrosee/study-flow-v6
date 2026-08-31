@@ -3288,7 +3288,7 @@ export const TopicDetailsDrawer: React.FC<TopicDetailsDrawerProps> = ({
                             }
                           }}
                           placeholder="Task name..."
-                          className="min-w-0 flex-1 task-item-font font-[450] text-xs text-slate-800 dark:text-slate-100 rounded-lg border border-blue-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-2.5 h-8 outline-none focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900/40 [&::-webkit-search-cancel-button]:hidden [&::-webkit-search-decoration]:hidden"
+                          className="min-w-0 flex-1 task-item-font font-[450] text-xs text-slate-800 dark:text-slate-100 rounded-lg border border-[#176BFF] dark:border-[#176BFF] bg-white dark:bg-slate-900 px-2.5 h-8 outline-none focus:ring-2 focus:ring-[#176BFF]/20 [&::-webkit-search-cancel-button]:hidden [&::-webkit-search-decoration]:hidden"
                         />
                         <button
                           type="button"
