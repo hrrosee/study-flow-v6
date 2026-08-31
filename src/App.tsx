@@ -8143,7 +8143,13 @@ export function App() {
                       {/* Illustration Graphic */}
                       <div className="relative w-[112px] h-[112px] flex items-center justify-center mb-4 shrink-0">
                         {/* Background Aura */}
-                        <div className="absolute inset-0 rounded-full bg-[#EEF4FF]/80 dark:bg-blue-950/50 border border-[#DBEAFE]/50 dark:border-blue-900/40 shadow-inner" />
+                        <div 
+                          className="absolute inset-0 rounded-full border shadow-inner transition-colors duration-300" 
+                          style={{
+                            backgroundColor: 'var(--folder-aura-bg, rgba(238, 244, 255, 0.8))',
+                            borderColor: 'var(--folder-aura-border, rgba(219, 234, 254, 0.5))'
+                          }}
+                        />
                         
                         {/* Floating Sparkles & Accent Shapes */}
                         <div className="absolute top-0 right-2 w-2.5 h-2.5 bg-pink-300/80 rotate-45 rounded-[2px] animate-pulse" />
@@ -8153,19 +8159,40 @@ export function App() {
 
                         {/* 3D Soft Folder Graphic with document pages */}
                         <div className="relative z-10 flex flex-col items-center transform hover:scale-105 transition-transform duration-300">
-                          <div className="relative w-[72px] h-[54px] bg-gradient-to-tr from-[#3B82F6] via-[#60A5FA] to-[#93C5FD] rounded-xl shadow-lg shadow-blue-500/20 flex items-center justify-center">
+                          <div 
+                            className="relative w-[72px] h-[54px] rounded-xl flex items-center justify-center transition-all duration-300"
+                            style={{
+                              backgroundImage: 'var(--folder-back-grad, linear-gradient(to top right, #3B82F6, #60A5FA, #93C5FD))',
+                              boxShadow: '0 10px 15px -3px var(--folder-shadow, rgba(37, 99, 235, 0.25))'
+                            }}
+                          >
                             {/* Top Folder Tab */}
-                            <div className="absolute -top-2 left-2 w-7 h-2.5 bg-[#60A5FA] rounded-t-md" />
+                            <div 
+                              className="absolute -top-2 left-2 w-7 h-2.5 rounded-t-md transition-colors duration-300" 
+                              style={{
+                                backgroundColor: 'var(--folder-tab-color, #60A5FA)'
+                              }}
+                            />
                             
                             {/* Paper sheet popping out */}
                             <div className="absolute -top-3 w-10 h-9 bg-white dark:bg-slate-800 rounded-t-lg shadow-xs border border-slate-100 dark:border-slate-700 flex flex-col p-1 gap-0.5 transform -rotate-3">
                               <div className="w-7 h-1 bg-slate-200 dark:bg-slate-700 rounded-full" />
                               <div className="w-5 h-1 bg-slate-200 dark:bg-slate-700 rounded-full" />
-                              <div className="w-6 h-1 bg-blue-300 dark:bg-blue-500 rounded-full" />
+                              <div 
+                                className="w-6 h-1 rounded-full transition-colors duration-300" 
+                                style={{
+                                  backgroundColor: 'var(--folder-line-color, #93C5FD)'
+                                }}
+                              />
                             </div>
 
                             {/* Front Flap */}
-                            <div className="absolute inset-0 bg-gradient-to-tr from-[#2563EB] to-[#60A5FA] rounded-xl flex items-center justify-center opacity-95 border-t border-white/30">
+                            <div 
+                              className="absolute inset-0 rounded-xl flex items-center justify-center opacity-95 border-t border-white/30 transition-all duration-300"
+                              style={{
+                                backgroundImage: 'var(--folder-front-grad, linear-gradient(to top right, #2563EB, #60A5FA))'
+                              }}
+                            >
                               <div className="w-4 h-4 rounded-full bg-white/20 flex items-center justify-center backdrop-blur-2xs">
                                 <div className="w-2 h-2 rounded-full bg-white/90" />
                               </div>

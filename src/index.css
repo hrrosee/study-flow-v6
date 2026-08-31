@@ -578,6 +578,13 @@ input[type=number] {
   --note-grad-end: #2563EB;
   --note-fold-start: #93C5FD;
   --note-fold-end: #3B82F6;
+  --folder-aura-bg: rgba(238, 244, 255, 0.8);
+  --folder-aura-border: rgba(219, 234, 254, 0.5);
+  --folder-back-grad: linear-gradient(to top right, #3B82F6, #60A5FA, #93C5FD);
+  --folder-tab-color: #60A5FA;
+  --folder-front-grad: linear-gradient(to top right, #2563EB, #60A5FA);
+  --folder-shadow: rgba(37, 99, 235, 0.25);
+  --folder-line-color: #93C5FD;
 }
 
 [data-accent="purple"] {
@@ -585,6 +592,13 @@ input[type=number] {
   --note-grad-end: #8B5CF6;
   --note-fold-start: #DDD6FE;
   --note-fold-end: #A855F7;
+  --folder-aura-bg: rgba(250, 245, 255, 0.8);
+  --folder-aura-border: rgba(243, 232, 255, 0.5);
+  --folder-back-grad: linear-gradient(to top right, #8B5CF6, #A855F7, #DDD6FE);
+  --folder-tab-color: #A855F7;
+  --folder-front-grad: linear-gradient(to top right, #7C3AED, #A855F7);
+  --folder-shadow: rgba(124, 58, 237, 0.25);
+  --folder-line-color: #C084FC;
 }
 
 [data-accent="green"] {
@@ -592,6 +606,13 @@ input[type=number] {
   --note-grad-end: #10B981;
   --note-fold-start: #A7F3D0;
   --note-fold-end: #059669;
+  --folder-aura-bg: rgba(236, 253, 245, 0.8);
+  --folder-aura-border: rgba(209, 250, 229, 0.5);
+  --folder-back-grad: linear-gradient(to top right, #059669, #10B981, #A7F3D0);
+  --folder-tab-color: #10B981;
+  --folder-front-grad: linear-gradient(to top right, #047857, #10B981);
+  --folder-shadow: rgba(16, 185, 129, 0.25);
+  --folder-line-color: #34D399;
 }
 
 [data-accent="orange"] {
@@ -599,6 +620,13 @@ input[type=number] {
   --note-grad-end: #EA580C;
   --note-fold-start: #FED7AA;
   --note-fold-end: #F97316;
+  --folder-aura-bg: rgba(255, 247, 237, 0.8);
+  --folder-aura-border: rgba(254, 215, 170, 0.5);
+  --folder-back-grad: linear-gradient(to top right, #EA580C, #F97316, #FED7AA);
+  --folder-tab-color: #F97316;
+  --folder-front-grad: linear-gradient(to top right, #C2410C, #F97316);
+  --folder-shadow: rgba(234, 88, 12, 0.25);
+  --folder-line-color: #FB923C;
 }
 
 [data-accent="pink"] {
@@ -606,6 +634,13 @@ input[type=number] {
   --note-grad-end: #F43F5E;
   --note-fold-start: #FECDD3;
   --note-fold-end: #E11D48;
+  --folder-aura-bg: rgba(255, 241, 242, 0.8);
+  --folder-aura-border: rgba(254, 205, 211, 0.5);
+  --folder-back-grad: linear-gradient(to top right, #E11D48, #F43F5E, #FECDD3);
+  --folder-tab-color: #F43F5E;
+  --folder-front-grad: linear-gradient(to top right, #BE123C, #F43F5E);
+  --folder-shadow: rgba(244, 63, 94, 0.25);
+  --folder-line-color: #FDA4AF;
 }
 
 [data-accent="cyan"] {
@@ -613,6 +648,13 @@ input[type=number] {
   --note-grad-end: #06B6D4;
   --note-fold-start: #A5F3FC;
   --note-fold-end: #0891B2;
+  --folder-aura-bg: rgba(236, 254, 255, 0.8);
+  --folder-aura-border: rgba(207, 250, 254, 0.5);
+  --folder-back-grad: linear-gradient(to top right, #0891B2, #06B6D4, #A5F3FC);
+  --folder-tab-color: #06B6D4;
+  --folder-front-grad: linear-gradient(to top right, #0E7490, #06B6D4);
+  --folder-shadow: rgba(8, 145, 178, 0.25);
+  --folder-line-color: #67E8F9;
 }
 
 [data-accent="amber"] {
@@ -620,6 +662,43 @@ input[type=number] {
   --note-grad-end: #F59E0B;
   --note-fold-start: #FEF08A;
   --note-fold-end: #D97706;
+  --folder-aura-bg: rgba(255, 251, 235, 0.8);
+  --folder-aura-border: rgba(254, 240, 138, 0.5);
+  --folder-back-grad: linear-gradient(to top right, #D97706, #F59E0B, #FEF08A);
+  --folder-tab-color: #F59E0B;
+  --folder-front-grad: linear-gradient(to top right, #B45309, #F59E0B);
+  --folder-shadow: rgba(245, 158, 11, 0.25);
+  --folder-line-color: #FDE68A;
+}
+
+/* Dark mode aura adjustments */
+html.dark[data-accent="blue"] {
+  --folder-aura-bg: rgba(23, 37, 84, 0.45);
+  --folder-aura-border: rgba(30, 58, 138, 0.4);
+}
+html.dark[data-accent="purple"] {
+  --folder-aura-bg: rgba(59, 7, 100, 0.45);
+  --folder-aura-border: rgba(76, 29, 149, 0.4);
+}
+html.dark[data-accent="green"] {
+  --folder-aura-bg: rgba(6, 78, 59, 0.45);
+  --folder-aura-border: rgba(6, 95, 70, 0.4);
+}
+html.dark[data-accent="orange"] {
+  --folder-aura-bg: rgba(124, 45, 18, 0.45);
+  --folder-aura-border: rgba(154, 52, 18, 0.4);
+}
+html.dark[data-accent="pink"] {
+  --folder-aura-bg: rgba(136, 19, 55, 0.45);
+  --folder-aura-border: rgba(159, 18, 57, 0.4);
+}
+html.dark[data-accent="cyan"] {
+  --folder-aura-bg: rgba(22, 78, 99, 0.45);
+  --folder-aura-border: rgba(21, 94, 117, 0.4);
+}
+html.dark[data-accent="amber"] {
+  --folder-aura-bg: rgba(120, 53, 15, 0.45);
+  --folder-aura-border: rgba(146, 64, 14, 0.4);
 }
 
 /* --- PURPLE THEME (#7C3AED / #8B5CF6) --- */
