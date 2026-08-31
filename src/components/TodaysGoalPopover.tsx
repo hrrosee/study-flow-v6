@@ -373,14 +373,14 @@ export const TodaysGoalPopover: React.FC<TodaysGoalPopoverProps> = ({
                                         e.stopPropagation();
                                         onNavigateToTask?.(task.workspaceId, task.topicId, task.id);
                                       }}
-                                      className="px-2.5 py-1.5 rounded-lg bg-white dark:bg-slate-800/90 hover:bg-blue-50/70 dark:hover:bg-blue-950/50 border border-slate-200/70 dark:border-slate-700/60 hover:border-blue-300 dark:hover:border-blue-700/80 transition-all cursor-pointer flex flex-col gap-0.5 group shadow-3xs"
+                                      className="px-2.5 py-1.5 rounded-lg bg-white dark:bg-slate-800/90 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-200/80 dark:border-slate-750 hover:border-slate-300 dark:hover:border-slate-700 transition-colors duration-150 cursor-pointer flex flex-col gap-0.5 group shadow-3xs"
                                       title="Click to open topic and view task"
                                     >
                                       {/* Line 1: [Icon] [Title] (left) | [Nm / Nh Mm or 11:30 AM] (right) */}
                                       <div className="flex items-center justify-between gap-2 min-w-0">
                                         <div className="flex items-center gap-1.5 min-w-0">
                                           <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400 shrink-0 stroke-[2.2]" />
-                                          <span className="text-xs font-bold text-slate-800 dark:text-slate-200 truncate group-hover:text-[#2563EB] dark:group-hover:text-blue-400 transition-colors">
+                                          <span className="text-xs font-bold text-slate-800 dark:text-slate-200 truncate group-hover:text-slate-950 dark:group-hover:text-white transition-colors">
                                             {task.title}
                                           </span>
                                         </div>
