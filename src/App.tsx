@@ -5696,11 +5696,11 @@ export function App() {
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
               transition={{ type: 'spring', damping: 32, stiffness: 380, mass: 0.75 }}
-              className="md:hidden fixed inset-y-0 left-0 w-[275px] max-w-[85vw] h-[100dvh] z-[99999] bg-white border-r border-[#E5EAF2] shadow-2xl shadow-slate-950/25 flex flex-col select-none font-sans overflow-hidden"
+              className="md:hidden fixed inset-y-0 left-0 w-[275px] max-w-[85vw] h-[100dvh] z-[99999] bg-white border-r border-[#E5EAF2] shadow-2xl shadow-slate-950/25 flex flex-col select-none font-sans"
               style={{ height: '100dvh' }}
             >
               {/* Brand Header with Close Button (Exact 56px matching main header) */}
-              <div className="h-[56px] sm:h-[60px] px-3.5 flex items-center justify-between shrink-0 border-b border-slate-200/80 dark:border-slate-800">
+              <div className="h-[56px] sm:h-[60px] px-3.5 flex items-center justify-between shrink-0 border-b border-slate-200/80 dark:border-slate-800 relative z-50 overflow-visible">
                 <div className="flex items-center gap-2.5">
                   <div className="w-7 h-7 flex items-center justify-center shrink-0">
                     <div className="preserve-color relative w-[23px] h-[23px] flex items-center justify-center shrink-0">
@@ -6354,13 +6354,13 @@ export function App() {
 
       {/* Desktop Left Sidebar (255px / 56px) - Google Gemini Web Style Material Eased Sidebar */}
       <aside
-        className={`hidden md:flex flex-col shrink-0 select-none font-sans overflow-hidden static z-20 border-r border-[#E5EAF2] dark:border-slate-800 bg-white dark:bg-slate-900 h-[100vh] transition-[width] duration-280 ease-[cubic-bezier(0.2,0,0,1)] ${
-          sidebarCollapsed ? 'w-[56px]' : 'w-[255px]'
+        className={`hidden md:flex flex-col shrink-0 select-none font-sans static z-20 border-r border-[#E5EAF2] dark:border-slate-800 bg-white dark:bg-slate-900 h-[100vh] transition-[width] duration-280 ease-[cubic-bezier(0.2,0,0,1)] ${
+          sidebarCollapsed ? 'w-[56px] overflow-hidden' : 'w-[255px]'
         }`}
         style={{ height: '100vh' }}
       >
         {/* Brand Header (72px height) */}
-        <div className="h-[72px] px-2 flex items-center shrink-0 overflow-hidden">
+        <div className="h-[72px] px-2 flex items-center shrink-0 relative z-50 overflow-visible">
           <div
             className={`w-full h-[36px] flex items-center select-none rounded-lg transition-colors group relative ${
               sidebarCollapsed ? 'justify-center px-0 hover:bg-slate-200/75 dark:hover:bg-slate-800/80 cursor-pointer' : 'px-1.5 cursor-default'
@@ -6374,7 +6374,7 @@ export function App() {
             data-tooltip={sidebarCollapsed && !suppressSidebarTooltip ? "Expand sidebar" : undefined}
             data-tooltip-side="right"
           >
-            <div className={`flex items-center ${sidebarCollapsed ? 'justify-center' : 'gap-2.5 min-w-0 flex-1 overflow-hidden pr-8'}`}>
+            <div className={`flex items-center ${sidebarCollapsed ? 'justify-center' : 'gap-2.5 min-w-0 flex-1 pr-8'}`}>
               {/* Brand logo icon: 100% stationary anchor */}
               <div className="w-7 h-7 flex items-center justify-center shrink-0">
                 <div className="preserve-color relative w-[23px] h-[23px] flex items-center justify-center shrink-0">
