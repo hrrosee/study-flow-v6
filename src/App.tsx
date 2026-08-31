@@ -981,15 +981,18 @@ export function App() {
     if (!isAccentQuickPickerOpen) return;
     const handleOutsideClick = (e: MouseEvent | TouchEvent) => {
       const target = e.target as HTMLElement;
-      if (!target.closest('[data-accent-picker-container]')) {
+      if (target && !target.closest('[data-accent-picker-container]')) {
         setIsAccentQuickPickerOpen(false);
       }
     };
-    document.addEventListener('mousedown', handleOutsideClick);
-    document.addEventListener('touchstart', handleOutsideClick);
+    const timer = setTimeout(() => {
+      document.addEventListener('click', handleOutsideClick);
+      document.addEventListener('touchend', handleOutsideClick);
+    }, 60);
     return () => {
-      document.removeEventListener('mousedown', handleOutsideClick);
-      document.removeEventListener('touchstart', handleOutsideClick);
+      clearTimeout(timer);
+      document.removeEventListener('click', handleOutsideClick);
+      document.removeEventListener('touchend', handleOutsideClick);
     };
   }, [isAccentQuickPickerOpen]);
 
@@ -5733,6 +5736,7 @@ export function App() {
                           transition={{ duration: 0.15, ease: [0.16, 1, 0.3, 1] }}
                           className="absolute left-0 top-full mt-2.5 z-[99999] p-2.5 bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 rounded-2xl shadow-xl shadow-slate-950/20 flex flex-col gap-2 min-w-[210px]"
                           onClick={(e) => e.stopPropagation()}
+                          onPointerDown={(e) => e.stopPropagation()}
                         >
                           <div className="flex items-center justify-between px-1 text-[10.5px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
                             <span>Accent Color</span>
@@ -5751,7 +5755,14 @@ export function App() {
                                 <button
                                   key={opt.id}
                                   type="button"
-                                  onClick={() => handleSelectAccentColor(opt.id)}
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleSelectAccentColor(opt.id);
+                                  }}
+                                  onPointerDown={(e) => {
+                                    e.stopPropagation();
+                                    handleSelectAccentColor(opt.id);
+                                  }}
                                   className={`relative w-6 h-6 rounded-full flex items-center justify-center transition-all hover:scale-115 active:scale-95 cursor-pointer shadow-3xs ${
                                     isSelected ? 'ring-2 ring-offset-2 ring-slate-400 dark:ring-offset-slate-900 scale-110' : ''
                                   }`}
@@ -6413,6 +6424,7 @@ export function App() {
                       transition={{ duration: 0.15, ease: [0.16, 1, 0.3, 1] }}
                       className="absolute left-0 top-full mt-2.5 z-[99999] p-2.5 bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 rounded-2xl shadow-xl shadow-slate-950/20 flex flex-col gap-2 min-w-[210px]"
                       onClick={(e) => e.stopPropagation()}
+                      onPointerDown={(e) => e.stopPropagation()}
                     >
                       <div className="flex items-center justify-between px-1 text-[10.5px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
                         <span>Accent Color</span>
@@ -6431,7 +6443,14 @@ export function App() {
                             <button
                               key={opt.id}
                               type="button"
-                              onClick={() => handleSelectAccentColor(opt.id)}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleSelectAccentColor(opt.id);
+                              }}
+                              onPointerDown={(e) => {
+                                e.stopPropagation();
+                                handleSelectAccentColor(opt.id);
+                              }}
                               className={`relative w-6 h-6 rounded-full flex items-center justify-center transition-all hover:scale-115 active:scale-95 cursor-pointer shadow-3xs ${
                                 isSelected ? 'ring-2 ring-offset-2 ring-slate-400 dark:ring-offset-slate-900 scale-110' : ''
                               }`}

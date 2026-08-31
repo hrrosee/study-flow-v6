@@ -803,11 +803,11 @@ html.dark[data-accent="purple"] .text-\[\#176BFF\]:not(.preserve-color):not(.pre
   border-color: rgba(124, 58, 237, 0.4) !important;
 }
 
-[data-accent="purple"] .border-blue-100:not(.preserve-color):not(.preserve-color *),
-[data-accent="purple"] .border-blue-200:not(.preserve-color):not(.preserve-color *),
-[data-accent="purple"] .border-blue-200\/80:not(.preserve-color):not(.preserve-color *),
-[data-accent="purple"] .border-blue-200\/90:not(.preserve-color):not(.preserve-color *),
-[data-accent="purple"] .border-blue-300:not(.preserve-color):not(.preserve-color *) {
+html:not(.dark)[data-accent="purple"] .border-blue-100:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="purple"] .border-blue-200:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="purple"] .border-blue-200\/80:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="purple"] .border-blue-200\/90:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="purple"] .border-blue-300:not(.preserve-color):not(.preserve-color *) {
   border-color: #f3e8ff !important;
 }
 
@@ -816,54 +816,78 @@ html.dark[data-accent="purple"] .text-\[\#176BFF\]:not(.preserve-color):not(.pre
   border-color: #7c3aed !important;
 }
 
-html.dark[data-accent="purple"] .border-blue-800:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="purple"] .border-blue-800\/60:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="purple"] .border-blue-900:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="purple"] .border-blue-900\/40:not(.preserve-color):not(.preserve-color *) {
-  border-color: rgba(126, 34, 206, 0.4) !important;
-}
-
 /* Active task selection in Topic Drawer */
-[data-accent="purple"] .bg-\[\#F4F8FF\]:not(.preserve-color):not(.preserve-color *) {
+html:not(.dark)[data-accent="purple"] .bg-\[\#F4F8FF\]:not(.preserve-color):not(.preserve-color *) {
   background-color: #faf5ff !important;
 }
-[data-accent="purple"] .bg-\[\#E6F0FF\]:not(.preserve-color):not(.preserve-color *) {
+html:not(.dark)[data-accent="purple"] .bg-\[\#E6F0FF\]:not(.preserve-color):not(.preserve-color *) {
   background-color: #f3e8ff !important;
 }
-[data-accent="purple"] .border-\[\#E0EDFF\]:not(.preserve-color):not(.preserve-color *),
-[data-accent="purple"] .border-\[\#E0EDFF\]\/80:not(.preserve-color):not(.preserve-color *) {
+html:not(.dark)[data-accent="purple"] .border-\[\#E0EDFF\]:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="purple"] .border-\[\#E0EDFF\]\/80:not(.preserve-color):not(.preserve-color *) {
   border-color: #f3e8ff !important;
 }
 
-[data-accent="purple"] .bg-blue-50:not(.preserve-color):not(.preserve-color *),
-[data-accent="purple"] .bg-blue-50\/90:not(.preserve-color):not(.preserve-color *),
-[data-accent="purple"] .bg-blue-50\/80:not(.preserve-color):not(.preserve-color *),
-[data-accent="purple"] .bg-blue-50\/70:not(.preserve-color):not(.preserve-color *),
-[data-accent="purple"] .bg-blue-50\/50:not(.preserve-color):not(.preserve-color *),
-[data-accent="purple"] .bg-blue-50\/40:not(.preserve-color):not(.preserve-color *),
-[data-accent="purple"] .bg-blue-50\/20:not(.preserve-color):not(.preserve-color *),
-[data-accent="purple"] .bg-blue-100:not(.preserve-color):not(.preserve-color *),
-[data-accent="purple"] .bg-blue-100\/90:not(.preserve-color):not(.preserve-color *),
-[data-accent="purple"] .bg-blue-100\/70:not(.preserve-color):not(.preserve-color *) {
+html:not(.dark)[data-accent="purple"] .bg-blue-50:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="purple"] .bg-blue-50\/90:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="purple"] .bg-blue-50\/80:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="purple"] .bg-blue-50\/70:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="purple"] .bg-blue-50\/50:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="purple"] .bg-blue-50\/40:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="purple"] .bg-blue-50\/20:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="purple"] .bg-blue-100:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="purple"] .bg-blue-100\/90:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="purple"] .bg-blue-100\/70:not(.preserve-color):not(.preserve-color *) {
   background-color: #faf5ff !important;
 }
 
-[data-accent="purple"] .hover\:bg-blue-50:hover:not(.preserve-color):not(.preserve-color *),
-[data-accent="purple"] .hover\:bg-blue-50\/70:hover:not(.preserve-color):not(.preserve-color *),
-[data-accent="purple"] .hover\:bg-blue-100:hover:not(.preserve-color):not(.preserve-color *),
-[data-accent="purple"] .hover\:bg-blue-100\/90:hover:not(.preserve-color):not(.preserve-color *),
-[data-accent="purple"] .group-hover\:bg-blue-100:not(.preserve-color):not(.preserve-color *) {
+html:not(.dark)[data-accent="purple"] .hover\:bg-blue-50:hover:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="purple"] .hover\:bg-blue-50\/70:hover:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="purple"] .hover\:bg-blue-100:hover:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="purple"] .hover\:bg-blue-100\/90:hover:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="purple"] .group-hover\:bg-blue-100:not(.preserve-color):not(.preserve-color *) {
   background-color: #f3e8ff !important;
 }
 
-html.dark[data-accent="purple"] .bg-blue-950:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="purple"] .bg-blue-950\/50:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="purple"] .bg-blue-950\/40:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="purple"] .bg-blue-950\/30:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="purple"] .bg-blue-950\/20:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="purple"] .bg-blue-900\/50:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="purple"] .bg-blue-900\/40:not(.preserve-color):not(.preserve-color *) {
-  background-color: rgba(59, 7, 100, 0.45) !important;
+html.dark[data-accent="purple"] .bg-blue-50,
+html.dark[data-accent="purple"] .bg-blue-50\/90,
+html.dark[data-accent="purple"] .bg-blue-50\/80,
+html.dark[data-accent="purple"] .bg-blue-50\/70,
+html.dark[data-accent="purple"] .bg-blue-50\/50,
+html.dark[data-accent="purple"] .bg-blue-50\/40,
+html.dark[data-accent="purple"] .bg-blue-50\/30,
+html.dark[data-accent="purple"] .bg-blue-50\/20,
+html.dark[data-accent="purple"] .bg-blue-100,
+html.dark[data-accent="purple"] .bg-blue-950,
+html.dark[data-accent="purple"] .bg-blue-950\/50,
+html.dark[data-accent="purple"] .bg-blue-950\/40,
+html.dark[data-accent="purple"] .bg-blue-950\/30,
+html.dark[data-accent="purple"] .bg-blue-950\/20,
+html.dark[data-accent="purple"] .bg-blue-900\/50,
+html.dark[data-accent="purple"] .bg-blue-900\/40,
+html.dark[data-accent="purple"] .bg-\[\#F4F8FF\],
+html.dark[data-accent="purple"] .bg-\[\#E6F0FF\],
+html.dark[data-accent="purple"] .bg-\[\#EEF4FF\],
+html.dark[data-accent="purple"] .bg-\[\#EFF6FF\],
+html.dark[data-accent="purple"] .bg-\[\#EEF2FF\] {
+  background-color: rgba(124, 58, 237, 0.18) !important;
+}
+
+html.dark[data-accent="purple"] .border-blue-100,
+html.dark[data-accent="purple"] .border-blue-200,
+html.dark[data-accent="purple"] .border-blue-200\/60,
+html.dark[data-accent="purple"] .border-blue-200\/80,
+html.dark[data-accent="purple"] .border-blue-200\/90,
+html.dark[data-accent="purple"] .border-blue-300,
+html.dark[data-accent="purple"] .border-\[\#DBEAFE\],
+html.dark[data-accent="purple"] .border-\[\#E0E7FF\],
+html.dark[data-accent="purple"] .border-\[\#E0EDFF\],
+html.dark[data-accent="purple"] .border-\[\#E0EDFF\]\/80,
+html.dark[data-accent="purple"] .border-blue-800,
+html.dark[data-accent="purple"] .border-blue-800\/60,
+html.dark[data-accent="purple"] .border-blue-900,
+html.dark[data-accent="purple"] .border-blue-900\/40 {
+  border-color: rgba(124, 58, 237, 0.35) !important;
 }
 
 [data-accent="purple"] .ring-\[\#2563EB\]\/20:not(.preserve-color):not(.preserve-color *),
@@ -970,11 +994,11 @@ html.dark[data-accent="cyan"] .text-\[\#176BFF\]:not(.preserve-color):not(.prese
   border-color: rgba(8, 145, 178, 0.4) !important;
 }
 
-[data-accent="cyan"] .border-blue-100:not(.preserve-color):not(.preserve-color *),
-[data-accent="cyan"] .border-blue-200:not(.preserve-color):not(.preserve-color *),
-[data-accent="cyan"] .border-blue-200\/80:not(.preserve-color):not(.preserve-color *),
-[data-accent="cyan"] .border-blue-200\/90:not(.preserve-color):not(.preserve-color *),
-[data-accent="cyan"] .border-blue-300:not(.preserve-color):not(.preserve-color *) {
+html:not(.dark)[data-accent="cyan"] .border-blue-100:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="cyan"] .border-blue-200:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="cyan"] .border-blue-200\/80:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="cyan"] .border-blue-200\/90:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="cyan"] .border-blue-300:not(.preserve-color):not(.preserve-color *) {
   border-color: #cffafe !important;
 }
 
@@ -983,54 +1007,78 @@ html.dark[data-accent="cyan"] .text-\[\#176BFF\]:not(.preserve-color):not(.prese
   border-color: #0891b2 !important;
 }
 
-html.dark[data-accent="cyan"] .border-blue-800:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="cyan"] .border-blue-800\/60:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="cyan"] .border-blue-900:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="cyan"] .border-blue-900\/40:not(.preserve-color):not(.preserve-color *) {
-  border-color: rgba(22, 78, 99, 0.4) !important;
-}
-
 /* Active task selection in Topic Drawer */
-[data-accent="cyan"] .bg-\[\#F4F8FF\]:not(.preserve-color):not(.preserve-color *) {
+html:not(.dark)[data-accent="cyan"] .bg-\[\#F4F8FF\]:not(.preserve-color):not(.preserve-color *) {
   background-color: #ecfeff !important;
 }
-[data-accent="cyan"] .bg-\[\#E6F0FF\]:not(.preserve-color):not(.preserve-color *) {
+html:not(.dark)[data-accent="cyan"] .bg-\[\#E6F0FF\]:not(.preserve-color):not(.preserve-color *) {
   background-color: #cffafe !important;
 }
-[data-accent="cyan"] .border-\[\#E0EDFF\]:not(.preserve-color):not(.preserve-color *),
-[data-accent="cyan"] .border-\[\#E0EDFF\]\/80:not(.preserve-color):not(.preserve-color *) {
+html:not(.dark)[data-accent="cyan"] .border-\[\#E0EDFF\]:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="cyan"] .border-\[\#E0EDFF\]\/80:not(.preserve-color):not(.preserve-color *) {
   border-color: #cffafe !important;
 }
 
-[data-accent="cyan"] .bg-blue-50:not(.preserve-color):not(.preserve-color *),
-[data-accent="cyan"] .bg-blue-50\/90:not(.preserve-color):not(.preserve-color *),
-[data-accent="cyan"] .bg-blue-50\/80:not(.preserve-color):not(.preserve-color *),
-[data-accent="cyan"] .bg-blue-50\/70:not(.preserve-color):not(.preserve-color *),
-[data-accent="cyan"] .bg-blue-50\/50:not(.preserve-color):not(.preserve-color *),
-[data-accent="cyan"] .bg-blue-50\/40:not(.preserve-color):not(.preserve-color *),
-[data-accent="cyan"] .bg-blue-50\/20:not(.preserve-color):not(.preserve-color *),
-[data-accent="cyan"] .bg-blue-100:not(.preserve-color):not(.preserve-color *),
-[data-accent="cyan"] .bg-blue-100\/90:not(.preserve-color):not(.preserve-color *),
-[data-accent="cyan"] .bg-blue-100\/70:not(.preserve-color):not(.preserve-color *) {
+html:not(.dark)[data-accent="cyan"] .bg-blue-50:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="cyan"] .bg-blue-50\/90:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="cyan"] .bg-blue-50\/80:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="cyan"] .bg-blue-50\/70:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="cyan"] .bg-blue-50\/50:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="cyan"] .bg-blue-50\/40:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="cyan"] .bg-blue-50\/20:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="cyan"] .bg-blue-100:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="cyan"] .bg-blue-100\/90:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="cyan"] .bg-blue-100\/70:not(.preserve-color):not(.preserve-color *) {
   background-color: #ecfeff !important;
 }
 
-[data-accent="cyan"] .hover\:bg-blue-50:hover:not(.preserve-color):not(.preserve-color *),
-[data-accent="cyan"] .hover\:bg-blue-50\/70:hover:not(.preserve-color):not(.preserve-color *),
-[data-accent="cyan"] .hover\:bg-blue-100:hover:not(.preserve-color):not(.preserve-color *),
-[data-accent="cyan"] .hover\:bg-blue-100\/90:hover:not(.preserve-color):not(.preserve-color *),
-[data-accent="cyan"] .group-hover\:bg-blue-100:not(.preserve-color):not(.preserve-color *) {
+html:not(.dark)[data-accent="cyan"] .hover\:bg-blue-50:hover:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="cyan"] .hover\:bg-blue-50\/70:hover:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="cyan"] .hover\:bg-blue-100:hover:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="cyan"] .hover\:bg-blue-100\/90:hover:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="cyan"] .group-hover\:bg-blue-100:not(.preserve-color):not(.preserve-color *) {
   background-color: #cffafe !important;
 }
 
-html.dark[data-accent="cyan"] .bg-blue-950:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="cyan"] .bg-blue-950\/50:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="cyan"] .bg-blue-950\/40:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="cyan"] .bg-blue-950\/30:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="cyan"] .bg-blue-950\/20:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="cyan"] .bg-blue-900\/50:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="cyan"] .bg-blue-900\/40:not(.preserve-color):not(.preserve-color *) {
-  background-color: rgba(8, 51, 68, 0.45) !important;
+html.dark[data-accent="cyan"] .bg-blue-50,
+html.dark[data-accent="cyan"] .bg-blue-50\/90,
+html.dark[data-accent="cyan"] .bg-blue-50\/80,
+html.dark[data-accent="cyan"] .bg-blue-50\/70,
+html.dark[data-accent="cyan"] .bg-blue-50\/50,
+html.dark[data-accent="cyan"] .bg-blue-50\/40,
+html.dark[data-accent="cyan"] .bg-blue-50\/30,
+html.dark[data-accent="cyan"] .bg-blue-50\/20,
+html.dark[data-accent="cyan"] .bg-blue-100,
+html.dark[data-accent="cyan"] .bg-blue-950,
+html.dark[data-accent="cyan"] .bg-blue-950\/50,
+html.dark[data-accent="cyan"] .bg-blue-950\/40,
+html.dark[data-accent="cyan"] .bg-blue-950\/30,
+html.dark[data-accent="cyan"] .bg-blue-950\/20,
+html.dark[data-accent="cyan"] .bg-blue-900\/50,
+html.dark[data-accent="cyan"] .bg-blue-900\/40,
+html.dark[data-accent="cyan"] .bg-\[\#F4F8FF\],
+html.dark[data-accent="cyan"] .bg-\[\#E6F0FF\],
+html.dark[data-accent="cyan"] .bg-\[\#EEF4FF\],
+html.dark[data-accent="cyan"] .bg-\[\#EFF6FF\],
+html.dark[data-accent="cyan"] .bg-\[\#EEF2FF\] {
+  background-color: rgba(8, 145, 178, 0.18) !important;
+}
+
+html.dark[data-accent="cyan"] .border-blue-100,
+html.dark[data-accent="cyan"] .border-blue-200,
+html.dark[data-accent="cyan"] .border-blue-200\/60,
+html.dark[data-accent="cyan"] .border-blue-200\/80,
+html.dark[data-accent="cyan"] .border-blue-200\/90,
+html.dark[data-accent="cyan"] .border-blue-300,
+html.dark[data-accent="cyan"] .border-\[\#DBEAFE\],
+html.dark[data-accent="cyan"] .border-\[\#E0E7FF\],
+html.dark[data-accent="cyan"] .border-\[\#E0EDFF\],
+html.dark[data-accent="cyan"] .border-\[\#E0EDFF\]\/80,
+html.dark[data-accent="cyan"] .border-blue-800,
+html.dark[data-accent="cyan"] .border-blue-800\/60,
+html.dark[data-accent="cyan"] .border-blue-900,
+html.dark[data-accent="cyan"] .border-blue-900\/40 {
+  border-color: rgba(8, 145, 178, 0.35) !important;
 }
 
 [data-accent="cyan"] .ring-\[\#2563EB\]\/20:not(.preserve-color):not(.preserve-color *),
@@ -1129,60 +1177,88 @@ html.dark[data-accent="green"] .text-\[\#176BFF\]:not(.preserve-color):not(.pres
 [data-accent="green"] .border-blue-400:not(.preserve-color):not(.preserve-color *) {
   border-color: rgba(16, 185, 129, 0.4) !important;
 }
-[data-accent="green"] .border-blue-100:not(.preserve-color):not(.preserve-color *),
-[data-accent="green"] .border-blue-200:not(.preserve-color):not(.preserve-color *),
-[data-accent="green"] .border-blue-200\/80:not(.preserve-color):not(.preserve-color *),
-[data-accent="green"] .border-blue-200\/90:not(.preserve-color):not(.preserve-color *),
-[data-accent="green"] .border-blue-300:not(.preserve-color):not(.preserve-color *) {
+html:not(.dark)[data-accent="green"] .border-blue-100:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="green"] .border-blue-200:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="green"] .border-blue-200\/80:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="green"] .border-blue-200\/90:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="green"] .border-blue-300:not(.preserve-color):not(.preserve-color *) {
   border-color: #d1fae5 !important;
 }
 [data-accent="green"] .focus-within\:border-\[\#176BFF\]:focus-within:not(.preserve-color):not(.preserve-color *),
 [data-accent="green"] .focus-within\:border-\[\#2563EB\]:focus-within:not(.preserve-color):not(.preserve-color *) {
   border-color: #10b981 !important;
 }
-html.dark[data-accent="green"] .border-blue-800:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="green"] .border-blue-800\/60:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="green"] .border-blue-900:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="green"] .border-blue-900\/40:not(.preserve-color):not(.preserve-color *) {
-  border-color: rgba(6, 78, 59, 0.4) !important;
-}
-[data-accent="green"] .bg-\[\#F4F8FF\]:not(.preserve-color):not(.preserve-color *) {
+
+/* Active task selection in Topic Drawer */
+html:not(.dark)[data-accent="green"] .bg-\[\#F4F8FF\]:not(.preserve-color):not(.preserve-color *) {
   background-color: #f0fdf4 !important;
 }
-[data-accent="green"] .bg-\[\#E6F0FF\]:not(.preserve-color):not(.preserve-color *) {
+html:not(.dark)[data-accent="green"] .bg-\[\#E6F0FF\]:not(.preserve-color):not(.preserve-color *) {
   background-color: #dcfce7 !important;
 }
-[data-accent="green"] .border-\[\#E0EDFF\]:not(.preserve-color):not(.preserve-color *),
-[data-accent="green"] .border-\[\#E0EDFF\]\/80:not(.preserve-color):not(.preserve-color *) {
+html:not(.dark)[data-accent="green"] .border-\[\#E0EDFF\]:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="green"] .border-\[\#E0EDFF\]\/80:not(.preserve-color):not(.preserve-color *) {
   border-color: #d1fae5 !important;
 }
-[data-accent="green"] .bg-blue-50:not(.preserve-color):not(.preserve-color *),
-[data-accent="green"] .bg-blue-50\/90:not(.preserve-color):not(.preserve-color *),
-[data-accent="green"] .bg-blue-50\/80:not(.preserve-color):not(.preserve-color *),
-[data-accent="green"] .bg-blue-50\/70:not(.preserve-color):not(.preserve-color *),
-[data-accent="green"] .bg-blue-50\/50:not(.preserve-color):not(.preserve-color *),
-[data-accent="green"] .bg-blue-50\/40:not(.preserve-color):not(.preserve-color *),
-[data-accent="green"] .bg-blue-50\/20:not(.preserve-color):not(.preserve-color *),
-[data-accent="green"] .bg-blue-100:not(.preserve-color):not(.preserve-color *),
-[data-accent="green"] .bg-blue-100\/90:not(.preserve-color):not(.preserve-color *),
-[data-accent="green"] .bg-blue-100\/70:not(.preserve-color):not(.preserve-color *) {
+html:not(.dark)[data-accent="green"] .bg-blue-50:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="green"] .bg-blue-50\/90:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="green"] .bg-blue-50\/80:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="green"] .bg-blue-50\/70:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="green"] .bg-blue-50\/50:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="green"] .bg-blue-50\/40:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="green"] .bg-blue-50\/20:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="green"] .bg-blue-100:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="green"] .bg-blue-100\/90:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="green"] .bg-blue-100\/70:not(.preserve-color):not(.preserve-color *) {
   background-color: #ecfdf5 !important;
 }
-[data-accent="green"] .hover\:bg-blue-50:hover:not(.preserve-color):not(.preserve-color *),
-[data-accent="green"] .hover\:bg-blue-50\/70:hover:not(.preserve-color):not(.preserve-color *),
-[data-accent="green"] .hover\:bg-blue-100:hover:not(.preserve-color):not(.preserve-color *),
-[data-accent="green"] .hover\:bg-blue-100\/90:hover:not(.preserve-color):not(.preserve-color *),
-[data-accent="green"] .group-hover\:bg-blue-100:not(.preserve-color):not(.preserve-color *) {
+html:not(.dark)[data-accent="green"] .hover\:bg-blue-50:hover:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="green"] .hover\:bg-blue-50\/70:hover:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="green"] .hover\:bg-blue-100:hover:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="green"] .hover\:bg-blue-100\/90:hover:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="green"] .group-hover\:bg-blue-100:not(.preserve-color):not(.preserve-color *) {
   background-color: #d1fae5 !important;
 }
-html.dark[data-accent="green"] .bg-blue-950:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="green"] .bg-blue-950\/50:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="green"] .bg-blue-950\/40:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="green"] .bg-blue-950\/30:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="green"] .bg-blue-950\/20:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="green"] .bg-blue-900\/50:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="green"] .bg-blue-900\/40:not(.preserve-color):not(.preserve-color *) {
-  background-color: rgba(6, 78, 59, 0.45) !important;
+
+html.dark[data-accent="green"] .bg-blue-50,
+html.dark[data-accent="green"] .bg-blue-50\/90,
+html.dark[data-accent="green"] .bg-blue-50\/80,
+html.dark[data-accent="green"] .bg-blue-50\/70,
+html.dark[data-accent="green"] .bg-blue-50\/50,
+html.dark[data-accent="green"] .bg-blue-50\/40,
+html.dark[data-accent="green"] .bg-blue-50\/30,
+html.dark[data-accent="green"] .bg-blue-50\/20,
+html.dark[data-accent="green"] .bg-blue-100,
+html.dark[data-accent="green"] .bg-blue-950,
+html.dark[data-accent="green"] .bg-blue-950\/50,
+html.dark[data-accent="green"] .bg-blue-950\/40,
+html.dark[data-accent="green"] .bg-blue-950\/30,
+html.dark[data-accent="green"] .bg-blue-950\/20,
+html.dark[data-accent="green"] .bg-blue-900\/50,
+html.dark[data-accent="green"] .bg-blue-900\/40,
+html.dark[data-accent="green"] .bg-\[\#F4F8FF\],
+html.dark[data-accent="green"] .bg-\[\#E6F0FF\],
+html.dark[data-accent="green"] .bg-\[\#EEF4FF\],
+html.dark[data-accent="green"] .bg-\[\#EFF6FF\],
+html.dark[data-accent="green"] .bg-\[\#EEF2FF\] {
+  background-color: rgba(16, 185, 129, 0.18) !important;
+}
+
+html.dark[data-accent="green"] .border-blue-100,
+html.dark[data-accent="green"] .border-blue-200,
+html.dark[data-accent="green"] .border-blue-200\/60,
+html.dark[data-accent="green"] .border-blue-200\/80,
+html.dark[data-accent="green"] .border-blue-200\/90,
+html.dark[data-accent="green"] .border-blue-300,
+html.dark[data-accent="green"] .border-\[\#DBEAFE\],
+html.dark[data-accent="green"] .border-\[\#E0E7FF\],
+html.dark[data-accent="green"] .border-\[\#E0EDFF\],
+html.dark[data-accent="green"] .border-\[\#E0EDFF\]\/80,
+html.dark[data-accent="green"] .border-blue-800,
+html.dark[data-accent="green"] .border-blue-800\/60,
+html.dark[data-accent="green"] .border-blue-900,
+html.dark[data-accent="green"] .border-blue-900\/40 {
+  border-color: rgba(16, 185, 129, 0.35) !important;
 }
 [data-accent="green"] .ring-\[\#2563EB\]\/20:not(.preserve-color):not(.preserve-color *),
 [data-accent="green"] .ring-\[\#2563EB\]\/30:not(.preserve-color):not(.preserve-color *),
@@ -1270,60 +1346,88 @@ html.dark[data-accent="orange"] .text-\[\#176BFF\]:not(.preserve-color):not(.pre
 [data-accent="orange"] .border-blue-400:not(.preserve-color):not(.preserve-color *) {
   border-color: rgba(234, 88, 12, 0.4) !important;
 }
-[data-accent="orange"] .border-blue-100:not(.preserve-color):not(.preserve-color *),
-[data-accent="orange"] .border-blue-200:not(.preserve-color):not(.preserve-color *),
-[data-accent="orange"] .border-blue-200\/80:not(.preserve-color):not(.preserve-color *),
-[data-accent="orange"] .border-blue-200\/90:not(.preserve-color):not(.preserve-color *),
-[data-accent="orange"] .border-blue-300:not(.preserve-color):not(.preserve-color *) {
+html:not(.dark)[data-accent="orange"] .border-blue-100:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="orange"] .border-blue-200:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="orange"] .border-blue-200\/80:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="orange"] .border-blue-200\/90:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="orange"] .border-blue-300:not(.preserve-color):not(.preserve-color *) {
   border-color: #fed7aa !important;
 }
 [data-accent="orange"] .focus-within\:border-\[\#176BFF\]:focus-within:not(.preserve-color):not(.preserve-color *),
 [data-accent="orange"] .focus-within\:border-\[\#2563EB\]:focus-within:not(.preserve-color):not(.preserve-color *) {
   border-color: #ea580c !important;
 }
-html.dark[data-accent="orange"] .border-blue-800:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="orange"] .border-blue-800\/60:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="orange"] .border-blue-900:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="orange"] .border-blue-900\/40:not(.preserve-color):not(.preserve-color *) {
-  border-color: rgba(124, 45, 18, 0.4) !important;
-}
-[data-accent="orange"] .bg-\[\#F4F8FF\]:not(.preserve-color):not(.preserve-color *) {
+
+/* Active task selection in Topic Drawer */
+html:not(.dark)[data-accent="orange"] .bg-\[\#F4F8FF\]:not(.preserve-color):not(.preserve-color *) {
   background-color: #fff7ed !important;
 }
-[data-accent="orange"] .bg-\[\#E6F0FF\]:not(.preserve-color):not(.preserve-color *) {
+html:not(.dark)[data-accent="orange"] .bg-\[\#E6F0FF\]:not(.preserve-color):not(.preserve-color *) {
   background-color: #ffedd5 !important;
 }
-[data-accent="orange"] .border-\[\#E0EDFF\]:not(.preserve-color):not(.preserve-color *),
-[data-accent="orange"] .border-\[\#E0EDFF\]\/80:not(.preserve-color):not(.preserve-color *) {
+html:not(.dark)[data-accent="orange"] .border-\[\#E0EDFF\]:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="orange"] .border-\[\#E0EDFF\]\/80:not(.preserve-color):not(.preserve-color *) {
   border-color: #fed7aa !important;
 }
-[data-accent="orange"] .bg-blue-50:not(.preserve-color):not(.preserve-color *),
-[data-accent="orange"] .bg-blue-50\/90:not(.preserve-color):not(.preserve-color *),
-[data-accent="orange"] .bg-blue-50\/80:not(.preserve-color):not(.preserve-color *),
-[data-accent="orange"] .bg-blue-50\/70:not(.preserve-color):not(.preserve-color *),
-[data-accent="orange"] .bg-blue-50\/50:not(.preserve-color):not(.preserve-color *),
-[data-accent="orange"] .bg-blue-50\/40:not(.preserve-color):not(.preserve-color *),
-[data-accent="orange"] .bg-blue-50\/20:not(.preserve-color):not(.preserve-color *),
-[data-accent="orange"] .bg-blue-100:not(.preserve-color):not(.preserve-color *),
-[data-accent="orange"] .bg-blue-100\/90:not(.preserve-color):not(.preserve-color *),
-[data-accent="orange"] .bg-blue-100\/70:not(.preserve-color):not(.preserve-color *) {
+html:not(.dark)[data-accent="orange"] .bg-blue-50:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="orange"] .bg-blue-50\/90:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="orange"] .bg-blue-50\/80:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="orange"] .bg-blue-50\/70:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="orange"] .bg-blue-50\/50:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="orange"] .bg-blue-50\/40:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="orange"] .bg-blue-50\/20:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="orange"] .bg-blue-100:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="orange"] .bg-blue-100\/90:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="orange"] .bg-blue-100\/70:not(.preserve-color):not(.preserve-color *) {
   background-color: #fff7ed !important;
 }
-[data-accent="orange"] .hover\:bg-blue-50:hover:not(.preserve-color):not(.preserve-color *),
-[data-accent="orange"] .hover\:bg-blue-50\/70:hover:not(.preserve-color):not(.preserve-color *),
-[data-accent="orange"] .hover\:bg-blue-100:hover:not(.preserve-color):not(.preserve-color *),
-[data-accent="orange"] .hover\:bg-blue-100\/90:hover:not(.preserve-color):not(.preserve-color *),
-[data-accent="orange"] .group-hover\:bg-blue-100:not(.preserve-color):not(.preserve-color *) {
+html:not(.dark)[data-accent="orange"] .hover\:bg-blue-50:hover:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="orange"] .hover\:bg-blue-50\/70:hover:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="orange"] .hover\:bg-blue-100:hover:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="orange"] .hover\:bg-blue-100\/90:hover:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="orange"] .group-hover\:bg-blue-100:not(.preserve-color):not(.preserve-color *) {
   background-color: #ffedd5 !important;
 }
-html.dark[data-accent="orange"] .bg-blue-950:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="orange"] .bg-blue-950\/50:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="orange"] .bg-blue-950\/40:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="orange"] .bg-blue-950\/30:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="orange"] .bg-blue-950\/20:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="orange"] .bg-blue-900\/50:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="orange"] .bg-blue-900\/40:not(.preserve-color):not(.preserve-color *) {
-  background-color: rgba(124, 45, 18, 0.45) !important;
+
+html.dark[data-accent="orange"] .bg-blue-50,
+html.dark[data-accent="orange"] .bg-blue-50\/90,
+html.dark[data-accent="orange"] .bg-blue-50\/80,
+html.dark[data-accent="orange"] .bg-blue-50\/70,
+html.dark[data-accent="orange"] .bg-blue-50\/50,
+html.dark[data-accent="orange"] .bg-blue-50\/40,
+html.dark[data-accent="orange"] .bg-blue-50\/30,
+html.dark[data-accent="orange"] .bg-blue-50\/20,
+html.dark[data-accent="orange"] .bg-blue-100,
+html.dark[data-accent="orange"] .bg-blue-950,
+html.dark[data-accent="orange"] .bg-blue-950\/50,
+html.dark[data-accent="orange"] .bg-blue-950\/40,
+html.dark[data-accent="orange"] .bg-blue-950\/30,
+html.dark[data-accent="orange"] .bg-blue-950\/20,
+html.dark[data-accent="orange"] .bg-blue-900\/50,
+html.dark[data-accent="orange"] .bg-blue-900\/40,
+html.dark[data-accent="orange"] .bg-\[\#F4F8FF\],
+html.dark[data-accent="orange"] .bg-\[\#E6F0FF\],
+html.dark[data-accent="orange"] .bg-\[\#EEF4FF\],
+html.dark[data-accent="orange"] .bg-\[\#EFF6FF\],
+html.dark[data-accent="orange"] .bg-\[\#EEF2FF\] {
+  background-color: rgba(234, 88, 12, 0.18) !important;
+}
+
+html.dark[data-accent="orange"] .border-blue-100,
+html.dark[data-accent="orange"] .border-blue-200,
+html.dark[data-accent="orange"] .border-blue-200\/60,
+html.dark[data-accent="orange"] .border-blue-200\/80,
+html.dark[data-accent="orange"] .border-blue-200\/90,
+html.dark[data-accent="orange"] .border-blue-300,
+html.dark[data-accent="orange"] .border-\[\#DBEAFE\],
+html.dark[data-accent="orange"] .border-\[\#E0E7FF\],
+html.dark[data-accent="orange"] .border-\[\#E0EDFF\],
+html.dark[data-accent="orange"] .border-\[\#E0EDFF\]\/80,
+html.dark[data-accent="orange"] .border-blue-800,
+html.dark[data-accent="orange"] .border-blue-800\/60,
+html.dark[data-accent="orange"] .border-blue-900,
+html.dark[data-accent="orange"] .border-blue-900\/40 {
+  border-color: rgba(234, 88, 12, 0.35) !important;
 }
 [data-accent="orange"] .ring-\[\#2563EB\]\/20:not(.preserve-color):not(.preserve-color *),
 [data-accent="orange"] .ring-\[\#2563EB\]\/30:not(.preserve-color):not(.preserve-color *),
@@ -1411,60 +1515,88 @@ html.dark[data-accent="pink"] .text-\[\#176BFF\]:not(.preserve-color):not(.prese
 [data-accent="pink"] .border-blue-400:not(.preserve-color):not(.preserve-color *) {
   border-color: rgba(244, 63, 94, 0.4) !important;
 }
-[data-accent="pink"] .border-blue-100:not(.preserve-color):not(.preserve-color *),
-[data-accent="pink"] .border-blue-200:not(.preserve-color):not(.preserve-color *),
-[data-accent="pink"] .border-blue-200\/80:not(.preserve-color):not(.preserve-color *),
-[data-accent="pink"] .border-blue-200\/90:not(.preserve-color):not(.preserve-color *),
-[data-accent="pink"] .border-blue-300:not(.preserve-color):not(.preserve-color *) {
+html:not(.dark)[data-accent="pink"] .border-blue-100:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="pink"] .border-blue-200:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="pink"] .border-blue-200\/80:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="pink"] .border-blue-200\/90:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="pink"] .border-blue-300:not(.preserve-color):not(.preserve-color *) {
   border-color: #fecdd3 !important;
 }
 [data-accent="pink"] .focus-within\:border-\[\#176BFF\]:focus-within:not(.preserve-color):not(.preserve-color *),
 [data-accent="pink"] .focus-within\:border-\[\#2563EB\]:focus-within:not(.preserve-color):not(.preserve-color *) {
   border-color: #f43f5e !important;
 }
-html.dark[data-accent="pink"] .border-blue-800:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="pink"] .border-blue-800\/60:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="pink"] .border-blue-900:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="pink"] .border-blue-900\/40:not(.preserve-color):not(.preserve-color *) {
-  border-color: rgba(136, 19, 55, 0.4) !important;
-}
-[data-accent="pink"] .bg-\[\#F4F8FF\]:not(.preserve-color):not(.preserve-color *) {
+
+/* Active task selection in Topic Drawer */
+html:not(.dark)[data-accent="pink"] .bg-\[\#F4F8FF\]:not(.preserve-color):not(.preserve-color *) {
   background-color: #fff1f2 !important;
 }
-[data-accent="pink"] .bg-\[\#E6F0FF\]:not(.preserve-color):not(.preserve-color *) {
+html:not(.dark)[data-accent="pink"] .bg-\[\#E6F0FF\]:not(.preserve-color):not(.preserve-color *) {
   background-color: #ffe4e6 !important;
 }
-[data-accent="pink"] .border-\[\#E0EDFF\]:not(.preserve-color):not(.preserve-color *),
-[data-accent="pink"] .border-\[\#E0EDFF\]\/80:not(.preserve-color):not(.preserve-color *) {
+html:not(.dark)[data-accent="pink"] .border-\[\#E0EDFF\]:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="pink"] .border-\[\#E0EDFF\]\/80:not(.preserve-color):not(.preserve-color *) {
   border-color: #fecdd3 !important;
 }
-[data-accent="pink"] .bg-blue-50:not(.preserve-color):not(.preserve-color *),
-[data-accent="pink"] .bg-blue-50\/90:not(.preserve-color):not(.preserve-color *),
-[data-accent="pink"] .bg-blue-50\/80:not(.preserve-color):not(.preserve-color *),
-[data-accent="pink"] .bg-blue-50\/70:not(.preserve-color):not(.preserve-color *),
-[data-accent="pink"] .bg-blue-50\/50:not(.preserve-color):not(.preserve-color *),
-[data-accent="pink"] .bg-blue-50\/40:not(.preserve-color):not(.preserve-color *),
-[data-accent="pink"] .bg-blue-50\/20:not(.preserve-color):not(.preserve-color *),
-[data-accent="pink"] .bg-blue-100:not(.preserve-color):not(.preserve-color *),
-[data-accent="pink"] .bg-blue-100\/90:not(.preserve-color):not(.preserve-color *),
-[data-accent="pink"] .bg-blue-100\/70:not(.preserve-color):not(.preserve-color *) {
+html:not(.dark)[data-accent="pink"] .bg-blue-50:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="pink"] .bg-blue-50\/90:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="pink"] .bg-blue-50\/80:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="pink"] .bg-blue-50\/70:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="pink"] .bg-blue-50\/50:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="pink"] .bg-blue-50\/40:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="pink"] .bg-blue-50\/20:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="pink"] .bg-blue-100:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="pink"] .bg-blue-100\/90:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="pink"] .bg-blue-100\/70:not(.preserve-color):not(.preserve-color *) {
   background-color: #fff1f2 !important;
 }
-[data-accent="pink"] .hover\:bg-blue-50:hover:not(.preserve-color):not(.preserve-color *),
-[data-accent="pink"] .hover\:bg-blue-50\/70:hover:not(.preserve-color):not(.preserve-color *),
-[data-accent="pink"] .hover\:bg-blue-100:hover:not(.preserve-color):not(.preserve-color *),
-[data-accent="pink"] .hover\:bg-blue-100\/90:hover:not(.preserve-color):not(.preserve-color *),
-[data-accent="pink"] .group-hover\:bg-blue-100:not(.preserve-color):not(.preserve-color *) {
+html:not(.dark)[data-accent="pink"] .hover\:bg-blue-50:hover:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="pink"] .hover\:bg-blue-50\/70:hover:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="pink"] .hover\:bg-blue-100:hover:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="pink"] .hover\:bg-blue-100\/90:hover:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="pink"] .group-hover\:bg-blue-100:not(.preserve-color):not(.preserve-color *) {
   background-color: #ffe4e6 !important;
 }
-html.dark[data-accent="pink"] .bg-blue-950:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="pink"] .bg-blue-950\/50:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="pink"] .bg-blue-950\/40:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="pink"] .bg-blue-950\/30:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="pink"] .bg-blue-950\/20:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="pink"] .bg-blue-900\/50:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="pink"] .bg-blue-900\/40:not(.preserve-color):not(.preserve-color *) {
-  background-color: rgba(136, 19, 55, 0.45) !important;
+
+html.dark[data-accent="pink"] .bg-blue-50,
+html.dark[data-accent="pink"] .bg-blue-50\/90,
+html.dark[data-accent="pink"] .bg-blue-50\/80,
+html.dark[data-accent="pink"] .bg-blue-50\/70,
+html.dark[data-accent="pink"] .bg-blue-50\/50,
+html.dark[data-accent="pink"] .bg-blue-50\/40,
+html.dark[data-accent="pink"] .bg-blue-50\/30,
+html.dark[data-accent="pink"] .bg-blue-50\/20,
+html.dark[data-accent="pink"] .bg-blue-100,
+html.dark[data-accent="pink"] .bg-blue-950,
+html.dark[data-accent="pink"] .bg-blue-950\/50,
+html.dark[data-accent="pink"] .bg-blue-950\/40,
+html.dark[data-accent="pink"] .bg-blue-950\/30,
+html.dark[data-accent="pink"] .bg-blue-950\/20,
+html.dark[data-accent="pink"] .bg-blue-900\/50,
+html.dark[data-accent="pink"] .bg-blue-900\/40,
+html.dark[data-accent="pink"] .bg-\[\#F4F8FF\],
+html.dark[data-accent="pink"] .bg-\[\#E6F0FF\],
+html.dark[data-accent="pink"] .bg-\[\#EEF4FF\],
+html.dark[data-accent="pink"] .bg-\[\#EFF6FF\],
+html.dark[data-accent="pink"] .bg-\[\#EEF2FF\] {
+  background-color: rgba(219, 39, 119, 0.18) !important;
+}
+
+html.dark[data-accent="pink"] .border-blue-100,
+html.dark[data-accent="pink"] .border-blue-200,
+html.dark[data-accent="pink"] .border-blue-200\/60,
+html.dark[data-accent="pink"] .border-blue-200\/80,
+html.dark[data-accent="pink"] .border-blue-200\/90,
+html.dark[data-accent="pink"] .border-blue-300,
+html.dark[data-accent="pink"] .border-\[\#DBEAFE\],
+html.dark[data-accent="pink"] .border-\[\#E0E7FF\],
+html.dark[data-accent="pink"] .border-\[\#E0EDFF\],
+html.dark[data-accent="pink"] .border-\[\#E0EDFF\]\/80,
+html.dark[data-accent="pink"] .border-blue-800,
+html.dark[data-accent="pink"] .border-blue-800\/60,
+html.dark[data-accent="pink"] .border-blue-900,
+html.dark[data-accent="pink"] .border-blue-900\/40 {
+  border-color: rgba(219, 39, 119, 0.35) !important;
 }
 [data-accent="pink"] .ring-\[\#2563EB\]\/20:not(.preserve-color):not(.preserve-color *),
 [data-accent="pink"] .ring-\[\#2563EB\]\/30:not(.preserve-color):not(.preserve-color *),
@@ -1552,60 +1684,88 @@ html.dark[data-accent="amber"] .text-\[\#176BFF\]:not(.preserve-color):not(.pres
 [data-accent="amber"] .border-blue-400:not(.preserve-color):not(.preserve-color *) {
   border-color: rgba(245, 158, 11, 0.4) !important;
 }
-[data-accent="amber"] .border-blue-100:not(.preserve-color):not(.preserve-color *),
-[data-accent="amber"] .border-blue-200:not(.preserve-color):not(.preserve-color *),
-[data-accent="amber"] .border-blue-200\/80:not(.preserve-color):not(.preserve-color *),
-[data-accent="amber"] .border-blue-200\/90:not(.preserve-color):not(.preserve-color *),
-[data-accent="amber"] .border-blue-300:not(.preserve-color):not(.preserve-color *) {
+html:not(.dark)[data-accent="amber"] .border-blue-100:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="amber"] .border-blue-200:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="amber"] .border-blue-200\/80:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="amber"] .border-blue-200\/90:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="amber"] .border-blue-300:not(.preserve-color):not(.preserve-color *) {
   border-color: #fde68a !important;
 }
 [data-accent="amber"] .focus-within\:border-\[\#176BFF\]:focus-within:not(.preserve-color):not(.preserve-color *),
 [data-accent="amber"] .focus-within\:border-\[\#2563EB\]:focus-within:not(.preserve-color):not(.preserve-color *) {
   border-color: #f59e0b !important;
 }
-html.dark[data-accent="amber"] .border-blue-800:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="amber"] .border-blue-800\/60:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="amber"] .border-blue-900:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="amber"] .border-blue-900\/40:not(.preserve-color):not(.preserve-color *) {
-  border-color: rgba(120, 53, 15, 0.4) !important;
-}
-[data-accent="amber"] .bg-\[\#F4F8FF\]:not(.preserve-color):not(.preserve-color *) {
+
+/* Active task selection in Topic Drawer */
+html:not(.dark)[data-accent="amber"] .bg-\[\#F4F8FF\]:not(.preserve-color):not(.preserve-color *) {
   background-color: #fffbeb !important;
 }
-[data-accent="amber"] .bg-\[\#E6F0FF\]:not(.preserve-color):not(.preserve-color *) {
+html:not(.dark)[data-accent="amber"] .bg-\[\#E6F0FF\]:not(.preserve-color):not(.preserve-color *) {
   background-color: #fef3c7 !important;
 }
-[data-accent="amber"] .border-\[\#E0EDFF\]:not(.preserve-color):not(.preserve-color *),
-[data-accent="amber"] .border-\[\#E0EDFF\]\/80:not(.preserve-color):not(.preserve-color *) {
+html:not(.dark)[data-accent="amber"] .border-\[\#E0EDFF\]:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="amber"] .border-\[\#E0EDFF\]\/80:not(.preserve-color):not(.preserve-color *) {
   border-color: #fde68a !important;
 }
-[data-accent="amber"] .bg-blue-50:not(.preserve-color):not(.preserve-color *),
-[data-accent="amber"] .bg-blue-50\/90:not(.preserve-color):not(.preserve-color *),
-[data-accent="amber"] .bg-blue-50\/80:not(.preserve-color):not(.preserve-color *),
-[data-accent="amber"] .bg-blue-50\/70:not(.preserve-color):not(.preserve-color *),
-[data-accent="amber"] .bg-blue-50\/50:not(.preserve-color):not(.preserve-color *),
-[data-accent="amber"] .bg-blue-50\/40:not(.preserve-color):not(.preserve-color *),
-[data-accent="amber"] .bg-blue-50\/20:not(.preserve-color):not(.preserve-color *),
-[data-accent="amber"] .bg-blue-100:not(.preserve-color):not(.preserve-color *),
-[data-accent="amber"] .bg-blue-100\/90:not(.preserve-color):not(.preserve-color *),
-[data-accent="amber"] .bg-blue-100\/70:not(.preserve-color):not(.preserve-color *) {
+html:not(.dark)[data-accent="amber"] .bg-blue-50:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="amber"] .bg-blue-50\/90:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="amber"] .bg-blue-50\/80:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="amber"] .bg-blue-50\/70:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="amber"] .bg-blue-50\/50:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="amber"] .bg-blue-50\/40:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="amber"] .bg-blue-50\/20:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="amber"] .bg-blue-100:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="amber"] .bg-blue-100\/90:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="amber"] .bg-blue-100\/70:not(.preserve-color):not(.preserve-color *) {
   background-color: #fffbeb !important;
 }
-[data-accent="amber"] .hover\:bg-blue-50:hover:not(.preserve-color):not(.preserve-color *),
-[data-accent="amber"] .hover\:bg-blue-50\/70:hover:not(.preserve-color):not(.preserve-color *),
-[data-accent="amber"] .hover\:bg-blue-100:hover:not(.preserve-color):not(.preserve-color *),
-[data-accent="amber"] .hover\:bg-blue-100\/90:hover:not(.preserve-color):not(.preserve-color *),
-[data-accent="amber"] .group-hover\:bg-blue-100:not(.preserve-color):not(.preserve-color *) {
+html:not(.dark)[data-accent="amber"] .hover\:bg-blue-50:hover:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="amber"] .hover\:bg-blue-50\/70:hover:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="amber"] .hover\:bg-blue-100:hover:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="amber"] .hover\:bg-blue-100\/90:hover:not(.preserve-color):not(.preserve-color *),
+html:not(.dark)[data-accent="amber"] .group-hover\:bg-blue-100:not(.preserve-color):not(.preserve-color *) {
   background-color: #fef3c7 !important;
 }
-html.dark[data-accent="amber"] .bg-blue-950:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="amber"] .bg-blue-950\/50:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="amber"] .bg-blue-950\/40:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="amber"] .bg-blue-950\/30:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="amber"] .bg-blue-950\/20:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="amber"] .bg-blue-900\/50:not(.preserve-color):not(.preserve-color *),
-html.dark[data-accent="amber"] .bg-blue-900\/40:not(.preserve-color):not(.preserve-color *) {
-  background-color: rgba(120, 53, 15, 0.45) !important;
+
+html.dark[data-accent="amber"] .bg-blue-50,
+html.dark[data-accent="amber"] .bg-blue-50\/90,
+html.dark[data-accent="amber"] .bg-blue-50\/80,
+html.dark[data-accent="amber"] .bg-blue-50\/70,
+html.dark[data-accent="amber"] .bg-blue-50\/50,
+html.dark[data-accent="amber"] .bg-blue-50\/40,
+html.dark[data-accent="amber"] .bg-blue-50\/30,
+html.dark[data-accent="amber"] .bg-blue-50\/20,
+html.dark[data-accent="amber"] .bg-blue-100,
+html.dark[data-accent="amber"] .bg-blue-950,
+html.dark[data-accent="amber"] .bg-blue-950\/50,
+html.dark[data-accent="amber"] .bg-blue-950\/40,
+html.dark[data-accent="amber"] .bg-blue-950\/30,
+html.dark[data-accent="amber"] .bg-blue-950\/20,
+html.dark[data-accent="amber"] .bg-blue-900\/50,
+html.dark[data-accent="amber"] .bg-blue-900\/40,
+html.dark[data-accent="amber"] .bg-\[\#F4F8FF\],
+html.dark[data-accent="amber"] .bg-\[\#E6F0FF\],
+html.dark[data-accent="amber"] .bg-\[\#EEF4FF\],
+html.dark[data-accent="amber"] .bg-\[\#EFF6FF\],
+html.dark[data-accent="amber"] .bg-\[\#EEF2FF\] {
+  background-color: rgba(245, 158, 11, 0.18) !important;
+}
+
+html.dark[data-accent="amber"] .border-blue-100,
+html.dark[data-accent="amber"] .border-blue-200,
+html.dark[data-accent="amber"] .border-blue-200\/60,
+html.dark[data-accent="amber"] .border-blue-200\/80,
+html.dark[data-accent="amber"] .border-blue-200\/90,
+html.dark[data-accent="amber"] .border-blue-300,
+html.dark[data-accent="amber"] .border-\[\#DBEAFE\],
+html.dark[data-accent="amber"] .border-\[\#E0E7FF\],
+html.dark[data-accent="amber"] .border-\[\#E0EDFF\],
+html.dark[data-accent="amber"] .border-\[\#E0EDFF\]\/80,
+html.dark[data-accent="amber"] .border-blue-800,
+html.dark[data-accent="amber"] .border-blue-800\/60,
+html.dark[data-accent="amber"] .border-blue-900,
+html.dark[data-accent="amber"] .border-blue-900\/40 {
+  border-color: rgba(245, 158, 11, 0.35) !important;
 }
 [data-accent="amber"] .ring-\[\#2563EB\]\/20:not(.preserve-color):not(.preserve-color *),
 [data-accent="amber"] .ring-\[\#2563EB\]\/30:not(.preserve-color):not(.preserve-color *),
