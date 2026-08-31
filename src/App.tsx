@@ -3635,6 +3635,19 @@ export function App() {
           const timeMinsToday = getTaskStudyMinutesToday(tk);
           const isDoneToday = isCompletedToday(tk);
           if (isDoneToday || timeMinsToday > 0) {
+            let latestTime = 0;
+            if (tk.studySessions && Array.isArray(tk.studySessions) && tk.studySessions.length > 0) {
+              const todaySessions = tk.studySessions.filter((s: any) => s && s.timestamp && isSameDay(s.timestamp));
+              if (todaySessions.length > 0) {
+                latestTime = Math.max(...todaySessions.map((s: any) => s.timestamp || 0));
+              }
+            }
+            if (!latestTime && tk.completedAtTime) {
+              latestTime = tk.completedAtTime;
+            } else if (!latestTime && tk.completedAt) {
+              latestTime = new Date(tk.completedAt).getTime() || 0;
+            }
+
             todayTasks.push({
               id: tk.id,
               title: tk.title,
@@ -3647,6 +3660,7 @@ export function App() {
               completedAt: tk.completedAt,
               completedAtTime: tk.completedAtTime,
               timeSpentMinutesToday: timeMinsToday,
+              latestActivityTime: latestTime,
             });
           }
         });

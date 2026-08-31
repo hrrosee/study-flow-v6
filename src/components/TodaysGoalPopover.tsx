@@ -14,6 +14,7 @@ export interface GoalTaskItem {
   completedAt?: string;
   completedAtTime?: number;
   timeSpentMinutesToday: number;
+  latestActivityTime?: number;
 }
 
 export interface WorkspaceGoalStat {
@@ -291,10 +292,16 @@ export const TodaysGoalPopover: React.FC<TodaysGoalPopoverProps> = ({
                     const isActive = ws.workspaceId === activeWorkspaceId;
                     const isExpanded = expandedWorkspaceId === ws.workspaceId;
                     
-                    // Filter workspace tasks based on active mode
-                    const modeTasks = (ws.todayTasks || []).filter((task) =>
-                      isTimeMode ? task.timeSpentMinutesToday > 0 : task.completed
-                    );
+                    // Filter workspace tasks based on active mode and sort Recent First
+                    const modeTasks = (ws.todayTasks || [])
+                      .filter((task) =>
+                        isTimeMode ? task.timeSpentMinutesToday > 0 : task.completed
+                      )
+                      .sort((a, b) => {
+                        const timeA = a.latestActivityTime || a.completedAtTime || (a.completedAt ? new Date(a.completedAt).getTime() : 0) || 0;
+                        const timeB = b.latestActivityTime || b.completedAtTime || (b.completedAt ? new Date(b.completedAt).getTime() : 0) || 0;
+                        return timeB - timeA;
+                      });
 
                     return (
                       <div
