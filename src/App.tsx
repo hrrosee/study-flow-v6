@@ -3600,26 +3600,14 @@ export function App() {
     };
 
     const getTaskStudyMinutesToday = (tk: any): number => {
-      // 1. If task has recorded study sessions with timestamps (timer or manual logs), sum today's sessions
-      let todaySecs = 0;
+      // ONLY count today's study sessions (created exclusively by Timer sessions and "+ Add Time")
       if (tk.studySessions && Array.isArray(tk.studySessions) && tk.studySessions.length > 0) {
-        todaySecs = tk.studySessions
+        const todaySecs = tk.studySessions
           .filter((s: any) => s && s.timestamp && isSameDay(s.timestamp))
           .reduce((sum: number, s: any) => sum + (s.durationSeconds || 0), 0);
+        return Math.floor(todaySecs / 60);
       }
-
-      // 2. If task has lastStudyDate from today and accumulated total > todaySecs, use the total
-      const totalSecs = tk.timeSpentSeconds ?? ((tk.timeSpentMinutes || 0) * 60);
-      if (tk.lastStudyDate && isSameDay(tk.lastStudyDate) && totalSecs > todaySecs) {
-        todaySecs = totalSecs;
-      }
-
-      // 3. If task was completed today and total > todaySecs, count it
-      if (tk.completed && ((tk.completedAtTime && isSameDay(tk.completedAtTime)) || (tk.completedAt && isSameDay(tk.completedAt))) && totalSecs > todaySecs) {
-        todaySecs = totalSecs;
-      }
-
-      return Math.floor(todaySecs / 60);
+      return 0;
     };
 
     return workspaces.map(w => {
