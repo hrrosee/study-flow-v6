@@ -8002,7 +8002,7 @@ export function App() {
                         <button
                           type="submit"
                           disabled={isGenerating}
-                          className="h-[34px] min-h-[34px] max-h-[34px] box-border px-3.5 sm:px-5 bg-gradient-to-r from-[#3B82F6] via-[#2563EB] to-[#4F46E5] hover:from-[#2563EB] hover:to-[#3B82F6] text-white rounded-[6px] text-xs font-bold flex items-center justify-center gap-1.5 sm:gap-2 shadow-md shadow-blue-500/20 active:scale-[0.98] transition-all duration-200 disabled:opacity-50 shrink-0 cursor-pointer m-0"
+                          className="h-[34px] min-h-[34px] max-h-[34px] box-border px-3.5 sm:px-5 bg-gradient-to-r from-[#3B82F6] via-[#2563EB] to-[#1D4ED8] hover:from-[#2563EB] hover:to-[#3B82F6] text-white rounded-[6px] text-xs font-bold flex items-center justify-center gap-1.5 sm:gap-2 shadow-md shadow-blue-500/20 active:scale-[0.98] transition-all duration-200 disabled:opacity-50 shrink-0 cursor-pointer m-0"
                         >
                           {isGenerating ? (
                             <motion.div
@@ -8190,7 +8190,7 @@ export function App() {
                           setNewTopicTitle('');
                           setIsNewTopicOpen(true);
                         }}
-                        className="h-[36px] px-6 bg-gradient-to-r from-[#3B82F6] via-[#2563EB] to-[#4F46E5] hover:from-[#2563EB] hover:to-[#3B82F6] text-white text-xs font-bold rounded-[6px] shadow-md shadow-blue-500/20 active:scale-[0.98] transition-all duration-200 cursor-pointer flex items-center justify-center gap-2 mt-5 shrink-0"
+                        className="h-[36px] px-6 bg-gradient-to-r from-[#3B82F6] via-[#2563EB] to-[#1D4ED8] hover:from-[#2563EB] hover:to-[#3B82F6] text-white text-xs font-bold rounded-[6px] shadow-md shadow-blue-500/20 active:scale-[0.98] transition-all duration-200 cursor-pointer flex items-center justify-center gap-2 mt-5 shrink-0"
                       >
                         <Plus className="w-4 h-4 stroke-[2.5]" />
                         <span>Add New Topic</span>
@@ -9858,7 +9858,7 @@ export function App() {
                       setIsNewTopicOpen(false);
                       setIsSmartStudioOpen(true);
                     }}
-                    className="h-[36px] px-4 text-xs font-bold text-white bg-gradient-to-r from-[#3B82F6] via-[#2563EB] to-[#4F46E5] hover:from-[#2563EB] hover:to-[#3B82F6] rounded-lg shadow-md shadow-blue-500/20 active:scale-[0.98] transition-all flex items-center gap-1.5 cursor-pointer"
+                    className="h-[36px] px-4 text-xs font-bold text-white bg-gradient-to-r from-[#3B82F6] via-[#2563EB] to-[#1D4ED8] hover:from-[#2563EB] hover:to-[#3B82F6] rounded-lg shadow-md shadow-blue-500/20 active:scale-[0.98] transition-all flex items-center gap-1.5 cursor-pointer"
                   >
                     <Sparkles className="w-4 h-4 text-white" />
                     <span className="hidden sm:inline">Studio Mode</span>
@@ -10898,7 +10898,7 @@ export function App() {
                       setCustomizingTopic(null);
                       showToast(`Updated custom style for "${customizingTopic.title}"!`);
                     }}
-                    className="px-4 py-2 text-xs font-bold text-white bg-gradient-to-r from-[#3B82F6] via-[#2563EB] to-[#4F46E5] hover:from-[#2563EB] hover:to-[#3B82F6] rounded-lg shadow-md shadow-blue-500/20 active:scale-[0.98] transition-all cursor-pointer flex items-center gap-1.5"
+                    className="px-4 py-2 text-xs font-bold text-white bg-gradient-to-r from-[#3B82F6] via-[#2563EB] to-[#1D4ED8] hover:from-[#2563EB] hover:to-[#3B82F6] rounded-lg shadow-md shadow-blue-500/20 active:scale-[0.98] transition-all cursor-pointer flex items-center gap-1.5"
                   >
                     <Check className="w-3.5 h-3.5" />
                     <span>Apply</span>
