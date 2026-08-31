@@ -78,38 +78,43 @@ export const TopicCelebrationModal: React.FC<TopicCelebrationModalProps> = ({
         className="fixed inset-0 bg-slate-950/40 backdrop-blur-sm cursor-pointer"
       />
 
-      {/* Main Reference Card (100% Identical to Image 2) */}
+      {/* Main Reference Card */}
       <motion.div
         initial={{ opacity: 0, scale: 0.88, y: 24 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.92, y: 16 }}
         transition={{ type: 'spring', damping: 24, stiffness: 350, mass: 0.8 }}
-        className="relative w-full max-w-[440px] bg-white rounded-[28px] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.3)] overflow-hidden text-slate-800 pointer-events-auto"
+        className="relative w-full max-w-[440px] bg-white dark:bg-slate-900 rounded-[28px] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.3)] dark:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] border border-transparent dark:border-slate-800 overflow-hidden text-slate-800 dark:text-slate-100 pointer-events-auto"
       >
         {/* Top Banner & Vector Gold Ribbon Medal Header */}
-        <div className="relative w-full overflow-hidden bg-gradient-to-b from-[#1E3A8A] to-[#1D4ED8]">
+        <div 
+          className="relative w-full overflow-hidden transition-colors"
+          style={{
+            background: 'linear-gradient(to bottom, var(--celeb-banner-0, #1e3a8a), var(--celeb-banner-38, #1d4ed8))'
+          }}
+        >
           <svg
             className="w-full h-auto block select-none"
             viewBox="125 75 750 435"
             preserveAspectRatio="xMidYMid meet"
           >
             <defs>
-              {/* Vibrant Blue Banner Gradient */}
+              {/* Dynamic Accent Banner Gradient */}
               <linearGradient id="banner" x1="125" y1="75" x2="875" y2="340" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stopColor="#1e3a8a" />
-                <stop offset="38%" stopColor="#1d4ed8" />
-                <stop offset="75%" stopColor="#2563eb" />
-                <stop offset="100%" stopColor="#3b82f6" />
+                <stop offset="0%" stopColor="var(--celeb-banner-0, #1e3a8a)" />
+                <stop offset="38%" stopColor="var(--celeb-banner-38, #1d4ed8)" />
+                <stop offset="75%" stopColor="var(--celeb-banner-75, #2563eb)" />
+                <stop offset="100%" stopColor="var(--celeb-banner-100, #3b82f6)" />
               </linearGradient>
 
               {/* Ribbons Gradients */}
               <linearGradient id="ribbon" x1="427" y1="375" x2="458" y2="489" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stopColor="#1e3a8a" />
-                <stop offset="100%" stopColor="#2563eb" />
+                <stop offset="0%" stopColor="var(--celeb-ribbon-0, #1e3a8a)" />
+                <stop offset="100%" stopColor="var(--celeb-ribbon-100, #2563eb)" />
               </linearGradient>
               <linearGradient id="ribbonRight" x1="573" y1="375" x2="542" y2="489" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stopColor="#1e3a8a" />
-                <stop offset="100%" stopColor="#2563eb" />
+                <stop offset="0%" stopColor="var(--celeb-ribbon-0, #1e3a8a)" />
+                <stop offset="100%" stopColor="var(--celeb-ribbon-100, #2563eb)" />
               </linearGradient>
 
               {/* Gold Medal Elements Gradients */}
@@ -133,14 +138,14 @@ export const TopicCelebrationModal: React.FC<TopicCelebrationModalProps> = ({
 
               {/* Drop Shadow for Medal */}
               <filter id="medalShadow" x="344" y="169" width="312" height="350" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-                <feDropShadow dx="0" dy="13" stdDeviation="10" floodColor="#1e40af" floodOpacity="0.22" />
+                <feDropShadow dx="0" dy="13" stdDeviation="10" floodColor="var(--celeb-shadow, #1e40af)" floodOpacity="0.28" />
               </filter>
             </defs>
 
-            {/* Bottom White Background under the curve */}
-            <path d="M100 259 C223 325 346 358 500 366 C654 358 777 325 900 259 V520 H100 Z" fill="#ffffff" />
+            {/* Bottom Background under the curve */}
+            <path d="M100 259 C223 325 346 358 500 366 C654 358 777 325 900 259 V520 H100 Z" className="fill-white dark:fill-slate-900 transition-colors" />
 
-            {/* Blue Gradient Curved Banner (bleeds past top/side edges) */}
+            {/* Accent Gradient Curved Banner (bleeds past top/side edges) */}
             <path d="M100 50 H900 V259 C777 325 654 358 500 366 C346 358 223 325 100 259 Z" fill="url(#banner)" />
 
             {/* Decorative Floating Confetti Elements */}
@@ -189,7 +194,7 @@ export const TopicCelebrationModal: React.FC<TopicCelebrationModalProps> = ({
               transition={{ type: 'spring', damping: 22, stiffness: 320, delay: 0.08 }}
               filter="url(#medalShadow)"
             >
-              {/* Blue Ribbon Tails */}
+              {/* Accent Ribbon Tails */}
               <path d="M425 371l-49.3 80.3c-2.8 3.8.6 8.7 5.2 7.7l33.3-7.1 13.4 31.8c2 6.6 7.2 7.4 10.8.5L486 398Z" fill="url(#ribbon)" />
               <path d="M575 371l49.3 80.3c2.8 3.8-.6 8.7-5.2 7.7l-33.3-7.1-13.4 31.8c-2 6.6-7.2 7.4-10.8.5L514 398Z" fill="url(#ribbonRight)" />
 
@@ -214,7 +219,7 @@ export const TopicCelebrationModal: React.FC<TopicCelebrationModalProps> = ({
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.12 }}
-            className="text-[30px] font-black text-[#111827] tracking-tight leading-tight mb-1"
+            className="text-[30px] font-black text-[#111827] dark:text-white tracking-tight leading-tight mb-1"
           >
             Congratulations!
           </motion.h1>
@@ -224,36 +229,36 @@ export const TopicCelebrationModal: React.FC<TopicCelebrationModalProps> = ({
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.16 }}
-            className="text-slate-500 text-[14px] font-normal mb-1 max-w-[360px]"
+            className="text-slate-500 dark:text-slate-400 text-[14px] font-normal mb-1 max-w-[360px]"
           >
             You have successfully completed
           </motion.p>
 
-          {/* Topic Title in Primary Blue */}
+          {/* Topic Title in Primary Accent Color */}
           <motion.h2
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-lg font-bold text-blue-600 tracking-tight line-clamp-2 px-2 mb-3.5 leading-snug"
+            className="text-lg font-bold text-[#2563EB] dark:text-blue-400 tracking-tight line-clamp-2 px-2 mb-3.5 leading-snug"
           >
             {topic.title}
           </motion.h2>
 
-          {/* Clean Metric Bar (matching workspace modal style) */}
+          {/* Clean Metric Bar */}
           <motion.div
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.24 }}
-            className="w-full bg-slate-50/80 rounded-xl border border-slate-200/80 p-3 mb-5"
+            className="w-full bg-slate-50/80 dark:bg-slate-800/70 rounded-xl border border-slate-200/80 dark:border-slate-700/60 p-3 mb-5"
           >
-            <div className="grid grid-cols-2 divide-x divide-slate-200/80 text-center">
+            <div className="grid grid-cols-2 divide-x divide-slate-200/80 dark:divide-slate-700/60 text-center">
               <div className="flex flex-col px-2">
-                <span className="text-[10.5px] font-medium text-slate-400 uppercase tracking-wider">Tasks</span>
-                <span className="text-sm font-bold text-slate-800 mt-0.5">{topic.taskCount}</span>
+                <span className="text-[10.5px] font-medium text-slate-400 dark:text-slate-400 uppercase tracking-wider">Tasks</span>
+                <span className="text-sm font-bold text-slate-800 dark:text-slate-100 mt-0.5">{topic.taskCount}</span>
               </div>
               <div className="flex flex-col px-2">
-                <span className="text-[10.5px] font-medium text-slate-400 uppercase tracking-wider">Time Spent</span>
-                <span className="text-sm font-bold text-slate-800 mt-0.5 truncate">
+                <span className="text-[10.5px] font-medium text-slate-400 dark:text-slate-400 uppercase tracking-wider">Time Spent</span>
+                <span className="text-sm font-bold text-slate-800 dark:text-slate-100 mt-0.5 truncate">
                   {topic.timeSpentMinutes > 0 ? formatTimeSpent(topic.timeSpentMinutes) : '0 min'}
                 </span>
               </div>
@@ -271,7 +276,7 @@ export const TopicCelebrationModal: React.FC<TopicCelebrationModalProps> = ({
               <button
                 type="button"
                 onClick={() => onStartNextTopic(nextTopic.id)}
-                className="w-full py-3.5 px-5 rounded-2xl bg-gradient-to-r from-blue-700 via-blue-600 to-blue-500 hover:from-blue-800 hover:to-blue-600 text-white text-xs font-bold shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2 transition-all cursor-pointer group"
+                className="w-full py-3.5 px-5 rounded-2xl bg-gradient-to-r from-[#2563EB] to-[#1D4ED8] hover:from-[#1D4ED8] hover:to-[#1742BF] text-white text-xs font-bold shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2 transition-all cursor-pointer group"
               >
                 <span className="truncate">Start Next Topic: "{nextTopic.title}"</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform shrink-0" />
@@ -282,8 +287,8 @@ export const TopicCelebrationModal: React.FC<TopicCelebrationModalProps> = ({
               type="button"
               onClick={onClose}
               className={`w-full py-3 px-4 rounded-2xl text-xs font-bold transition-all cursor-pointer ${nextTopic
-                ? 'bg-slate-100 hover:bg-slate-200 text-slate-700'
-                : 'bg-gradient-to-r from-blue-700 via-blue-600 to-blue-500 hover:from-blue-800 hover:to-blue-600 text-white shadow-lg shadow-blue-500/25'
+                ? 'bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200'
+                : 'bg-gradient-to-r from-[#2563EB] to-[#1D4ED8] hover:from-[#1D4ED8] hover:to-[#1742BF] text-white shadow-lg shadow-blue-500/25'
                 }`}
             >
               Continue Learning

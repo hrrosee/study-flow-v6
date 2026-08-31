@@ -7401,7 +7401,7 @@ export function App() {
                     title="Search workspace (⌘K)"
                   >
                     <div className="flex items-center gap-2 min-w-0">
-                      <Search className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400 group-hover:text-[#2563EB] dark:group-hover:text-blue-400 stroke-[2.2] shrink-0 transition-colors" />
+                      <Search className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500 group-hover:text-slate-600 dark:group-hover:text-slate-300 stroke-[2.2] shrink-0 transition-colors" />
                       <span className="text-xs text-slate-400 dark:text-slate-500 font-medium group-hover:text-slate-600 dark:group-hover:text-slate-300 truncate">Search topics, tasks, notes...</span>
                     </div>
                     {/* Modern Pill Shortcut Badge */}
