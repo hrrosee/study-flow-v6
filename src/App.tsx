@@ -5666,7 +5666,9 @@ export function App() {
                       <div className="absolute bottom-0 right-0 w-[16px] h-[16px] bg-[#6366F1]/90 backdrop-blur-[2px] rounded-[4px] mix-blend-multiply dark:mix-blend-screen dark:opacity-90"></div>
                     </div>
                   </div>
-                  <span className="font-[700] text-[16px] text-[#101828] dark:text-slate-100 tracking-tight">Study Flow</span>
+                  <span className="font-[700] text-[16px] text-[#101828] dark:text-slate-100 tracking-tight">
+                    Study <span className="text-[#2563EB] dark:text-blue-400 font-extrabold">Flow</span>
+                  </span>
                 </div>
 
                 <button
@@ -6289,7 +6291,7 @@ export function App() {
                   sidebarCollapsed ? 'w-0 opacity-0 pointer-events-none' : 'opacity-100'
                 }`}
               >
-                Study Flow
+                Study <span className="text-[#2563EB] dark:text-blue-400 font-extrabold">Flow</span>
               </span>
             </div>
 
@@ -9721,7 +9723,9 @@ export function App() {
                     <div className="absolute top-0 left-0 w-[12px] h-[12px] bg-[#2563EB] rounded-[3px]"></div>
                     <div className="absolute bottom-0 right-0 w-[12px] h-[12px] bg-[#6366F1]/90 backdrop-blur-[2px] rounded-[3px] mix-blend-multiply dark:mix-blend-screen dark:opacity-90"></div>
                   </div>
-                  <span className="font-bold text-slate-800 dark:text-slate-200 tracking-tight">Study Flow</span>
+                  <span className="font-bold text-slate-800 dark:text-slate-200 tracking-tight">
+                    Study <span className="text-[#2563EB] dark:text-blue-400 font-extrabold">Flow</span>
+                  </span>
                   <span className="text-slate-300">•</span>
                   <span className="text-slate-500">© 2026 All rights reserved.</span>
                 </div>
