@@ -81,26 +81,42 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
   const [isPrioritySelectOpen, setIsPrioritySelectOpen] = useState(false);
   const prioritySelectRef = useRef<HTMLDivElement>(null);
   const dailyTargetInputRef = useRef<HTMLInputElement>(null);
+  const taskStepperContainerRef = useRef<HTMLDivElement>(null);
   const [defaultTopicPriority, setDefaultTopicPriority] = useState('Medium');
   const [autoCleanTrashDays, setAutoCleanTrashDays] = useState('30');
 
-  // Mouse wheel listener to adjust daily task target on scroll
+  // Smooth mouse wheel listener to adjust daily task target cleanly by 1 step, and prevent page scrolling
   useEffect(() => {
-    const el = dailyTargetInputRef.current;
-    if (!el) return;
+    const el = taskStepperContainerRef.current;
+    if (!el || dailyGoalMode !== 'tasks') return;
+
+    let accumulatedDelta = 0;
+    let wheelTimer: NodeJS.Timeout | null = null;
 
     const handleWheel = (e: WheelEvent) => {
       e.preventDefault();
-      if (e.deltaY < 0) {
-        setDailyTarget(prev => Math.min(100, prev + 1));
-      } else if (e.deltaY > 0) {
-        setDailyTarget(prev => Math.max(1, prev - 1));
+      e.stopPropagation();
+
+      accumulatedDelta += e.deltaY;
+      if (Math.abs(accumulatedDelta) >= 20) {
+        if (accumulatedDelta < 0) {
+          setDailyTarget(prev => Math.min(100, prev + 1));
+        } else {
+          setDailyTarget(prev => Math.max(1, prev - 1));
+        }
+        accumulatedDelta = 0;
       }
+
+      if (wheelTimer) clearTimeout(wheelTimer);
+      wheelTimer = setTimeout(() => {
+        accumulatedDelta = 0;
+      }, 100);
     };
 
     el.addEventListener('wheel', handleWheel, { passive: false });
     return () => {
       el.removeEventListener('wheel', handleWheel);
+      if (wheelTimer) clearTimeout(wheelTimer);
     };
   }, [dailyGoalMode]);
 
@@ -315,7 +331,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                             </div>
 
                             {/* Thicker Bolder Stepper Pill for Tasks */}
-                            <div className="inline-flex items-center justify-between sm:justify-center self-start sm:self-auto bg-white border border-slate-200/90 rounded-xl p-1 shadow-xs w-full sm:w-auto">
+                            <div ref={taskStepperContainerRef} className="inline-flex items-center justify-between sm:justify-center self-start sm:self-auto bg-white border border-slate-200/90 rounded-xl p-1 shadow-xs w-full sm:w-auto">
                               <button
                                 type="button"
                                 onClick={() => setDailyTarget(prev => Math.max(1, prev - 1))}
@@ -325,17 +341,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                                 <Minus className="w-3.5 h-3.5 stroke-[2.5]" />
                               </button>
 
-                              <div 
-                                className="flex items-center justify-center px-2 min-w-[48px] cursor-text"
-                                onWheel={(e) => {
-                                  e.preventDefault();
-                                  if (e.deltaY < 0) {
-                                    setDailyTarget(prev => Math.min(100, prev + 1));
-                                  } else if (e.deltaY > 0) {
-                                    setDailyTarget(prev => Math.max(1, prev - 1));
-                                  }
-                                }}
-                              >
+                              <div className="flex items-center justify-center px-2 min-w-[48px] cursor-text">
                                 <input
                                   ref={dailyTargetInputRef}
                                   id="daily-target-input"
@@ -355,14 +361,6 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                                   value={dailyTarget}
                                   onFocus={(e) => e.target.select()}
                                   onClick={(e) => (e.target as HTMLInputElement).select()}
-                                  onWheel={(e) => {
-                                    e.preventDefault();
-                                    if (e.deltaY < 0) {
-                                      setDailyTarget(prev => Math.min(100, prev + 1));
-                                    } else if (e.deltaY > 0) {
-                                      setDailyTarget(prev => Math.max(1, prev - 1));
-                                    }
-                                  }}
                                   onChange={(e) => {
                                     const raw = e.target.value.replace(/\D/g, '');
                                     setDailyTarget(raw === '' ? 1 : Math.min(100, Math.max(1, parseInt(raw, 10))));
