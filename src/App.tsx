@@ -1097,17 +1097,110 @@ export function App() {
     return workspaceSections.filter(s => s.workspaceId === activeWorkspaceId);
   }, [workspaceSections, activeWorkspaceId]);
 
-  // --- Global Active Study Timer Session (Persists across navigation and drawer close) ---
-  const [activeStudyTimer, setActiveStudyTimer] = useState<ActiveStudyTimerSession | null>(null);
+  // --- Global Active Study Timer Session (Persists seamlessly across navigation, page reloads, and accidental tab closures) ---
+  const initialRecoveredTimer = useMemo(() => {
+    try {
+      const raw = localStorage.getItem('studyflow_active_timer');
+      if (!raw) return null;
+      const data = JSON.parse(raw);
+      if (!data.taskId || !data.topicId) return null;
+
+      if (data.isPaused || !data.startTime) {
+        return {
+          session: {
+            topicId: data.topicId,
+            topicTitle: data.topicTitle || 'Topic',
+            taskId: data.taskId,
+            taskTitle: data.taskTitle || 'Task',
+            workspaceId: data.workspaceId,
+            seconds: data.accumulatedSeconds || 0,
+            isPaused: true,
+          } as ActiveStudyTimerSession,
+          startTime: null as number | null,
+          accumulated: data.accumulatedSeconds || 0,
+        };
+      } else {
+        const now = Date.now();
+        const elapsedSinceStart = Math.max(0, Math.floor((now - data.startTime) / 1000));
+        const totalSec = (data.accumulatedSeconds || 0) + elapsedSinceStart;
+
+        return {
+          session: {
+            topicId: data.topicId,
+            topicTitle: data.topicTitle || 'Topic',
+            taskId: data.taskId,
+            taskTitle: data.taskTitle || 'Task',
+            workspaceId: data.workspaceId,
+            seconds: totalSec,
+            isPaused: false,
+          } as ActiveStudyTimerSession,
+          startTime: data.startTime as number | null,
+          accumulated: data.accumulatedSeconds || 0,
+        };
+      }
+    } catch (err) {
+      console.error('Failed to load active study timer from storage:', err);
+      return null;
+    }
+  }, []);
+
+  const [activeStudyTimer, setActiveStudyTimer] = useState<ActiveStudyTimerSession | null>(
+    () => (initialRecoveredTimer ? initialRecoveredTimer.session : null)
+  );
   const [isGlobalStillStudyingOpen, setIsGlobalStillStudyingOpen] = useState<boolean>(false);
   const activeMilestonePromptRef = useRef<{
     milestoneSec: number;
     milestoneTriggeredAt: number;
     isAutoPaused: boolean;
   } | null>(null);
-  const timerStartTimeRef = useRef<number | null>(null);
-  const timerAccumulatedSecondsRef = useRef<number>(0);
+  const timerStartTimeRef = useRef<number | null>(
+    initialRecoveredTimer ? initialRecoveredTimer.startTime : null
+  );
+  const timerAccumulatedSecondsRef = useRef<number>(
+    initialRecoveredTimer ? initialRecoveredTimer.accumulated : 0
+  );
   const lastGlobalMilestoneSecRef = useRef<number>(0);
+
+  // Helper to persist timer state changes directly to localStorage
+  const saveTimerToStorage = (
+    session: ActiveStudyTimerSession | null,
+    startTime: number | null,
+    accumulatedSeconds: number
+  ) => {
+    try {
+      if (!session) {
+        localStorage.removeItem('studyflow_active_timer');
+        return;
+      }
+      const dataToSave = {
+        topicId: session.topicId,
+        topicTitle: session.topicTitle,
+        taskId: session.taskId,
+        taskTitle: session.taskTitle,
+        workspaceId: session.workspaceId,
+        startTime: session.isPaused ? null : startTime,
+        accumulatedSeconds,
+        isPaused: session.isPaused,
+        lastSavedAt: Date.now(),
+      };
+      localStorage.setItem('studyflow_active_timer', JSON.stringify(dataToSave));
+    } catch (err) {
+      console.error('Failed to save study timer to storage:', err);
+    }
+  };
+
+  // Prevent accidental tab closure or page reload data loss during live study sessions
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (activeStudyTimer && !activeStudyTimer.isPaused) {
+        e.preventDefault();
+        e.returnValue = 'You have an active study timer running. Are you sure you want to leave?';
+        return e.returnValue;
+      }
+    };
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  }, [activeStudyTimer?.isPaused, Boolean(activeStudyTimer)]);
 
   // Active drawer task state to dynamically show floating timer when navigating across tasks/tabs
   const [drawerActiveTaskState, setDrawerActiveTaskState] = useState<{
@@ -1176,7 +1269,9 @@ export function App() {
         activeMilestonePromptRef.current.isAutoPaused = true;
         timerAccumulatedSecondsRef.current = rewindSec;
         timerStartTimeRef.current = null;
-        setActiveStudyTimer(prev => prev ? { ...prev, seconds: rewindSec, isPaused: true } : null);
+        const autoPausedSession = { ...activeStudyTimer, seconds: rewindSec, isPaused: true };
+        setActiveStudyTimer(autoPausedSession);
+        saveTimerToStorage(autoPausedSession, null, rewindSec);
       } else {
         setActiveStudyTimer(prev => prev ? { ...prev, seconds: totalSec } : null);
       }
@@ -1225,12 +1320,14 @@ export function App() {
     taskTitle: string,
     workspaceId?: string
   ) => {
-    timerStartTimeRef.current = Date.now();
+    const now = Date.now();
+    timerStartTimeRef.current = now;
     timerAccumulatedSecondsRef.current = 0;
     lastGlobalMilestoneSecRef.current = 0;
     activeMilestonePromptRef.current = null;
     setIsGlobalStillStudyingOpen(false);
-    setActiveStudyTimer({
+    
+    const newSession: ActiveStudyTimerSession = {
       topicId,
       topicTitle,
       taskId,
@@ -1238,7 +1335,9 @@ export function App() {
       workspaceId: workspaceId || activeWorkspaceId,
       seconds: 0,
       isPaused: false,
-    });
+    };
+    setActiveStudyTimer(newSession);
+    saveTimerToStorage(newSession, now, 0);
   };
 
   const handlePauseGlobalStudyTimer = () => {
@@ -1248,17 +1347,30 @@ export function App() {
     const totalSec = timerAccumulatedSecondsRef.current + elapsedSinceStart;
     timerAccumulatedSecondsRef.current = totalSec;
     timerStartTimeRef.current = null;
-    setActiveStudyTimer(prev => prev ? { ...prev, seconds: totalSec, isPaused: true } : null);
+    
+    const pausedSession: ActiveStudyTimerSession = {
+      ...activeStudyTimer,
+      seconds: totalSec,
+      isPaused: true,
+    };
+    setActiveStudyTimer(pausedSession);
+    saveTimerToStorage(pausedSession, null, totalSec);
     showToast('Timer paused ⏸️');
   };
 
   const handleResumeGlobalStudyTimer = () => {
     if (!activeStudyTimer) return;
     
+    const now = Date.now();
     // If it was auto-paused after 60s grace period, resume fresh from the rewinded milestone seconds
     if (activeStudyTimer.isPaused) {
-      timerStartTimeRef.current = Date.now();
-      setActiveStudyTimer(prev => prev ? { ...prev, isPaused: false } : null);
+      timerStartTimeRef.current = now;
+      const resumedSession: ActiveStudyTimerSession = {
+        ...activeStudyTimer,
+        isPaused: false,
+      };
+      setActiveStudyTimer(resumedSession);
+      saveTimerToStorage(resumedSession, now, timerAccumulatedSecondsRef.current);
     }
     // If user clicked while still running inside 60s grace, it continues seamlessly without restart
 
@@ -1320,6 +1432,7 @@ export function App() {
     activeMilestonePromptRef.current = null;
     setIsGlobalStillStudyingOpen(false);
     setActiveStudyTimer(null);
+    saveTimerToStorage(null, null, 0);
   };
 
   // Mobile drawer body scroll lock
