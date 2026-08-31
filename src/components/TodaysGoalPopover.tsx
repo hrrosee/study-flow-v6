@@ -311,14 +311,14 @@ export const TodaysGoalPopover: React.FC<TodaysGoalPopoverProps> = ({
                     return (
                       <div
                         key={ws.workspaceId}
-                        className="rounded-xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900/90 overflow-hidden shadow-2xs transition-all"
+                        className="rounded-xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900/90 overflow-hidden shadow-2xs"
                       >
                         {/* Workspace Accordion Header */}
                         <div
                           onClick={() => toggleWorkspaceExpand(ws.workspaceId)}
-                          className={`p-2.5 transition-all cursor-pointer flex items-center justify-between gap-2.5 w-full select-none ${
+                          className={`p-2.5 cursor-pointer flex items-center justify-between gap-2.5 w-full select-none transition-colors duration-150 ${
                             isExpanded
-                              ? 'bg-slate-50/90 dark:bg-slate-800/80 border-b border-slate-100 dark:border-slate-800'
+                              ? 'bg-slate-50/80 dark:bg-slate-800/80'
                               : 'bg-white dark:bg-slate-900 hover:bg-slate-50/70 dark:hover:bg-slate-800/50'
                           }`}
                         >
@@ -357,8 +357,8 @@ export const TodaysGoalPopover: React.FC<TodaysGoalPopoverProps> = ({
                               initial={{ height: 0, opacity: 0 }}
                               animate={{ height: 'auto', opacity: 1 }}
                               exit={{ height: 0, opacity: 0 }}
-                              transition={{ duration: 0.2, ease: 'easeInOut' }}
-                              className="overflow-hidden bg-slate-50/40 dark:bg-slate-950/30"
+                              transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                              className="overflow-hidden border-t border-slate-100 dark:border-slate-800/70 bg-slate-50/40 dark:bg-slate-950/30"
                             >
                               <div className="p-2 space-y-1.5">
                                 {modeTasks.length === 0 ? (
