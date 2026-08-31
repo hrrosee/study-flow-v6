@@ -5667,7 +5667,7 @@ export function App() {
                     </div>
                   </div>
                   <span className="font-[700] text-[16px] text-[#101828] dark:text-slate-100 tracking-tight">
-                    Study <span className="text-[#2563EB] dark:text-blue-400 font-extrabold">Flow</span>
+                    Study <span className="brand-flow-highlight font-extrabold">Flow</span>
                   </span>
                 </div>
 
@@ -6291,7 +6291,7 @@ export function App() {
                   sidebarCollapsed ? 'w-0 opacity-0 pointer-events-none' : 'opacity-100'
                 }`}
               >
-                Study <span className="text-[#2563EB] dark:text-blue-400 font-extrabold">Flow</span>
+                Study <span className="brand-flow-highlight font-extrabold">Flow</span>
               </span>
             </div>
 
@@ -9724,7 +9724,7 @@ export function App() {
                     <div className="absolute bottom-0 right-0 w-[12px] h-[12px] bg-[#6366F1]/90 backdrop-blur-[2px] rounded-[3px] mix-blend-multiply dark:mix-blend-screen dark:opacity-90"></div>
                   </div>
                   <span className="font-bold text-slate-800 dark:text-slate-200 tracking-tight">
-                    Study <span className="text-[#2563EB] dark:text-blue-400 font-extrabold">Flow</span>
+                    Study <span className="brand-flow-highlight font-extrabold">Flow</span>
                   </span>
                   <span className="text-slate-300">•</span>
                   <span className="text-slate-500">© 2026 All rights reserved.</span>

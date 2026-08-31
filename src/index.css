@@ -1648,4 +1648,54 @@ html.dark[data-accent="amber"] .bg-blue-900\/40:not(.preserve-color):not(.preser
   background-image: linear-gradient(to bottom right, #fde68a, #f59e0b, #b45309) !important;
 }
 
+/* Brand 'Flow' Text Accent Styling (High vibrancy in both light & dark mode) */
+.brand-flow-highlight {
+  color: #2563EB;
+}
+[data-accent="blue"] .brand-flow-highlight {
+  color: #2563EB;
+}
+[data-accent="purple"] .brand-flow-highlight {
+  color: #7c3aed;
+}
+[data-accent="cyan"] .brand-flow-highlight {
+  color: #0891b2;
+}
+[data-accent="green"] .brand-flow-highlight {
+  color: #059669;
+}
+[data-accent="orange"] .brand-flow-highlight {
+  color: #ea580c;
+}
+[data-accent="pink"] .brand-flow-highlight {
+  color: #db2777;
+}
+[data-accent="amber"] .brand-flow-highlight {
+  color: #d97706;
+}
+
+html.dark .brand-flow-highlight,
+html.dark[data-accent="blue"] .brand-flow-highlight {
+  color: #3b82f6;
+}
+html.dark[data-accent="purple"] .brand-flow-highlight {
+  color: #8b5cf6;
+}
+html.dark[data-accent="cyan"] .brand-flow-highlight {
+  color: #06b6d4;
+}
+html.dark[data-accent="green"] .brand-flow-highlight {
+  color: #10b981;
+}
+html.dark[data-accent="orange"] .brand-flow-highlight {
+  color: #f97316;
+}
+html.dark[data-accent="pink"] .brand-flow-highlight {
+  color: #ec4899;
+}
+html.dark[data-accent="amber"] .brand-flow-highlight {
+  color: #f59e0b;
+}
+
+
 
