@@ -778,58 +778,6 @@ export function App() {
     return () => clearInterval(interval);
   }, []);
 
-  // --- Professional Notification & Toast System ---
-  interface NotificationItem {
-    id: string;
-    title: string;
-    time: string;
-    read: boolean;
-    type?: 'focus' | 'reminders' | 'system';
-    description?: string;
-  }
-  interface ToastData {
-    message: string;
-    undoAction?: () => void;
-    duration?: number;
-  }
-  const [toastData, setToastData] = useState<ToastData | null>(null);
-  const [notifications, setNotifications] = useState<NotificationItem[]>(() => [
-    { id: 'notif-1', title: 'Welcome to StudyFlow Workspace!', time: 'Just now', read: false, type: 'system', description: 'Your focus dashboard and topic tracker are active.' },
-    { id: 'notif-2', title: 'Focus Check-in Timer Ready ⏱️', time: '5m ago', read: false, type: 'focus', description: 'Interval milestone alerts will keep your study sessions sharp.' }
-  ]);
-
-  const showToast = (message: string, undoAction?: () => void, duration?: number) => {
-    const effectiveDuration = duration !== undefined ? duration : (undoAction ? 6000 : 3500);
-    setToastData({ message, undoAction, duration: effectiveDuration });
-
-    const now = new Date();
-    const formattedTime = now.toLocaleTimeString('en-US', {
-      hour: '2-digit',
-      minute: '2-digit'
-    });
-
-    const isStudy = /study|timer|focus|milestone|session|check-in/i.test(message);
-    const isReminder = /due|overdue|deadline|date|recycle/i.test(message);
-
-    const newNotif: NotificationItem = {
-      id: `notif-${Date.now()}`,
-      title: message,
-      time: formattedTime,
-      read: false,
-      type: isStudy ? 'focus' : isReminder ? 'reminders' : 'system'
-    };
-
-    setNotifications(prev => [newNotif, ...prev]);
-  };
-
-  useEffect(() => {
-    if (!toastData) return;
-    const timer = setTimeout(() => {
-      setToastData(null);
-    }, toastData.duration || 6000);
-    return () => clearTimeout(timer);
-  }, [toastData]);
-
   // --- Workspaces State ---
   const [workspaces, setWorkspaces] = useState<WorkspaceWindow[]>(() =>
     loadInitialData('studyflow_workspaces', [
@@ -1005,47 +953,58 @@ export function App() {
 
   const ACCENT_COLOR_OPTIONS: Array<{ id: PrimaryAccentColor; label: string; color: string }> = [
     { id: 'blue', label: 'Blue', color: '#2563EB' },
-    { id: 'purple', label: 'Purple', color: '#7C3AED' },
-    { id: 'cyan', label: 'Cyan', color: '#0891B2' },
-    { id: 'green', label: 'Green', color: '#059669' },
+    { id: 'purple', label: 'Purple', color: '#8B5CF6' },
+    { id: 'green', label: 'Green', color: '#10B981' },
     { id: 'orange', label: 'Orange', color: '#EA580C' },
-    { id: 'pink', label: 'Pink', color: '#DB2777' },
+    { id: 'pink', label: 'Pink', color: '#F43F5E' },
+    { id: 'cyan', label: 'Cyan', color: '#06B6D4' },
     { id: 'amber', label: 'Amber', color: '#F59E0B' },
   ];
 
   const [isAccentQuickPickerOpen, setIsAccentQuickPickerOpen] = useState<boolean>(false);
 
   const handleSelectAccentColor = (accent: PrimaryAccentColor) => {
+    // 1. Instantly set attribute on HTML document for zero-latency UI update
+    if (typeof document !== 'undefined') {
+      document.documentElement.setAttribute('data-accent', accent);
+    }
     applyAccentColor(accent);
-    const updated = {
-      ...userSettings,
+
+    // 2. Persist to localStorage immediately
+    try {
+      const saved = localStorage.getItem('studyflow_user_settings');
+      const parsed = saved ? JSON.parse(saved) : {};
+      parsed.primaryColor = accent;
+      localStorage.setItem('studyflow_user_settings', JSON.stringify(parsed));
+    } catch (_) {}
+
+    // 3. Update React userSettings state
+    setUserSettings((prev) => ({
+      ...prev,
       primaryColor: accent,
-    };
-    setUserSettings(updated);
-    localStorage.setItem('studyflow_user_settings', JSON.stringify(updated));
-    soundManager.playClick();
+    }));
+
+    // 4. Feedback sound & toast
+    try {
+      soundManager.playClick();
+    } catch (_) {}
     showToast(`Accent theme set to ${accent.charAt(0).toUpperCase() + accent.slice(1)}! 🎨`);
+
+    // 5. Close popover
     setIsAccentQuickPickerOpen(false);
   };
 
-  // Close quick accent picker on outside click
+  // Close quick accent picker on click outside
   useEffect(() => {
     if (!isAccentQuickPickerOpen) return;
-    const handleOutsideClick = (e: MouseEvent | TouchEvent) => {
+    const handleClickOutside = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      if (target && !target.closest('[data-accent-picker-container]')) {
+      if (target && !target.closest('.accent-picker-popover') && !target.closest('.accent-picker-toggle-btn')) {
         setIsAccentQuickPickerOpen(false);
       }
     };
-    const timer = setTimeout(() => {
-      document.addEventListener('click', handleOutsideClick);
-      document.addEventListener('touchend', handleOutsideClick);
-    }, 60);
-    return () => {
-      clearTimeout(timer);
-      document.removeEventListener('click', handleOutsideClick);
-      document.removeEventListener('touchend', handleOutsideClick);
-    };
+    window.addEventListener('click', handleClickOutside);
+    return () => window.removeEventListener('click', handleClickOutside);
   }, [isAccentQuickPickerOpen]);
 
   const handleSaveSettings = (newSettings: UserSettings) => {
@@ -1487,6 +1446,24 @@ export function App() {
 
 
   // --- Professional Notification & Toast System ---
+  interface NotificationItem {
+    id: string;
+    title: string;
+    time: string;
+    read: boolean;
+    type?: 'focus' | 'reminders' | 'system';
+    description?: string;
+  }
+  interface ToastData {
+    message: string;
+    undoAction?: () => void;
+    duration?: number;
+  }
+  const [toastData, setToastData] = useState<ToastData | null>(null);
+  const [notifications, setNotifications] = useState<NotificationItem[]>(() => [
+    { id: 'notif-1', title: 'Welcome to StudyFlow Workspace!', time: 'Just now', read: false, type: 'system', description: 'Your focus dashboard and topic tracker are active.' },
+    { id: 'notif-2', title: 'Focus Check-in Timer Ready ⏱️', time: '5m ago', read: false, type: 'focus', description: 'Interval milestone alerts will keep your study sessions sharp.' }
+  ]);
   const [isNotificationPanelOpen, setIsNotificationPanelOpen] = useState<boolean>(false);
   const [notifFilter, setNotifFilter] = useState<'all' | 'focus' | 'reminders'>('all');
   const [deviceNotifStatus, setDeviceNotifStatus] = useState<string>(() => {
@@ -1602,6 +1579,38 @@ export function App() {
   const unreadNotifCount = useMemo(() => {
     return notifications.filter(n => !n.read).length;
   }, [notifications]);
+
+  const showToast = (message: string, undoAction?: () => void, duration?: number) => {
+    const effectiveDuration = duration !== undefined ? duration : (undoAction ? 6000 : 3500);
+    setToastData({ message, undoAction, duration: effectiveDuration });
+
+    const now = new Date();
+    const formattedTime = now.toLocaleTimeString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+
+    const isStudy = /study|timer|focus|milestone|session|check-in/i.test(message);
+    const isReminder = /due|overdue|deadline|date|recycle/i.test(message);
+
+    const newNotif: NotificationItem = {
+      id: `notif-${Date.now()}`,
+      title: message,
+      time: formattedTime,
+      read: false,
+      type: isStudy ? 'focus' : isReminder ? 'reminders' : 'system'
+    };
+
+    setNotifications(prev => [newNotif, ...prev]);
+  };
+
+  useEffect(() => {
+    if (!toastData) return;
+    const timer = setTimeout(() => {
+      setToastData(null);
+    }, toastData.duration || 6000);
+    return () => clearTimeout(timer);
+  }, [toastData]);
 
   // Safe initial topics loader from localStorage
   const loadInitialTopics = (): Topic[] => {
@@ -5722,7 +5731,7 @@ export function App() {
                           e.stopPropagation();
                           setIsAccentQuickPickerOpen(prev => !prev);
                         }}
-                        className="brand-flow-highlight font-extrabold cursor-pointer hover:opacity-80 active:scale-95 transition-all inline-flex items-center rounded-md px-1 py-0.5 -mx-1 hover:bg-slate-100 dark:hover:bg-slate-800"
+                        className="accent-picker-toggle-btn brand-flow-highlight font-extrabold cursor-pointer hover:opacity-80 active:scale-95 transition-all inline-flex items-center rounded-md px-1 py-0.5 -mx-1 hover:bg-slate-100 dark:hover:bg-slate-800"
                         title="Click to choose accent color"
                       >
                         Flow
@@ -5736,9 +5745,8 @@ export function App() {
                           animate={{ opacity: 1, scale: 1, y: 0 }}
                           exit={{ opacity: 0, scale: 0.92, y: 4 }}
                           transition={{ duration: 0.15, ease: [0.16, 1, 0.3, 1] }}
-                          className="absolute left-0 top-full mt-2.5 z-[99999] p-2.5 bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 rounded-2xl shadow-xl shadow-slate-950/20 flex flex-col gap-2 min-w-[210px]"
+                          className="accent-picker-popover absolute left-0 top-full mt-2.5 z-[99999] p-2.5 bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 rounded-2xl shadow-xl shadow-slate-950/20 flex flex-col gap-2 min-w-[210px]"
                           onClick={(e) => e.stopPropagation()}
-                          onPointerDown={(e) => e.stopPropagation()}
                         >
                           <div className="flex items-center justify-between px-1 text-[10.5px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
                             <span>Accent Color</span>
@@ -5761,17 +5769,13 @@ export function App() {
                                     e.stopPropagation();
                                     handleSelectAccentColor(opt.id);
                                   }}
-                                  onPointerDown={(e) => {
-                                    e.stopPropagation();
-                                    handleSelectAccentColor(opt.id);
-                                  }}
-                                  className={`relative w-6 h-6 rounded-full flex items-center justify-center transition-all hover:scale-115 active:scale-95 cursor-pointer shadow-3xs ${
-                                    isSelected ? 'ring-2 ring-offset-2 ring-slate-400 dark:ring-offset-slate-900 scale-110' : ''
+                                  className={`preserve-color relative w-6 h-6 rounded-full flex items-center justify-center transition-all hover:scale-115 active:scale-95 cursor-pointer shadow-xs ${
+                                    isSelected ? 'ring-2 ring-offset-2 ring-slate-400 dark:ring-offset-slate-900 scale-110' : 'hover:opacity-90'
                                   }`}
                                   style={{ backgroundColor: opt.color }}
                                   title={opt.label}
                                 >
-                                  {isSelected && <Check className="w-3.5 h-3.5 stroke-[3] text-white" />}
+                                  {isSelected && <Check className="w-3.5 h-3.5 stroke-[3] text-white drop-shadow-xs" />}
                                 </button>
                               );
                             })}
@@ -6410,7 +6414,7 @@ export function App() {
                       e.stopPropagation();
                       setIsAccentQuickPickerOpen(prev => !prev);
                     }}
-                    className="brand-flow-highlight font-extrabold cursor-pointer hover:opacity-80 active:scale-95 transition-all inline-flex items-center rounded-md px-1 py-0.5 -mx-1 hover:bg-slate-100 dark:hover:bg-slate-800"
+                    className="accent-picker-toggle-btn brand-flow-highlight font-extrabold cursor-pointer hover:opacity-80 active:scale-95 transition-all inline-flex items-center rounded-md px-1 py-0.5 -mx-1 hover:bg-slate-100 dark:hover:bg-slate-800"
                     title="Click to choose accent color"
                   >
                     Flow
@@ -6424,9 +6428,8 @@ export function App() {
                       animate={{ opacity: 1, scale: 1, y: 0 }}
                       exit={{ opacity: 0, scale: 0.92, y: 4 }}
                       transition={{ duration: 0.15, ease: [0.16, 1, 0.3, 1] }}
-                      className="absolute left-0 top-full mt-2.5 z-[99999] p-2.5 bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 rounded-2xl shadow-xl shadow-slate-950/20 flex flex-col gap-2 min-w-[210px]"
+                      className="accent-picker-popover absolute left-0 top-full mt-2.5 z-[99999] p-2.5 bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 rounded-2xl shadow-xl shadow-slate-950/20 flex flex-col gap-2 min-w-[210px]"
                       onClick={(e) => e.stopPropagation()}
-                      onPointerDown={(e) => e.stopPropagation()}
                     >
                       <div className="flex items-center justify-between px-1 text-[10.5px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
                         <span>Accent Color</span>
@@ -6449,17 +6452,13 @@ export function App() {
                                 e.stopPropagation();
                                 handleSelectAccentColor(opt.id);
                               }}
-                              onPointerDown={(e) => {
-                                e.stopPropagation();
-                                handleSelectAccentColor(opt.id);
-                              }}
-                              className={`relative w-6 h-6 rounded-full flex items-center justify-center transition-all hover:scale-115 active:scale-95 cursor-pointer shadow-3xs ${
-                                isSelected ? 'ring-2 ring-offset-2 ring-slate-400 dark:ring-offset-slate-900 scale-110' : ''
+                              className={`preserve-color relative w-6 h-6 rounded-full flex items-center justify-center transition-all hover:scale-115 active:scale-95 cursor-pointer shadow-xs ${
+                                isSelected ? 'ring-2 ring-offset-2 ring-slate-400 dark:ring-offset-slate-900 scale-110' : 'hover:opacity-90'
                               }`}
                               style={{ backgroundColor: opt.color }}
                               title={opt.label}
                             >
-                              {isSelected && <Check className="w-3.5 h-3.5 stroke-[3] text-white" />}
+                              {isSelected && <Check className="w-3.5 h-3.5 stroke-[3] text-white drop-shadow-xs" />}
                             </button>
                           );
                         })}
