@@ -361,36 +361,40 @@ export const TodaysGoalPopover: React.FC<TodaysGoalPopoverProps> = ({
                                         e.stopPropagation();
                                         onNavigateToTask?.(task.workspaceId, task.topicId, task.id);
                                       }}
-                                      className="px-2.5 py-1.5 rounded-lg bg-white dark:bg-slate-800/90 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-200/80 dark:border-slate-750 hover:border-slate-300 dark:hover:border-slate-700 transition-colors duration-150 cursor-pointer flex flex-col gap-0.5 group shadow-3xs"
+                                      className="px-2.5 py-2 rounded-xl bg-white dark:bg-slate-800/90 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-200/80 dark:border-slate-750 hover:border-slate-300 dark:hover:border-slate-700 transition-colors duration-150 cursor-pointer flex items-center justify-between gap-2.5 group shadow-3xs"
                                       title="Click to open topic and view task"
                                     >
-                                      {/* Line 1: [Search-Style Task Icon Badge] [Title] (left) | [Time Badge] (middle/center) */}
-                                      <div className="flex items-center justify-between gap-2 min-w-0">
-                                        <div className="flex items-center gap-2 min-w-0 flex-1">
-                                          <div className={`w-5 h-5 rounded-[6px] flex items-center justify-center shrink-0 shadow-2xs ${
-                                            task.completed
-                                              ? 'bg-gradient-to-br from-[#059669] via-[#10B981] to-[#34D399] text-white'
-                                              : 'bg-gradient-to-br from-[#1D4ED8] via-[#2563EB] to-[#60A5FA] text-white'
-                                          }`}>
-                                            <CheckSquare className="w-3 h-3 stroke-[2.4] text-white" />
-                                          </div>
-                                          <span className="text-xs font-bold text-slate-800 dark:text-slate-200 truncate group-hover:text-slate-950 dark:group-hover:text-white transition-colors">
+                                      {/* Left: Vertically Centered Icon + Middle: 2-Line Title & Breadcrumb */}
+                                      <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                                        <div className={`w-6 h-6 rounded-[7px] flex items-center justify-center shrink-0 shadow-2xs ${
+                                          task.completed
+                                            ? 'bg-gradient-to-br from-[#059669] via-[#10B981] to-[#34D399] text-white'
+                                            : 'bg-gradient-to-br from-[#1D4ED8] via-[#2563EB] to-[#60A5FA] text-white'
+                                        }`}>
+                                          <CheckSquare className="w-3.5 h-3.5 stroke-[2.4] text-white" />
+                                        </div>
+
+                                        <div className="flex flex-col min-w-0 flex-1 justify-center gap-0.5">
+                                          {/* Line 1: Task Title */}
+                                          <span className="text-xs font-bold text-slate-800 dark:text-slate-200 truncate group-hover:text-slate-950 dark:group-hover:text-white transition-colors leading-snug">
                                             {task.title}
                                           </span>
-                                        </div>
-                                        <div className="shrink-0 px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-[10.5px] font-bold text-slate-600 dark:text-slate-300 font-mono tracking-tight flex items-center justify-center">
-                                          {isTimeMode
-                                            ? formatGoalDuration(task.timeSpentMinutesToday)
-                                            : formatTaskCompletionTime(task.completedAtTime || task.completedAt)}
+
+                                          {/* Line 2: Origin Breadcrumb (Section > Topic) */}
+                                          <div className="flex items-center gap-1 text-[10px] font-medium text-slate-400 dark:text-slate-500 truncate leading-none">
+                                            <span className="truncate">{task.sectionName}</span>
+                                            <span className="text-slate-300 dark:text-slate-600 shrink-0">&gt;</span>
+                                            <span className="truncate text-slate-500 dark:text-slate-400 font-semibold">{task.topicTitle}</span>
+                                          </div>
                                         </div>
                                       </div>
 
-                                      {/* Line 2: Origin Breadcrumb (Section > Topic) */}
-                                      <div className="flex items-center gap-1 pl-7 text-[10px] font-medium text-slate-400 dark:text-slate-500 truncate">
-                                        <span className="truncate">{task.sectionName}</span>
-                                        <span className="text-slate-300 dark:text-slate-600 shrink-0">&gt;</span>
-                                        <span className="truncate text-slate-500 dark:text-slate-400 font-semibold">{task.topicTitle}</span>
-                                      </div>
+                                      {/* Right: Vertically Centered Time with NO Background */}
+                                      <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 shrink-0 font-mono tracking-tight select-none">
+                                        {isTimeMode
+                                          ? formatGoalDuration(task.timeSpentMinutesToday)
+                                          : formatTaskCompletionTime(task.completedAtTime || task.completedAt)}
+                                      </span>
                                     </div>
                                   ))
                                 )}
