@@ -221,6 +221,14 @@ export function convertMarkdownToHtml(content: string): string {
 function formatInlineMarkdownToHtml(text: string): string {
   if (!text) return '';
   return text
+    .replace(/\[(.*?)\]\((https?:\/\/[^\s)]+|www\.[^\s)]+|[^\s)]+)\)/g, (_m, title, url) => {
+      const href = url.startsWith('www.') ? `https://${url}` : (!/^https?:\/\//i.test(url) ? `https://${url}` : url);
+      return `<a href="${href}" target="_blank" rel="noopener noreferrer" class="text-[#2563EB] dark:text-blue-400 underline underline-offset-2 hover:text-blue-800 dark:hover:text-blue-300 font-medium cursor-pointer">${title || url}</a>`;
+    })
+    .replace(/(^|\s)(https?:\/\/[^\s<]+|www\.[^\s<]+)/gi, (_m, prefix, url) => {
+      const href = url.startsWith('www.') ? `https://${url}` : url;
+      return `${prefix}<a href="${href}" target="_blank" rel="noopener noreferrer" class="text-[#2563EB] dark:text-blue-400 underline underline-offset-2 hover:text-blue-800 dark:hover:text-blue-300 font-medium cursor-pointer">${url}</a>`;
+    })
     .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>')
     .replace(/==(.*?ches|.*?)==/g, '<mark class="bg-amber-100 text-amber-950 px-1 py-0.5 rounded">$1</mark>')
     .replace(/~~(.*?)~~/g, '<del class="text-slate-400">$1</del>')
@@ -1229,7 +1237,18 @@ export const NotesStudio: React.FC<NotesStudioProps> = ({
     e.preventDefault();
     const clipboardData = e.clipboardData;
     const pastedHtml = clipboardData.getData('text/html');
-    const pastedText = clipboardData.getData('text/plain');
+    const pastedText = e.clipboardData.getData('text/plain');
+
+    // 0. If a single URL was pasted (https://, http://, or www.), format directly as clean clickable hyperlink
+    if (pastedText && /^(https?:\/\/[^\s]+|www\.[^\s]+)$/i.test(pastedText.trim())) {
+      const rawUrl = pastedText.trim();
+      const formatted = rawUrl.startsWith('www.') ? `https://${rawUrl}` : rawUrl;
+      const html = `<a href="${formatted}" target="_blank" rel="noopener noreferrer" class="text-[#2563EB] dark:text-blue-400 underline underline-offset-2 hover:text-blue-800 dark:hover:text-blue-300 font-medium cursor-pointer">${rawUrl}</a>&nbsp;`;
+      document.execCommand('insertHTML', false, html);
+      updateToolbarState();
+      scheduleDebouncedSave();
+      return;
+    }
 
     if (pastedHtml) {
       const tempDiv = document.createElement('div');
@@ -1807,6 +1826,46 @@ export const NotesStudio: React.FC<NotesStudioProps> = ({
       updateToolbarState();
       scheduleDebouncedSave();
       return;
+    }
+
+    // 5.5 Auto-link detection on Space: https://, http://, or www.
+    if (textBeforeCursor.endsWith(' ') || textBeforeCursor.endsWith('\u00A0')) {
+      const textWithoutTrailingSpace = textBeforeCursor.slice(0, -1);
+      const urlCandidateMatch = textWithoutTrailingSpace.match(/(^|\s)(https?:\/\/[^\s]+|www\.[^\s]+)$/i);
+      if (urlCandidateMatch) {
+        const rawMatchedUrl = urlCandidateMatch[2];
+        const matchStart = offset - 1 - rawMatchedUrl.length;
+
+        if (matchStart >= 0) {
+          const formattedHref = rawMatchedUrl.startsWith('www.') ? `https://${rawMatchedUrl}` : rawMatchedUrl;
+
+          const range = document.createRange();
+          range.setStart(anchorNode, matchStart);
+          range.setEnd(anchorNode, offset - 1);
+          range.deleteContents();
+
+          const a = document.createElement('a');
+          a.href = formattedHref;
+          a.target = '_blank';
+          a.rel = 'noopener noreferrer';
+          a.className = 'text-[#2563EB] dark:text-blue-400 underline underline-offset-2 hover:text-blue-800 dark:hover:text-blue-300 font-medium cursor-pointer';
+          a.textContent = rawMatchedUrl;
+          range.insertNode(a);
+
+          const space = document.createTextNode('\u00A0');
+          a.after(space);
+
+          const nextRange = document.createRange();
+          nextRange.setStart(space, 1);
+          nextRange.collapse(true);
+          selection.removeAllRanges();
+          selection.addRange(nextRange);
+
+          updateToolbarState();
+          scheduleDebouncedSave();
+          return;
+        }
+      }
     }
 
     // 6. Block-level triggers on Space (Matching Antigravity / Notion Markdown):
