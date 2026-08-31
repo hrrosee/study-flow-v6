@@ -951,6 +951,48 @@ export function App() {
     return cleanup;
   }, [userSettings.theme, userSettings.primaryColor]);
 
+  const ACCENT_COLOR_OPTIONS: Array<{ id: PrimaryAccentColor; label: string; color: string }> = [
+    { id: 'blue', label: 'Blue', color: '#2563EB' },
+    { id: 'purple', label: 'Purple', color: '#7C3AED' },
+    { id: 'cyan', label: 'Cyan', color: '#0891B2' },
+    { id: 'green', label: 'Green', color: '#059669' },
+    { id: 'orange', label: 'Orange', color: '#EA580C' },
+    { id: 'pink', label: 'Pink', color: '#DB2777' },
+    { id: 'amber', label: 'Amber', color: '#F59E0B' },
+  ];
+
+  const [isAccentQuickPickerOpen, setIsAccentQuickPickerOpen] = useState<boolean>(false);
+
+  const handleSelectAccentColor = (accent: PrimaryAccentColor) => {
+    applyAccentColor(accent);
+    const updated = {
+      ...userSettings,
+      primaryColor: accent,
+    };
+    setUserSettings(updated);
+    localStorage.setItem('studyflow_user_settings', JSON.stringify(updated));
+    soundManager.playClick();
+    showToast(`Accent theme set to ${accent.charAt(0).toUpperCase() + accent.slice(1)}! 🎨`);
+    setIsAccentQuickPickerOpen(false);
+  };
+
+  // Close quick accent picker on outside click
+  useEffect(() => {
+    if (!isAccentQuickPickerOpen) return;
+    const handleOutsideClick = (e: MouseEvent | TouchEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest('[data-accent-picker-container]')) {
+        setIsAccentQuickPickerOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleOutsideClick);
+    document.addEventListener('touchstart', handleOutsideClick);
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+      document.removeEventListener('touchstart', handleOutsideClick);
+    };
+  }, [isAccentQuickPickerOpen]);
+
   const handleSaveSettings = (newSettings: UserSettings) => {
     setUserSettings(newSettings);
     localStorage.setItem('studyflow_user_settings', JSON.stringify(newSettings));
@@ -5666,9 +5708,65 @@ export function App() {
                       <div className="absolute bottom-0 right-0 w-[16px] h-[16px] bg-[#6366F1]/90 backdrop-blur-[2px] rounded-[4px] mix-blend-multiply dark:mix-blend-screen dark:opacity-90"></div>
                     </div>
                   </div>
-                  <span className="font-[700] text-[16px] text-[#101828] dark:text-slate-100 tracking-tight">
-                    Study <span className="brand-flow-highlight font-extrabold">Flow</span>
-                  </span>
+                  <div className="relative" data-accent-picker-container="mobile">
+                    <span className="font-[700] text-[16px] text-[#101828] dark:text-slate-100 tracking-tight flex items-center">
+                      Study&nbsp;
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setIsAccentQuickPickerOpen(prev => !prev);
+                        }}
+                        className="brand-flow-highlight font-extrabold cursor-pointer hover:opacity-80 active:scale-95 transition-all inline-flex items-center rounded-md px-1 py-0.5 -mx-1 hover:bg-slate-100 dark:hover:bg-slate-800"
+                        title="Click to choose accent color"
+                      >
+                        Flow
+                      </button>
+                    </span>
+
+                    <AnimatePresence>
+                      {isAccentQuickPickerOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, scale: 0.92, y: 4 }}
+                          animate={{ opacity: 1, scale: 1, y: 0 }}
+                          exit={{ opacity: 0, scale: 0.92, y: 4 }}
+                          transition={{ duration: 0.15, ease: [0.16, 1, 0.3, 1] }}
+                          className="absolute left-0 top-full mt-2.5 z-[99999] p-2.5 bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 rounded-2xl shadow-xl shadow-slate-950/20 flex flex-col gap-2 min-w-[210px]"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <div className="flex items-center justify-between px-1 text-[10.5px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
+                            <span>Accent Color</span>
+                            <button
+                              type="button"
+                              onClick={() => setIsAccentQuickPickerOpen(false)}
+                              className="p-0.5 rounded text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer"
+                            >
+                              <X className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
+                          <div className="flex items-center justify-between gap-1.5 px-0.5">
+                            {ACCENT_COLOR_OPTIONS.map((opt) => {
+                              const isSelected = (userSettings.primaryColor || 'blue') === opt.id;
+                              return (
+                                <button
+                                  key={opt.id}
+                                  type="button"
+                                  onClick={() => handleSelectAccentColor(opt.id)}
+                                  className={`relative w-6 h-6 rounded-full flex items-center justify-center transition-all hover:scale-115 active:scale-95 cursor-pointer shadow-3xs ${
+                                    isSelected ? 'ring-2 ring-offset-2 ring-slate-400 dark:ring-offset-slate-900 scale-110' : ''
+                                  }`}
+                                  style={{ backgroundColor: opt.color }}
+                                  title={opt.label}
+                                >
+                                  {isSelected && <Check className="w-3.5 h-3.5 stroke-[3] text-white" />}
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
                 </div>
 
                 <button
@@ -6286,13 +6384,69 @@ export function App() {
               </div>
               
               {/* Brand title - Gemini style overflow reveal */}
-              <span
-                className={`font-[700] text-[16px] leading-[22px] text-[#101828] dark:text-slate-100 tracking-tight whitespace-nowrap transition-opacity duration-200 ease-out ${
-                  sidebarCollapsed ? 'w-0 opacity-0 pointer-events-none' : 'opacity-100'
-                }`}
-              >
-                Study <span className="brand-flow-highlight font-extrabold">Flow</span>
-              </span>
+              <div className="relative" data-accent-picker-container="desktop">
+                <span
+                  className={`font-[700] text-[16px] leading-[22px] text-[#101828] dark:text-slate-100 tracking-tight whitespace-nowrap transition-opacity duration-200 ease-out flex items-center ${
+                    sidebarCollapsed ? 'w-0 opacity-0 pointer-events-none' : 'opacity-100'
+                  }`}
+                >
+                  Study&nbsp;
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setIsAccentQuickPickerOpen(prev => !prev);
+                    }}
+                    className="brand-flow-highlight font-extrabold cursor-pointer hover:opacity-80 active:scale-95 transition-all inline-flex items-center rounded-md px-1 py-0.5 -mx-1 hover:bg-slate-100 dark:hover:bg-slate-800"
+                    title="Click to choose accent color"
+                  >
+                    Flow
+                  </button>
+                </span>
+
+                <AnimatePresence>
+                  {isAccentQuickPickerOpen && !sidebarCollapsed && (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.92, y: 4 }}
+                      animate={{ opacity: 1, scale: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.92, y: 4 }}
+                      transition={{ duration: 0.15, ease: [0.16, 1, 0.3, 1] }}
+                      className="absolute left-0 top-full mt-2.5 z-[99999] p-2.5 bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 rounded-2xl shadow-xl shadow-slate-950/20 flex flex-col gap-2 min-w-[210px]"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <div className="flex items-center justify-between px-1 text-[10.5px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
+                        <span>Accent Color</span>
+                        <button
+                          type="button"
+                          onClick={() => setIsAccentQuickPickerOpen(false)}
+                          className="p-0.5 rounded text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer"
+                        >
+                          <X className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                      <div className="flex items-center justify-between gap-1.5 px-0.5">
+                        {ACCENT_COLOR_OPTIONS.map((opt) => {
+                          const isSelected = (userSettings.primaryColor || 'blue') === opt.id;
+                          return (
+                            <button
+                              key={opt.id}
+                              type="button"
+                              onClick={() => handleSelectAccentColor(opt.id)}
+                              className={`relative w-6 h-6 rounded-full flex items-center justify-center transition-all hover:scale-115 active:scale-95 cursor-pointer shadow-3xs ${
+                                isSelected ? 'ring-2 ring-offset-2 ring-slate-400 dark:ring-offset-slate-900 scale-110' : ''
+                              }`}
+                              style={{ backgroundColor: opt.color }}
+                              title={opt.label}
+                            >
+                              {isSelected && <Check className="w-3.5 h-3.5 stroke-[3] text-white" />}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             </div>
 
             {/* Collapse button positioned absolutely to preserve 0-shift on the logo */}
