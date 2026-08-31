@@ -1603,19 +1603,33 @@ export const TopicDetailsDrawer: React.FC<TopicDetailsDrawerProps> = ({
     if (requestedFocusTaskId) {
       setSelectedTaskId(requestedFocusTaskId);
       setActiveHeaderTab('tasks');
-      setMobileActiveView('details');
+      // In mobile, stay on 'list' view so the user sees the highlighted task in list context
+      setMobileActiveView('list');
       setHighlightPulseTaskId(requestedFocusTaskId);
       onResetRequestedFocusTaskId?.();
     }
   }, [requestedFocusTaskId, onResetRequestedFocusTaskId]);
 
-  // Auto-clear highlight pulse after 1.5s
+  // Auto-scroll and auto-clear highlight pulse after 1.5s
   useEffect(() => {
     if (!highlightPulseTaskId) return;
+
+    // Smoothly scroll the highlighted task into view
+    const scrollTimer = setTimeout(() => {
+      const el = document.querySelector(`[data-drawer-task-id="${highlightPulseTaskId}"]`);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }, 80);
+
     const timer = setTimeout(() => {
       setHighlightPulseTaskId(null);
     }, 1500);
-    return () => clearTimeout(timer);
+
+    return () => {
+      clearTimeout(scrollTimer);
+      clearTimeout(timer);
+    };
   }, [highlightPulseTaskId]);
 
   // Handle global search deep linking navigation target
@@ -2954,6 +2968,8 @@ export const TopicDetailsDrawer: React.FC<TopicDetailsDrawerProps> = ({
                           return (
                             <div
                               key={t.id}
+                              data-drawer-task-id={t.id}
+                              id={`drawer-task-${t.id}`}
                               onClick={(e) => {
                                 if (e.ctrlKey || e.metaKey) {
                                   e.stopPropagation();
@@ -2967,14 +2983,12 @@ export const TopicDetailsDrawer: React.FC<TopicDetailsDrawerProps> = ({
                                   });
                                 }
                               }}
-                              className={`group relative transition-colors duration-150 cursor-pointer flex items-center justify-between gap-3 text-xs min-h-[48px] py-1.5 pl-3.5 pr-3 ${!isLast ? 'border-b border-slate-100' : ''
-                                } ${highlightPulseTaskId === t.id
-                                  ? 'ring-2 ring-[#2563EB] bg-blue-50/90 dark:bg-blue-950/70 shadow-md shadow-blue-500/25 animate-pulse rounded-[5px] z-20'
-                                  : isMenuOpenThisTask
-                                  ? 'z-[9999] relative bg-white'
-                                  : isSelected
-                                    ? 'bg-[#EFF6FF] text-[#0F172A] font-bold rounded-[5px] z-10'
-                                    : 'hover:bg-slate-50 text-slate-700 bg-white'
+                              className={`group relative transition-colors duration-150 cursor-pointer flex items-center justify-between gap-3 text-xs min-h-[48px] py-1.5 pl-3.5 pr-3 ${!isLast ? 'border-b border-slate-100 dark:border-slate-800/80' : ''
+                                } ${isMenuOpenThisTask
+                                  ? 'z-[9999] relative bg-white dark:bg-slate-900'
+                                  : (highlightPulseTaskId === t.id || isSelected)
+                                    ? 'bg-blue-100/80 dark:bg-blue-900/50 text-[#0F172A] dark:text-white font-bold rounded-[5px] z-10'
+                                    : 'hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900'
                                 }`}
                             >
 
